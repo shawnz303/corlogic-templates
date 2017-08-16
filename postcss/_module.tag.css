@@ -1,0 +1,9 @@
+/* ------------------------------------------------------------ *\
+	Tag
+\* ------------------------------------------------------------ */
+
+.tag { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 3px; color: #fff; height: 19px; display: inline-block; }
+.tag--red { background: #d55742; }
+.tag--yellow { background: #f7bf47; }
+.tag--grey { background: #c2cad4; width: 75px; }
+.tag--green { background: #45b854; width: 75px; }

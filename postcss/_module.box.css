@@ -1,0 +1,11 @@
+/* ------------------------------------------------------------ *\
+	Box
+\* ------------------------------------------------------------ */
+
+.box .box__body { display: flex; }
+.box .box__content { max-width: 340px; width: 340px; background: #fff; }
+.box .box__image { max-width: 480px; width: 480px; background-size: cover; background-position: center; background-repeat: no-repeat; color: #fff; padding: 27px 33px; display: flex; flex-direction: column; justify-content: flex-end; }
+.box .box__image h2 { font-weight: 400; margin-bottom: 7px; }
+.box .box__image p { font-size: 16px; }
+.box .box__head { position: relative; margin-bottom: 14px; }
+.box .box__head i { position: absolute; top: -22px; left: 30px; }

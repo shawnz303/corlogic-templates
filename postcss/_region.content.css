@@ -1,0 +1,6 @@
+/* ------------------------------------------------------------ *\
+	Content
+\* ------------------------------------------------------------ */
+
+.content { padding: 31px 30px 61px; min-width: 710px; }
+.content .content__head { display: flex; flex-direction: row; margin-bottom: 30px; }

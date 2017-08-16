@@ -1,0 +1,7 @@
+/* ------------------------------------------------------------ *\
+	Search
+\* ------------------------------------------------------------ */
+
+.search .search__inner { border: 1px solid #dfe3e9; background: #fff; border-radius: 4px; height: 36px; padding: 9px 15px 8px; display: flex; justify-content: space-between; max-width: 800px; }
+.search .search__field { border: none; color: #354052; font-weight: 600; opacity: .5; max-width: 460px; width: 460px; }
+.search .search__btn { border: none; background: #fff; }

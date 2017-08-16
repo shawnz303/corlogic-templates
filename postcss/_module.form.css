@@ -1,0 +1,18 @@
+/* ------------------------------------------------------------ *\
+	Form
+\* ------------------------------------------------------------ */
+
+.form-login .form__inner { padding: 30px; }
+
+.form-login .form__body { margin-bottom: 7px; }
+
+.form-login .form__head { margin-bottom: 15px; }
+.form-login .form__head h2 { font-weight: 400; }
+
+.form-login .form__label { color: #7f8fa4; font-weight: 600; margin-bottom: 7px; }
+
+.form-login .form__row { margin-bottom: 13px; }
+
+.form-login .form__controls { position: relative; }
+
+.form-login .form__actions { padding-bottom: 20px; border-bottom: 1px solid #e6eaee; margin-bottom: 20px; }

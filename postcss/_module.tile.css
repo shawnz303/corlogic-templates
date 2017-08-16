@@ -1,0 +1,18 @@
+/* ------------------------------------------------------------ *\
+	Tile
+\* ------------------------------------------------------------ */
+
+.tile { background: #fff; border: 1px solid #dfe2e5; }
+.tile + .tile { margin-left: 30px; }
+
+.tile .tile__inner { padding: 23px 30px; }
+
+.tile .tile__head { display: flex; justify-content: space-between; margin-bottom: 37px; }
+.tile .tile__head h4 { color: #354052; font-weight: 400; margin-bottom: 6px; line-height: 1; }
+.tile .tile__head span { font-size: 12px; color: #7f8fa4; }
+
+/* ------------------------------------------------------------ *\
+	Tile Empty
+\* ------------------------------------------------------------ */
+
+.tile--empty { max-width: 440px; width: 440px; }
