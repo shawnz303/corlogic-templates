@@ -2,8 +2,7 @@
 	Tile
 \* ------------------------------------------------------------ */
 
-.tile { background: #fff; border: 1px solid #dfe2e5; }
-.tile + .tile { margin-left: 30px; }
+.tile { background: #fff; border: 1px solid #dfe2e5; min-width: 800px; margin-top: 30px; }
 
 .tile .tile__inner { padding: 23px 30px; }
 
@@ -15,4 +14,4 @@
 	Tile Empty
 \* ------------------------------------------------------------ */
 
-.tile--empty { max-width: 440px; width: 440px; }
+.tile--empty { max-width: 440px; width: 440px; min-width: 440px; }

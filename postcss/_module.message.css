@@ -1,0 +1,12 @@
+/* ------------------------------------------------------------ *\
+	Message
+\* ------------------------------------------------------------ */
+
+.message { width: 100%; background: #36af47; border-radius: 4px; color: #fff; position: relative; }
+.message.hide { display: none; }
+.message .message__inner { padding: 11px 17px; display: flex; align-items: center; }
+.message .message__image { margin-right: 12px; height: 16px; }
+.message .message__image i { line-height: 1; }
+.message .message__content p { font-weight: 600; margin-bottom: 0; }
+
+.message .message__close { position: absolute; top: 50%; right: 13px; transform: translateY(-50%); }

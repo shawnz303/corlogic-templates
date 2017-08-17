@@ -4,6 +4,12 @@
 
 	$doc.ready(function() {
 
+		$('.btn-close').on('click', function(event) {
+			event.preventDefault();
+
+			$('.message').toggleClass('hide');
+		});
+		
 		$(".btn-show").click(function () {
 			if ($(".password-show").attr("type")=="password") {
 			$(".password-show").attr("type", "text");
@@ -20,7 +26,8 @@
 			$(this).toggleClass('active');
 			
 			$('.nav').toggleClass('active');
-		})
+		});
+
 	});
 
 })(jQuery, window, document);

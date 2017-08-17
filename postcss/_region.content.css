@@ -2,5 +2,7 @@
 	Content
 \* ------------------------------------------------------------ */
 
-.content { padding: 31px 30px 61px; min-width: 710px; }
-.content .content__head { display: flex; flex-direction: row; margin-bottom: 30px; }
+.content { padding: 31px 30px 61px; min-width: 710px; width: 1325px; }
+.content .content__head { display: flex; flex-direction: row; margin-bottom: 30px; flex-wrap: wrap; justify-content: space-between; margin-top: -30px; }
+
+.content .content__inner { margin-bottom: 30px; }
