@@ -37,12 +37,13 @@ var config = {
         },
         dist : {
             css     : './css',
-            js      : './js',
-            images  : './css/images'
+            images  : './css/images',
+            js      : './js'
         },
         build: {
             path    : './build',
-            images  : './build/images'
+            images  : './build/images',
+            js      : './build/js'
         },
         log: {
             csslint : './~QA/logs'
@@ -130,6 +131,7 @@ var utils = (function() {
      */
     var getPathToFolder = function(path, folderName) {
         var match = path.match(new RegExp(folderName, 'i'));
+
         if (match) {
             return path.split(new RegExp(folderName, 'i')).shift() + match[0];
         } else {
@@ -211,7 +213,6 @@ var modules = {
     userConfig  : function() {
         // Require
         var fileExists = require('file-exists');
-
         var configFilePath = utils.getPathToFolder(process.env.INIT_CWD, 'server')  + '/2c-gulp-config.json';
 
         var init = function() {
@@ -220,7 +221,7 @@ var modules = {
             if (configFileExist) {
                 config.user = require(configFilePath);
 
-                if('modules' in config.user) {
+                if ('modules' in config.user) {
                     for (var moduleName in config.user.modules) {
 
                         for (var configKey in config.user.modules[moduleName]) {
@@ -231,31 +232,31 @@ var modules = {
             };
 
             // Set configuration from env vars
-            if(utils.getEnvVar('sprite-resize')) {
+            if (utils.getEnvVar('sprite-resize')) {
                 config.images.enableSpriteResize = true;
             };
 
-            if(utils.getEnvVar('dist-css')) {
+            if (utils.getEnvVar('dist-css')) {
                 config.paths.dist.css = utils.getEnvVar('dist-css');
             };
 
-            if(utils.getEnvVar('source-sprite')) {
+            if (utils.getEnvVar('source-sprite')) {
                 config.paths.source.sprite = utils.getEnvVar('source-sprite');
             };
 
-            if(utils.getEnvVar('dist-images')) {
+            if (utils.getEnvVar('dist-images')) {
                 config.paths.dist.images = utils.getEnvVar('dist-images');
             };
 
-            if(utils.getEnvVar('dev-hostname')) {
+            if (utils.getEnvVar('dev-hostname')) {
                 config.user.hostname = utils.getEnvVar('dev-hostname');
             };
 
-            if(utils.getEnvVar('dev-path') && config.user.hostname) {
+            if (utils.getEnvVar('dev-path') && config.user.hostname) {
                 config.user.path = config.user.hostname + utils.getEnvVar('dev-path');
             };
 
-            if(utils.getEnvVar('dev-open')) {
+            if (utils.getEnvVar('dev-open')) {
                 config.user.open = utils.getEnvVar('dev-open');
             };
         };
@@ -285,7 +286,6 @@ var modules = {
         var pipeErrorStop       = require('pipe-error-stop');
 
         var taskLazyRules = function() {
-
             return gulp.src(config.paths.source.sprite + '/*.png')
                 .pipe(changed(config.paths.source.sprite + '/*.png'))
                 .pipe(i2r(path.resolve(config.paths.source.css + '/_sprite.css'), {
@@ -343,7 +343,6 @@ var modules = {
 
             // PostCSS task error handler
             var errorHandler = plumber(function(errorObj) {
-
                 notify(errorObj);
 
                 // End this task
@@ -366,11 +365,11 @@ var modules = {
                 }))
                 .pipe(filter('_load.css'))                                          // filter only the load file
                 .pipe(errorHandler)                                                 // Prevent pipe breaking caused by errors
-                .pipe(gulpif(config.css.enableSourcemap, sourcemaps.init()))        // source map init
+                .pipe(gulpif (config.css.enableSourcemap, sourcemaps.init()))        // source map init
                 .pipe(postcss( postcssProcessors ))                                 // post css
                 .pipe(rename( 'style.css' ))                                        // rename
-                .pipe(gulpif(config.css.enableSourcemap, sourcemaps.write('.')))    // sourcemap write
-                .pipe(gulpif(utils.getEnvVar('css-beautify'), cssbeautify()))       // beautify CSS
+                .pipe(gulpif (config.css.enableSourcemap, sourcemaps.write('.')))    // sourcemap write
+                .pipe(gulpif (utils.getEnvVar('css-beautify'), cssbeautify()))       // beautify CSS
                 .pipe(gulp.dest( config.paths.dist.css ))                           // save css file
                 .pipe(filter('style.css'))                                          // filter only css files (remove the map file)
                 .pipe(modules.livereload.silentReload());                           // inject the changed css
@@ -385,7 +384,10 @@ var modules = {
         };
 
         var taskLintSave = function() {
-            var task = gulp.src([config.paths.source.css + '/*.css', '!' + config.paths.source.css + '/_load.css'])
+            var task = gulp.src([
+                config.paths.source.css + '/*.css',
+                '!' + config.paths.source.css + '/_load.css'
+            ])
                 .pipe(postcss([
                     stylelint,
                     modules.saveLog
@@ -393,8 +395,10 @@ var modules = {
         }
 
         var taskLint = function() {
-
-            var task = gulp.src([config.paths.source.css + '/*.css', '!' + config.paths.source.css + '/_load.css'])
+            var task = gulp.src([
+                config.paths.source.css + '/*.css',
+                '!' + config.paths.source.css + '/_load.css'
+            ])
                 .pipe(postcss([
                     stylelint,
                     postcssReporter({
@@ -407,6 +411,7 @@ var modules = {
         var taskImportModules = function() {
             // order
             var orderSymbols = ['I.   ', 'II.  ', 'III. ', 'IV.  ', 'V.   '];
+            var files = {};
             var fileTypeOrder = ['noGroup', 'generic', 'region', 'module', 'theme'];
             var fileTypeNames = {
                 'generic': 'Generic',
@@ -414,25 +419,25 @@ var modules = {
                 'module': 'Modules',
                 'theme': 'Themes'
             }
-            var files = {};
 
-            var task = gulp.src([config.paths.source.css + '/_*.css', '!' + config.paths.source.css + '/_load.css'])
-                .pipe(foreach(function(stream, file){
+            var task = gulp.src([
+                config.paths.source.css + '/_*.css',
+                '!' + config.paths.source.css + '/_load.css'
+            ])
+                .pipe(foreach(function(stream, file) {
                     var fileName = path.basename(file.path);
                     var fileType = fileName.match(/^_(.+?)\./)[1];
                     var isNoGroup = fileType && fileTypeOrder.indexOf(fileType) >= 0;
 
-                    if(isNoGroup) {
-                        if(!(fileType in files)) {
+                    if (isNoGroup) {
+                        if (!(fileType in files)) {
                             files[fileType] = [];
                         };
-
                         files[fileType].push(fileName);
                     } else {
-                        if(!('noGroup' in files)) {
+                        if (!('noGroup' in files)) {
                             files.noGroup = [];
                         };
-
                         files.noGroup.push(fileName);
                     };
 
@@ -440,30 +445,27 @@ var modules = {
                 }));
 
             task.on('end', function() {
-
                 var groups = [];
 
                 for (var i = 0; i < fileTypeOrder.length; i++) {
                     var header = ''
                     var filesGroup = [];
 
-                    if(fileTypeOrder[i] !== 'noGroup') {
+                    if (fileTypeOrder[i] !== 'noGroup') {
                         header =    '/* ------------------------------------------------------------ *\\\n' +
                                         '\t' + orderSymbols.splice(0, 1) + fileTypeNames[fileTypeOrder[i]] + '\n' +
                                     '\\* ------------------------------------------------------------ */\n\n';
                     };
 
-                    if(files[fileTypeOrder[i]]) {
-                        if(fileTypeOrder[i] === 'generic') {
+                    if (files[fileTypeOrder[i]]) {
+                        if (fileTypeOrder[i] === 'generic') {
                             files[fileTypeOrder[i]].sort(function(a, b) {
-                                if(a === '_generic.reset.css') {
+                                if (a === '_generic.reset.css') {
                                     return -1;
                                 };
-
-                                if(b === '_generic.reset.css') {
+                                if (b === '_generic.reset.css') {
                                     return 1;
                                 };
-
                                 return a - b;
                             });
                         };
@@ -485,10 +487,13 @@ var modules = {
 
         var init = function() {
             // Sprite images watch
-            watch([config.paths.source.sprite + '/*.png', '!' + config.paths.source.sprite + '/*@2x.png', '!' + config.paths.source.sprite + '/*@3x.png'], {
+            watch([
+                config.paths.source.sprite + '/*.png',
+                '!' + config.paths.source.sprite + '/*@2x.png',
+                '!' + config.paths.source.sprite + '/*@3x.png'
+            ], {
                 awaitWriteFinish: true
             }, function() {
-
                 gulp.start(['css:lazy-rules']);
             });
 
@@ -498,7 +503,10 @@ var modules = {
             });
 
             // Module watch - run only on files that match this model: _*.css
-            watch([config.paths.source.css + '/_*.css', '!' + config.paths.source.css + '/_load.css'], {
+            watch([
+                config.paths.source.css + '/_*.css',
+                '!' + config.paths.source.css + '/_load.css'
+            ], {
                 events: ['add', 'unlink']
             }, function() {
                 gulp.start(['css:import-modules']);
@@ -521,17 +529,43 @@ var modules = {
         };
     }(),
     javascript  : function() {
+        var uglify  = require('gulp-uglify');
+        var concat  = require('gulp-concat');
 
+        var jsSrcFiles = [
+            config.paths.source.js + '/*.js'
+        ];
+        var jsUglyFiles = [
+            config.paths.build.js + '/*.js'
+        ];
 
         var init = function() {
             // JS watch
-            watch(config.paths.source.js + '/*.js', function() {
+            watch(jsSrcFiles, function() {
                 modules.livereload.reload();
             });
         };
 
+        var taskUglify = function() {
+            gulp.src(jsSrcFiles)
+            .pipe(uglify())
+            .pipe(gulp.dest(config.paths.build.js));
+        };
+
+        var taskConcat = function() {
+            gulp.src(jsUglyFiles)
+            .pipe(concat('base.js'))
+            .pipe(gulp.dest(config.paths.dist.js));
+        };
+
+        var register = function() {
+            gulp.task('js:uglify', taskUglify);
+            gulp.task('js:concat', taskConcat);
+        };
+
         return {
-            init: init
+            init: init,
+            register: register
         };
     }(),
     images      : function() {
@@ -541,14 +575,13 @@ var modules = {
         var postcssSprites      = require('postcss-sprites');
 
         var taskSprites = function() {
-
             // CSS Post CSS Sprites prepare
             var spriteOpts    = {
                 stylesheetPath: config.paths.dist.css,
                 spritePath    : config.paths.dist.images,
                 retina        : true,
                 filterBy      : function(image) {
-                    if( /sprite\//gi.test(image.url) ) {
+                    if ( /sprite\//gi.test(image.url) ) {
                         return Promise.resolve();
                     }
 
@@ -587,7 +620,6 @@ var modules = {
                         rule.insertAfter(backgroundPosition, backgroundSize);
                     }
                 },
-
 
                 // Spritesmith options:
                 spritesmith: {
@@ -632,7 +664,7 @@ var modules = {
                 .pipe(changed(config.paths.source.sprite + '/*@2x.png'))
                 .pipe(gm(function(gmfile) {
                     gmfile.size(function(err, value) {
-                        if(value && (value.width % 2 !== 0 || value.height % 2 !== 0)) {
+                        if (value && (value.width % 2 !== 0 || value.height % 2 !== 0)) {
                             var src = gmfile.name().source;
                             modules.livereload.notify('Retina images must have even size!<br>' + src);
 
@@ -652,12 +684,11 @@ var modules = {
         };
 
         var init = function() {
-            if(config.images.enableSpriteResize) {
+            if (config.images.enableSpriteResize) {
                 // Resize images watch
                 watch(config.paths.source.sprite + '/*@2x.png', {
                     awaitWriteFinish: true
                 }, function() {
-
                     gulp.start(['images:resize-sprite-2x']);
                 });
 
@@ -672,15 +703,16 @@ var modules = {
 
         var register = function() {
             gulp.task('images:sprites', taskSprites);
-
             gulp.task('images:optimize', taskOptimiseImages);
-
             gulp.task('images:resize-sprite-3x', taskResizeSprite3x);
-
             gulp.task('images:resize-sprite-2x', taskResizeSprite2x);
 
-            if(config.images.enableSpriteResize) {
-                gulp.task('images:resize-sprite-source', ['images:resize-sprite-3x'], taskResizeSpriteSource);
+            if (config.images.enableSpriteResize) {
+                gulp.task(
+                    'images:resize-sprite-source',
+                    ['images:resize-sprite-3x'],
+                    taskResizeSpriteSource
+                );
             } else {
                 gulp.task('images:resize-sprite-source', []);
             };
@@ -693,7 +725,6 @@ var modules = {
     }(),
     html        : function() {
         var SSI                 = require('node-ssi');
-
         var ssi = new SSI({
             baseDir: '',
             encoding: 'utf-8',
@@ -702,19 +733,21 @@ var modules = {
             }
         });
 
-        var compileSSI = foreach(function(stream, file){
-
+        var compileSSI = foreach(function(stream, file) {
             var filePath = path.relative(file.base, file.path);
-
-            ssi
-                .compileFile(filePath, function(err, content) {
+            ssi.compileFile(filePath, function(err, content) {
                     fs.writeFileSync(config.paths.build.path + '/' + filePath, content);
-                });
+            });
             return stream;
         });
 
         var init = function() {
-            watch(['./*.*html', './partials/*.*html', 'templates/*.php', 'fragments/*.php'], function() {
+            watch([
+                './*.*html',
+                './partials/*.*html',
+                'templates/*.php',
+                'fragments/*.php'
+            ], function() {
                 modules.livereload.reload();
             });
         };
@@ -725,14 +758,28 @@ var modules = {
         }
     }(),
     build       : function() {
-
         var taskBuildClean = function() {
-            return gulp.src(['build', 'build.zip'], { read: false })
+            return gulp.src(['build', 'build.zip'], {read: false})
                 .pipe(rimraf({ force: true }));
         };
 
         var taskBuildCopy = function() {
-            return gulp.src(['**', '!~QA/**', '!partials/**', '!package.json', '!settings.json', '!peon.json', '!drone.json', '!README.md', '!gulpfile.js', '!' + config.paths.source.sprite + '/*', '!' + config.paths.source.css + '/*', '!**/*.map', '!build', '!*.html'])
+            return gulp.src([
+                    '**',
+                    '!~QA/**',
+                    '!partials/**',
+                    '!package.json',
+                    '!settings.json',
+                    '!peon.json',
+                    '!drone.json',
+                    '!README.md',
+                    '!gulpfile.js',
+                    '!' + config.paths.source.sprite + '/*',
+                    '!' + config.paths.source.css + '/*',
+                    '!**/*.map',
+                    '!build',
+                    '!*.html'
+                ])
                 .pipe(copy('build/'));
         };
 
@@ -749,11 +796,8 @@ var modules = {
 
         var register = function() {
             gulp.task('build:clean', taskBuildClean);
-
             gulp.task('build:copy', taskBuildCopy);
-
             gulp.task('build:zip', taskBuildZip);
-
             gulp.task('build:include', taskBuildInclude);
         };
 
@@ -768,7 +812,7 @@ var modules = {
         var notify = function() {};
         var silentReload = function() {};
 
-        if(utils.getEnvVar('livereload')) {
+        if (utils.getEnvVar('livereload')) {
             var livereload = require('gulp-livereload');
 
             task = function() {
@@ -785,11 +829,15 @@ var modules = {
             var browserSync         = browserSyncModule.create();
             reload                  = browserSync.reload;
 
-
             // Browser sync server
             task = function() {
                 browserSync.init({
-                    proxy : config.user.path || ((config.user.hostname || 'localhost') + utils.getRelativePath(process.env.INIT_CWD, 'server')),
+                    proxy : (
+                        config.user.path || (
+                            (config.user.hostname || 'localhost') +
+                            utils.getRelativePath(process.env.INIT_CWD, 'server')
+                        )
+                    ),
                     port  : 3000,
                     open  : ('open' in config.user ? config.user.open : 'external'),
                     host  : config.user.hostname || 'localhost',
@@ -839,7 +887,7 @@ var modules = {
                 }, function(err, bs) {
                     function getFromCollectionById(collection, id) {
                         for (var i = 0; i < collection.length; i++) {
-                            if(collection[i].id === id) {
+                            if (collection[i].id === id) {
                                 return collection[i];
                             };
                         };
@@ -848,9 +896,8 @@ var modules = {
                     };
 
                     function saveJSONToFile(filename, object) {
-
                         fs.writeFile(filename, JSON.stringify(object, null, 4), function(err) {
-                            if(err) {
+                            if (err) {
                                 console.log(err);
                             };
                         });
@@ -858,12 +905,9 @@ var modules = {
                     }
 
                     bs.io.sockets.on('connection', function(socket) {
-
                         var settings = null;
-
                         socket
                             .on('pixelParallel:save', function(data) {
-
                                 fs.readFile('./~QA/html-vs-design/settings.json', 'utf8', function (err, response) {
                                     if (err) {
                                         console.log(err);
@@ -873,14 +917,13 @@ var modules = {
 
                                     console.log('Saving image');
                                     var base64string = data.base64string.split(',').pop();
-
                                     var imageObject = {
                                         id: data.id,
                                         location: data.location,
                                         windowSize: data.windowSize
                                     };
 
-                                    if(getFromCollectionById(settings.savedImages, imageObject.id)) {
+                                    if (getFromCollectionById(settings.savedImages, imageObject.id)) {
                                         imageObject = getFromCollectionById(settings.savedImages, imageObject.id);
                                     } else {
                                         settings.savedImages.push(imageObject);
@@ -890,38 +933,45 @@ var modules = {
                                     imageObject.properties = data.properties;
                                     imageObject.lastChange = data.timestamp;
 
-                                    fs.writeFile(imageObject.path + imageObject.id, base64string, 'base64', function(err) {
-                                        if(err) {
-                                            console.log(err);
-                                        };
-                                    });
+                                    fs.writeFile(
+                                        imageObject.path + imageObject.id,
+                                        base64string,
+                                        'base64',
+                                        function(err) {
+                                            if (err) {
+                                                console.log(err);
+                                            };
+                                        }
+                                    );
 
                                     saveJSONToFile('./~QA/html-vs-design/settings.json', settings);
                                 });
                             })
                             .on('pixelParallel:remove', function(data) {
+                                fs.readFile(
+                                    './~QA/html-vs-design/settings.json',
+                                    'utf8',
+                                    function (err, response) {
+                                        if (err) {
+                                            console.log(err);
+                                        };
 
-                                fs.readFile('./~QA/html-vs-design/settings.json', 'utf8', function (err, response) {
-                                    if (err) {
-                                        console.log(err);
-                                    };
+                                        settings = JSON.parse(response);
 
-                                    settings = JSON.parse(response);
+                                        var imageObject = getFromCollectionById(settings.savedImages, data.id);
 
-                                    var imageObject = getFromCollectionById(settings.savedImages, data.id);
+                                        if (imageObject) {
+                                            settings.savedImages.splice(settings.savedImages.indexOf(imageObject), 1);
+                                            fs.unlink(imageObject.path + imageObject.id, function(err) {
+                                                if (err) {
+                                                    console.log(err);
+                                                };
+                                            });
 
-                                    if(imageObject) {
-                                        settings.savedImages.splice(settings.savedImages.indexOf(imageObject), 1);
-
-                                        fs.unlink(imageObject.path + imageObject.id, function(err) {
-                                            if(err) {
-                                                console.log(err);
-                                            };
-                                        });
-
-                                        saveJSONToFile('./~QA/html-vs-design/settings.json', settings);
-                                    };
-                                });
+                                            saveJSONToFile('./~QA/html-vs-design/settings.json', settings);
+                                        };
+                                    }
+                                );
                             });
                     });
                 });
@@ -939,7 +989,6 @@ var modules = {
         var register = function() {
             gulp.task('livereload', task);
         };
-
 
         return {
             reload: reload,
@@ -973,7 +1022,7 @@ var modules = {
                     isRoman: commentText.match(/^[\I\V\X]*\.\s/)
                 });
             } else {
-                if(/^[A-Z]/.test(comment.text)) {
+                if (/^[A-Z]/.test(comment.text)) {
                     comments.push({
                         text: comment.text,
                         type: 'minor'
@@ -986,10 +1035,9 @@ var modules = {
             var commentPrefix = '';
             var tableText = '';
 
-            if(comments[i].type === 'major') {
-                if(!comments[i].isRoman) {
+            if (comments[i].type === 'major') {
+                if (!comments[i].isRoman) {
                     majorCommentIdx += 1;
-
                     commentPrefix = '     ' + utils.leftPad(majorCommentIdx, 2) + '. ';
                 } else {
                     majorCommentIdx = 0;
@@ -999,7 +1047,6 @@ var modules = {
             };
 
             tableText = commentPrefix + comments[i].text;
-
             table.push(tableText + ' ' + utils.generateDashes(tableLength - tableText.length));
         };
 
@@ -1072,7 +1119,6 @@ var modules = {
         };
 
         var messagesToLog = result.messages;
-
         var resultSource = (!result.root.source) ? ''
           : result.root.source.input.file || result.root.source.input.id
 
@@ -1100,12 +1146,12 @@ var modules = {
 
 var simpleImport = postcssAPI.plugin('postcss-simple-import', function (opts) {
     opts = opts || {};
+
     return function (css, result) {
         var newCSS = [];
 
         css.walkAtRules('import', function checkAtRule(atrule) {
             var file = atrule.params.replace(/\'/g, '');
-
             newCSS.push(fs.readFileSync(config.paths.source.css + '/' + file).toString());
         });
 
@@ -1113,36 +1159,51 @@ var simpleImport = postcssAPI.plugin('postcss-simple-import', function (opts) {
     };
 });
 
+
 modules.userConfig.init();
-
 modules.css.register();
-
 modules.images.register();
-
+modules.javascript.register();
 modules.build.register();
-
 modules.livereload.register();
 
 
 // Serve Task
-gulp.task('serve', ['livereload', 'images:resize-sprite-source', 'css:import-modules', 'css:compile', 'build:clean'], function() {
-    // Run after resize sprite source
-    gulp.start('css:lazy-rules');
-
-    modules.css.init();
-
-    modules.javascript.init();
-
-    modules.images.init();
-
-    modules.html.init();
-});
+gulp.task(
+    'serve', [
+        'livereload',
+        'images:resize-sprite-source',
+        'css:import-modules',
+        'css:compile',
+        'js:uglify',
+        'js:concat',
+        'build:clean'
+    ], function() {
+        // Run after resize sprite source
+        gulp.start('css:lazy-rules');
+        modules.css.init();
+        modules.javascript.init();
+        modules.images.init();
+        modules.html.init();
+    }
+);
 
 // Build Task
 gulp.task('build', ['build:clean'], function() {
     config.isBuilding = true;
 
-    runSequence('images:resize-sprite-source', 'css:lazy-rules', 'css:import-modules', 'css:compile', 'images:sprites', 'build:copy', 'build:include', 'images:optimize');
+    runSequence(
+        'images:resize-sprite-source',
+        'css:lazy-rules',
+        'css:import-modules',
+        'css:compile',
+        'images:sprites',
+        'js:uglify',
+        'js:concat',
+        'build:copy',
+        'build:include',
+        'images:optimize'
+    );
 });
 
 gulp.task('lint', function() {
@@ -1153,7 +1214,15 @@ gulp.task('lint', function() {
 gulp.task('build:wp', function() {
     config.isBuilding = true;
 
-    runSequence('images:resize-sprite-source', 'css:lazy-rules', 'css:import-modules', 'css:compile', 'images:sprites');
+    runSequence(
+        'images:resize-sprite-source',
+        'css:lazy-rules',
+        'css:import-modules',
+        'css:compile',
+        'images:sprites',
+        'js:uglify',
+        'js:concat'
+    );
 });
 
 // Defaut Task
