@@ -7,18 +7,18 @@
 
 	<title>Corlogic</title>
 
-	<link rel="shortcut icon" type="image/x-icon" href="css/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="{{ static('images/favicon.ico') }}" />
 
 	<!-- Vendor Styles -->
 
 	<!-- App Styles -->
-	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="{{ static('style.css') }}" />
 
 	<!-- Vendor JS -->
-	<script src="vendor/jquery-1.12.4.min.js"></script>
+	<script src="{{ static('jquery-1.12.4.min.js') }}"></script>
 
 	<!-- App JS -->
-	<script src="js/functions.js"></script>
+	<script src="{{ static('functions.js') }}"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -48,17 +48,17 @@
 		</div><!-- /.header__content -->
 
 		<div class="header__aside">
-			<div class="header__actions">				
+			<div class="header__actions">
 				<a href="#" class="btn btn--green">Upload Sessions</a>
 			</div><!-- /.header__actions -->
 
 			<div class="header__nav">
-				<div class="header__avatar">					
+				<div class="header__avatar">
 					<a href="#" class="btn-dropdown">
-						
-						<img src="css/images/temp/pic@3x.jpg" alt="">
 
-						<i class="ico-arrow-dropdown">						
+						<img src="{{ static('images/temp/pic@3x.jpg') }}" alt="">
+
+						<i class="ico-arrow-dropdown">
 							<svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
 							    <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
 							</svg>
@@ -86,10 +86,10 @@
 		</div><!-- /.header__aside -->
 	</header><!-- /.header -->
 
-	
+
 
 	<div class="main">
-		<div class="sidebar">			
+		<div class="sidebar">
 			<div class="sidebar__inner">
 				<div class="sidebar__entry">
 					<h6>MENU</h6>
@@ -104,7 +104,7 @@
 								<span>Dashboard</span>
 							</a>
 						</li>
-						
+
 						<li>
 							<a href="#">
 								<i class="ico-patients"></i>
@@ -138,11 +138,11 @@
 		<div class="content">
 			<div class="content__head">
 				<div class="tile">
-					<div class="tile__inner">					
+					<div class="tile__inner">
 						<div class="tile__head">
 							<div class="tile__entry">
 								<h4>Overview</h4>
-								
+
 								<span>Tuesday, June 20th 2017</span>
 							</div><!-- /.tile__entry -->
 
@@ -245,7 +245,7 @@
 					<div class="tile__inner">
 						<div class="tile__head">
 							<h4>Notes</h4>
-						</div><!-- /.tile__head -->						
+						</div><!-- /.tile__head -->
 					</div><!-- /.tile__inner -->
 				</div><!-- /.tile -->
 			</div><!-- /.content__head -->
@@ -272,7 +272,7 @@
 
 						<div class="message__close">
 							<a href="#" class="btn-close">
-								<i class="ico-close"></i>				
+								<i class="ico-close"></i>
 							</a>
 						</div><!-- /.message__close -->
 					</div><!-- /.message__inner -->
@@ -305,18 +305,18 @@
 										<h5>Created</h5>
 									</div><!-- /.table-item table-item-/-md -->
 
-									<div class="table-item table-item--md">								
+									<div class="table-item table-item--md">
 										<a href="#">
 
 											<h5>Alert</h5>
 
-											<i class="ico-arrow-dropdown">						
+											<i class="ico-arrow-dropdown">
 												<svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
 												    <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
 												</svg>
 											</i>
 										</a>
-										
+
 									</div><!-- /.table-item table-item-/-md -->
 
 									<div class="table-item table-item--md">
@@ -609,7 +609,7 @@
 										<div class="table-item table-item--md table-item--fluid">
 											<p>
 												<span class="tag tag--grey">
-													
+
 												</span>
 											</p>
 										</div><!-- /.table-item table-item-/-md table-item-/-fluid -->
@@ -652,7 +652,7 @@
 										<div class="table-item table-item--md table-item--fluid">
 											<p>
 												<span class="tag tag--grey">
-													
+
 												</span>
 											</p>
 										</div><!-- /.table-item table-item-/-md table-item-/-fluid -->
@@ -695,7 +695,7 @@
 										<div class="table-item table-item--md table-item--fluid">
 											<p>
 												<span class="tag tag--green">
-													
+
 												</span>
 											</p>
 										</div><!-- /.table-item table-item-/-md table-item-/-fluid -->
@@ -738,7 +738,7 @@
 										<div class="table-item table-item--md table-item--fluid">
 											<p>
 												<span class="tag tag--green">
-													
+
 												</span>
 											</p>
 										</div><!-- /.table-item table-item-/-md table-item-/-fluid -->
@@ -781,7 +781,7 @@
 										<div class="table-item table-item--md table-item--fluid">
 											<p>
 												<span class="tag tag--green">
-													
+
 												</span>
 											</p>
 										</div><!-- /.table-item table-item-/-md table-item-/-fluid -->
