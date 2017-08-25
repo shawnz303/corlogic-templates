@@ -1,4 +1,7 @@
-;(function($, window, document, undefined) {
+var jQuery = require('jquery');
+
+
+(function($, window, document, undefined) {
 	var $win = $(window);
 	var $doc = $(document);
 

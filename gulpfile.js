@@ -197,6 +197,7 @@ var watch               = require('gulp-watch');
 var rename              = require('gulp-rename');
 var rimraf              = require('gulp-rimraf');
 var copy                = require('gulp-copy');
+var gutil               = require('gulp-util');
 var zip                 = require('gulp-zip');
 var foreach             = require('gulp-foreach');
 var runSequence         = require('run-sequence');
@@ -529,15 +530,15 @@ var modules = {
         };
     }(),
     javascript  : function() {
-        var uglify  = require('gulp-uglify');
-        var concat  = require('gulp-concat');
+        var browserify  = require('gulp-browserify');
+        var concat      = require('gulp-concat');
+        var uglify      = require('gulp-uglify');
 
         var jsSrcFiles = [
-            config.paths.source.js + '/*.js'
+            `${config.paths.source.js}/*.js`
         ];
-        var jsUglyFiles = [
-            config.paths.build.js + '/*.js'
-        ];
+        var jsMainFile = 'bundle.js';
+        var jsMainFilePath = `${config.paths.build.js}/${jsMainFile}`;
 
         var init = function() {
             // JS watch
@@ -546,21 +547,28 @@ var modules = {
             });
         };
 
-        var taskUglify = function() {
-            gulp.src(jsSrcFiles)
-            .pipe(uglify())
-            .pipe(gulp.dest(config.paths.build.js));
+        var taskConcat = function() {
+            return gulp.src(jsSrcFiles)
+                .pipe(concat(jsMainFile))
+                .pipe(gulp.dest(config.paths.build.js));
         };
 
-        var taskConcat = function() {
-            gulp.src(jsUglyFiles)
-            .pipe(concat('base.js'))
-            .pipe(gulp.dest(config.paths.dist.js));
+        var taskBrowserify = function() {
+            return gulp.src(jsMainFilePath)
+                .pipe(browserify())
+                .pipe(gulp.dest(config.paths.build.js));
+        };
+
+        var taskUglify = function() {
+            return gulp.src(jsMainFilePath)
+                .pipe(uglify())
+                .pipe(gulp.dest(config.paths.build.js));
         };
 
         var register = function() {
-            gulp.task('js:uglify', taskUglify);
             gulp.task('js:concat', taskConcat);
+            gulp.task('js:browserify', taskBrowserify);
+            gulp.task('js:uglify', taskUglify);
         };
 
         return {
@@ -780,7 +788,7 @@ var modules = {
                     '!build',
                     '!*.html'
                 ])
-                .pipe(copy('build/'));
+                .pipe(copy(config.paths.build.path));
         };
 
         var taskBuildZip = function() {
@@ -806,7 +814,6 @@ var modules = {
         };
     }(),
     livereload  : function() {
-
         var task = null;
         var reload = function() {};
         var notify = function() {};
@@ -1175,8 +1182,9 @@ gulp.task(
         'images:resize-sprite-source',
         'css:import-modules',
         'css:compile',
-        'js:uglify',
         'js:concat',
+        'js:browserify',
+        'js:uglify',
         'build:clean'
     ], function() {
         // Run after resize sprite source
@@ -1198,8 +1206,9 @@ gulp.task('build', ['build:clean'], function() {
         'css:import-modules',
         'css:compile',
         'images:sprites',
-        'js:uglify',
         'js:concat',
+        'js:browserify',
+        'js:uglify',
         'build:copy',
         'build:include',
         'images:optimize'
@@ -1220,8 +1229,9 @@ gulp.task('build:wp', function() {
         'css:import-modules',
         'css:compile',
         'images:sprites',
-        'js:uglify',
-        'js:concat'
+        'js:concat',
+        'js:browserify',
+        'js:uglify'
     );
 });
 
