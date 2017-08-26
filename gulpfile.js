@@ -531,14 +531,11 @@ var modules = {
     }(),
     javascript  : function() {
         var browserify  = require('gulp-browserify');
-        var concat      = require('gulp-concat');
         var uglify      = require('gulp-uglify');
 
         var jsSrcFiles = [
-            `${config.paths.source.js}/*.js`
+            `${config.paths.build.js}/*.js`
         ];
-        var jsMainFile = 'bundle.js';
-        var jsMainFilePath = `${config.paths.build.js}/${jsMainFile}`;
 
         var init = function() {
             // JS watch
@@ -547,26 +544,24 @@ var modules = {
             });
         };
 
-        var taskConcat = function() {
-            return gulp.src(jsSrcFiles)
-                .pipe(concat(jsMainFile))
-                .pipe(gulp.dest(config.paths.build.js));
-        };
-
         var taskBrowserify = function() {
-            return gulp.src(jsMainFilePath)
-                .pipe(browserify())
-                .pipe(gulp.dest(config.paths.build.js));
+            return gulp.src(jsSrcFiles)
+                .pipe(browserify({
+                    transform: [
+                        [{presets: ['es2015']}, 'babelify'],
+                        [{_flags: {debug: true}}, 'vueify']
+                    ]
+                }))
+                .pipe(gulp.dest(config.paths.build.js))
         };
 
         var taskUglify = function() {
-            return gulp.src(jsMainFilePath)
+            return gulp.src(jsSrcFiles)
                 .pipe(uglify())
-                .pipe(gulp.dest(config.paths.build.js));
+                .pipe(gulp.dest(config.paths.build.js))
         };
 
         var register = function() {
-            gulp.task('js:concat', taskConcat);
             gulp.task('js:browserify', taskBrowserify);
             gulp.task('js:uglify', taskUglify);
         };
@@ -1182,7 +1177,6 @@ gulp.task(
         'images:resize-sprite-source',
         'css:import-modules',
         'css:compile',
-        'js:concat',
         'js:browserify',
         'js:uglify',
         'build:clean'
@@ -1206,12 +1200,11 @@ gulp.task('build', ['build:clean'], function() {
         'css:import-modules',
         'css:compile',
         'images:sprites',
-        'js:concat',
-        'js:browserify',
-        'js:uglify',
+        'images:optimize',
         'build:copy',
         'build:include',
-        'images:optimize'
+        'js:browserify',
+        'js:uglify'
     );
 });
 
@@ -1229,7 +1222,6 @@ gulp.task('build:wp', function() {
         'css:import-modules',
         'css:compile',
         'images:sprites',
-        'js:concat',
         'js:browserify',
         'js:uglify'
     );
