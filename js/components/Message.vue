@@ -1,5 +1,5 @@
 <template>
-  <div class="message" v-bind:class="{ hide: hidden }">
+  <div class="message" :class="{ hide: hidden }">
     <div class="message__inner">
       <div class="message__image">
         <i class="ico-info">
@@ -40,7 +40,3 @@
     }
   };
 </script>
-
-<styles>
-</styles>
-

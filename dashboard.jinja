@@ -15,75 +15,14 @@
 	<link rel="stylesheet" href="{{ static('style.css') }}" />
 
 	<!-- App JS -->
+	<script>
+		var avatarImgSrc = "{{ static('images/temp/pic@3x.jpg') }}";
+	</script>
 	<script src="{{ static('dashboard.js') }}"></script>
 </head>
 <body>
 <div class="wrapper">
-	<header class="header">
-		<div class="header__head">
-			<a href="#" class="logo"></a>
-		</div><!-- /.header__head -->
-
-		<div class="header__content">
-			<div class="search">
-			    <form action="" method="get">
-			    	<div class="search__inner">
-				        <label for="q" class="hidden">Search</label>
-
-				        <input type="text" name="q" id="q" value="" class="search__field" placeholder="Search by patient name, serial number, model number or product family…"/>
-
-				        <button type="submit" class="search__btn">
-				        	<i class="ico-search">
-				        		<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-								    <path fill="#CED0DA" fill-rule="evenodd" d="M9.222 3.033a4.376 4.376 0 1 0-6.19 6.19 4.376 4.376 0 1 0 6.19-6.19m4.552 10.741a.877.877 0 0 1-1.239 0L9.78 11.017c-2.4 1.794-5.804 1.624-7.984-.557a6.126 6.126 0 0 1 0-8.665 6.126 6.126 0 0 1 8.665 0c2.181 2.18 2.351 5.584.557 7.984l2.757 2.757a.876.876 0 0 1 0 1.238"/>
-								</svg>
-				        	</i>
-				        </button>
-				    </div><!-- /.search__inner -->
-			    </form>
-			</div><!-- /.search -->
-		</div><!-- /.header__content -->
-
-		<div class="header__aside">
-			<div class="header__actions">
-				<a href="#" class="btn btn--green">Upload Sessions</a>
-			</div><!-- /.header__actions -->
-
-			<div class="header__nav">
-				<div class="header__avatar">
-					<a href="#" class="btn-dropdown">
-
-						<img src="{{ static('images/temp/pic@3x.jpg') }}" alt="">
-
-						<i class="ico-arrow-dropdown">
-							<svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
-							    <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
-							</svg>
-						</i>
-					</a>
-
-					<nav class="nav">
-						<ul>
-							<li>
-								<a href="#">Edit Profile</a>
-							</li>
-
-							<li>
-								<a href="#">View Activity</a>
-							</li>
-
-							<li>
-								<a href="#">Manage Roles</a>
-							</li>
-						</ul>
-					</nav><!-- /.nav -->
-				</div><!-- /.header__avatar -->
-
-			</div><!-- /.header__nav -->
-		</div><!-- /.header__aside -->
-	</header><!-- /.header -->
-
-
+	<header></header>
 
 	<div class="main">
 		<div class="sidebar">
@@ -247,106 +186,10 @@
 				</div><!-- /.tile -->
 			</div><!-- /.content__head -->
 
-			<div id="message-box" class="content__inner"></div>
+			<div id="message-box"></div>
 
-			<div class="content__body">
-				<div class="profile">
-					<div class="profile__head">
-						<h4>New Transmissions</h4>
-					</div><!-- /.profile__head -->
+			<div id="transmissions-table"></div>
 
-					<div class="profile__body">
-						<div class="table">
-							<div class="table__head">
-								<div class="table-items">
-									<div class="table-item table-item--lg">
-										<h5>Name of Patient</h5>
-									</div><!-- /.table-item table-item-/-lg -->
-
-									<div class="table-item table-item--md">
-										<h5>Date of Birth</h5>
-									</div><!-- /.table-item table-item-/-md -->
-
-									<div class="table-item table-item--md">
-										<h5>Device</h5>
-									</div><!-- /.table-item table-item-/-md -->
-
-									<div class="table-item table-item--md">
-										<h5>Created</h5>
-									</div><!-- /.table-item table-item-/-md -->
-
-									<div class="table-item table-item--md">
-										<a href="#">
-
-											<h5>Alert</h5>
-
-											<i class="ico-arrow-dropdown">
-												<svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
-												    <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
-												</svg>
-											</i>
-										</a>
-
-									</div><!-- /.table-item table-item-/-md -->
-
-									<div class="table-item table-item--md">
-										<h5>Vendor</h5>
-									</div><!-- /.table-item table-item-/-md -->
-
-									<div class="table-item table-item--sm">
-
-									</div><!-- /.table-item table-item-/-sm -->
-								</div><!-- /.table-items -->
-							</div><!-- /.table__head -->
-
-							<div class="table__body">
-								<div class="table__group">
-									<div class="table-items">
-										<div class="table-item table-item--lg table-item--fluid">
-											<h5>Mike Jones</h5>
-										</div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-										<div class="table-item table-item--md table-item--fluid">
-											<p>01/14/2017</p>
-										</div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-
-										<div class="table-item table-item--md table-item--fluid">
-											<p>PM2240</p>
-										</div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-
-										<div class="table-item table-item--md table-item--fluid">
-											<p>15 Dec 2016</p>
-										</div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-
-										<div class="table-item table-item--md table-item--fluid">
-											<p>
-												<span class="tag tag--red">
-													ERI
-												</span>
-											</p>
-										</div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-
-										<div class="table-item table-item--md table-item--fluid">
-											<p>SJM</p>
-										</div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-
-										<div class="table-item table-item--sm table-item--center">
-											<a href="#" class="btn btn--blue">Archive</a>
-
-											<a href="#">
-
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15">
-											    <path fill="#C5D0DE" fill-rule="evenodd" d="M7.241 10.711a1 1 0 0 0 .708.293c.013 0 .023-.007.036-.007L8 11c.337 0 .62-.177.801-.431l2.894-2.882a.997.997 0 0 0 0-1.414 1.004 1.004 0 0 0-1.417 0L9 7.544V1a1 1 0 1 0-2 0v6.62L5.691 6.281a1.003 1.003 0 0 0-1.416 0 .997.997 0 0 0 0 1.414l2.966 3.016zM15 9a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a1 1 0 1 0-2 0v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3a1 1 0 0 0-1-1z"/>
-											</svg>
-											</a>
-										</div><!-- /.table-item table-item-/-sm table-item-center -->
-									</div><!-- /.table-items -->
-								</div><!-- /.table__group -->
-							</div><!-- /.table__body -->
-						</div><!-- /.table -->
-					</div><!-- /.profile__body -->
-				</div><!-- /.profile -->
-			</div><!-- /.content__body -->
 		</div><!-- /.content -->
 	</div><!-- main -->
 </div><!-- /.wrapper -->

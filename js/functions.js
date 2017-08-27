@@ -15,13 +15,6 @@ var jQuery = require('jquery');
 			}
 		});
 
-		$('.btn-dropdown').on('click', function(event) {
-			event.preventDefault();
-
-			$(this).toggleClass('active');
-			$('.nav').toggleClass('active');
-		});
-
 	});
 
 })(jQuery, window, document);
