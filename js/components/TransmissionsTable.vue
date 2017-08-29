@@ -85,6 +85,9 @@
         components: {
             transmissionRecord: TransmissionRecord
         },
+        mounted() {
+            this.refresh();
+        },
         methods: {
             refresh() {
                 this.$http.get('/api/v1/reports/transmissions/').then(
