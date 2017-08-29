@@ -5,6 +5,10 @@
                 <h5>{{ name }}</h5>
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
+            <div class="table-item table-item--lg table-item--fluid">
+                <h5>{{ sessionType }}</h5>
+            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
+
             <div class="table-item table-item--md table-item--fluid">
                 <p>{{ dob | moment('MM/DD/YYYY') }}</p>
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
@@ -18,10 +22,20 @@
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
             <div class="table-item table-item--md table-item--fluid">
-                <p>
-                    <span class="tag tag--red">
-                        ERI
+                <p v-if="alerts.length > 0">
+                    <span
+                        class="tag"
+                        v-for="alert in alerts"
+                        :class="{
+                            'tag--red': alertColor(alert) == 'red',
+                            'tag--yellow': alertColor(alert) == 'yellow',
+                        }"
+                    >
+                        {{ alert }}
                     </span>
+                </p>
+                <p v-else>
+                    <span class="tag tag--green"></span>
                 </p>
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
@@ -53,25 +67,39 @@
     export default {
         props: [
             'id',
+            'alerts',
             'dob',
             'manufacturer',
             'model',
             'name',
             'sessionDate',
+            'sessionType',
         ],
         data: () => ({
             archiving: false,
         }),
         methods: {
+            alertColor(alert) {
+                return {
+                    'ERI': 'red',
+                    'VT': 'red',
+                    'ATP': 'red',
+                    'VF': 'red',
+                    'Impedance variance (IV)': 'red',
+                    'HV Circuit damage': 'red',
+                    'Backup Mode': 'red',
+                    'PMT': 'yellow',
+                    'ATAF': 'yellow',
+                }[alert];
+            },
             archive() {
                 const url = `/api/v1/reports/transmissions/${this.id}/archive/`;
                 this.archiving = true;
                 this.$http.put(url)
                     .then(res => {
-                        this.archiving = false;
-                        this.$emit('txArchived', this.id);
+                        this.$emit('txArchived');
                     })
-                    .catch(res => {
+                    .finally(res => {
                         this.archiving = false;
                     });
             },

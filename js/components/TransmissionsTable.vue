@@ -13,6 +13,10 @@
                                 <h5>Name of Patient</h5>
                             </div><!-- /.table-item table-item-/-lg -->
 
+                            <div class="table-item table-item--lg">
+                                <h5>Transmission Type</h5>
+                            </div><!-- /.table-item table-item-/-lg -->
+
                             <div class="table-item table-item--md">
                                 <h5>Date of Birth</h5>
                             </div><!-- /.table-item table-item-/-md -->
@@ -28,7 +32,7 @@
                             <div class="table-item table-item--md">
                                 <a href="#">
 
-                                    <h5>Alert</h5>
+                                    <h5>Alerts</h5>
 
                                     <i class="ico-arrow-dropdown">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
@@ -54,11 +58,13 @@
                             v-for="t in transmissions"
 
                             :id="t.id"
+                            :alerts="t.hl7_alerts"
                             :dob="t.patient.dob"
                             :manufacturer="t.patient.power_source.manufacturer"
                             :model="t.patient.power_source.model_id"
                             :name="t.patient.name"
                             :sessionDate="t.session_date"
+                            :sessionType="t.session_type"
 
                             @txArchived="refresh"
                         />
