@@ -30,9 +30,15 @@
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
             <div class="table-item table-item--sm table-item--center">
-                <a href="#" class="btn btn--blue" :click="archive">Archive</a>
+                <a
+                    class="btn"
+                    :class="{ 'btn--blue': !archiving, 'btn--gray': archiving }"
+                    @click="archive"
+                >
+                    {{ archiving ? 'Archiving...' : 'Archive' }}
+                </a>
 
-                <a href="#">
+                <a href="{{ `/api/v1/reports/transmissions/${this.id}/full-report/` }}">
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15">
                     <path fill="#C5D0DE" fill-rule="evenodd" d="M7.241 10.711a1 1 0 0 0 .708.293c.013 0 .023-.007.036-.007L8 11c.337 0 .62-.177.801-.431l2.894-2.882a.997.997 0 0 0 0-1.414 1.004 1.004 0 0 0-1.417 0L9 7.544V1a1 1 0 1 0-2 0v6.62L5.691 6.281a1.003 1.003 0 0 0-1.416 0 .997.997 0 0 0 0 1.414l2.966 3.016zM15 9a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a1 1 0 1 0-2 0v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3a1 1 0 0 0-1-1z"/>
@@ -46,16 +52,29 @@
 <script>
     export default {
         props: [
+            'id',
             'dob',
             'manufacturer',
             'model',
             'name',
             'sessionDate',
         ],
+        data: () => ({
+            archiving: false,
+        }),
         methods: {
             archive() {
-                console.log('archive transmission');
-            }
-        }
+                const url = `/api/v1/reports/transmissions/${this.id}/archive/`;
+                this.archiving = true;
+                this.$http.put(url)
+                    .then(res => {
+                        this.archiving = false;
+                        this.$emit('txArchived', this.id);
+                    })
+                    .catch(res => {
+                        this.archiving = false;
+                    });
+            },
+        },
     };
 </script>

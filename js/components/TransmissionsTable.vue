@@ -52,11 +52,15 @@
                     <div class="table__body">
                         <transmission-record
                             v-for="t in transmissions"
+
+                            :id="t.id"
                             :dob="t.patient.dob"
                             :manufacturer="t.patient.power_source.manufacturer"
                             :model="t.patient.power_source.model_id"
                             :name="t.patient.name"
                             :sessionDate="t.session_date"
+
+                            @txArchived="refresh"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->

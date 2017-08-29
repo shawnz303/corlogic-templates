@@ -1,6 +1,9 @@
 var Vue = require('vue');
-Vue.use(require('vue-resource'));
+Vue.use(require('vue-cookie'));
 Vue.use(require('vue-moment'));
+Vue.use(require('vue-resource'));
+
+Vue.http.headers.common['X-CSRFToken'] = Vue.cookie.get('csrftoken');
 
 var Header = require('./components/Header.vue');
 var MessageBox = require('./components/MessageBox.vue');
