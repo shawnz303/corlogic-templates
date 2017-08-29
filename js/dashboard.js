@@ -1,3 +1,5 @@
+var Promise = require('bluebird');
+
 var Vue = require('vue');
 Vue.use(require('vue-cookie'));
 Vue.use(require('vue-moment'));
