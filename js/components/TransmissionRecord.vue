@@ -97,7 +97,7 @@
                 this.archiving = true;
                 this.$http.put(url)
                     .then(res => {
-                        this.$emit('txArchived');
+                        this.$emit('txArchived', this.id);
                     })
                     .finally(res => {
                         this.archiving = false;

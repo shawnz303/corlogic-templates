@@ -1,8 +1,12 @@
 <template>
     <div class="content__body">
         <div class="profile">
-            <div class="profile__head" @click="refresh">
-                <h4>New Transmissions</h4>
+            <div class="profile__head">
+                <h4>{{ dataSource }}</h4>
+                <div class="btn" @click="refresh">Refresh</div>
+                <div class="btn" @click="clearSearch" v-if="searchQuery">
+                    Clear Search
+                </div>
             </div><!-- /.profile__head -->
 
             <div class="profile__body">
@@ -66,7 +70,7 @@
                             :sessionDate="t.session_date"
                             :sessionType="t.session_type"
 
-                            @txArchived="refresh"
+                            @txArchived="remove"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
@@ -80,21 +84,49 @@
 
     export default {
         data: () => ({
-            transmissions: []
+            dataSource: 'New Transmissions',
+            searchQuery: '',
+            transmissions: [],
+            cachedTransmissions: [],
         }),
         components: {
             transmissionRecord: TransmissionRecord
         },
         mounted() {
+            this.$bus.$on('search', searchQuery => {
+                if (!this.searchQuery) {
+                    this.cachedTransmissions = this.transmissions;
+                }
+
+                this.searchQuery = searchQuery;
+                this.dataSource = `Search results for "${this.searchQuery}"`;
+
+                this.$http.get('/api/v1/reports/transmissions/search/', {
+                    params: {
+                        query: this.searchQuery,
+                    },
+                }).then(res => {
+                    this.transmissions = res.body;
+                });
+            });
             this.refresh();
         },
         methods: {
+            clearSearch() {
+                this.$bus.$emit('clearSearch');
+                this.dataSource = 'New Transmissions';
+                this.searchQuery = '';
+                this.transmissions = this.cachedTransmissions;
+            },
             refresh() {
-                this.$http.get('/api/v1/reports/transmissions/').then(
-                    res => {
-                        this.transmissions = res.body;
-                    }
-                );
+                this.$http.get('/api/v1/reports/transmissions/').then(res => {
+                    this.transmissions = res.body;
+                });
+            },
+            remove(id) {
+                const byId = tx => tx.id != id;
+                this.transmissions = this.transmissions.filter(byId);
+                this.cachedTransmissions = this.cachedTransmissions.filter(byId);
             },
         },
     };
