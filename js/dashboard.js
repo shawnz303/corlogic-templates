@@ -2,6 +2,7 @@ var Promise = require('bluebird');
 
 var Vue = require('vue');
 Vue.use(require('vue-cookie'));
+Vue.use(require('vue-event-bus'));
 Vue.use(require('vue-moment'));
 Vue.use(require('vue-resource'));
 
@@ -16,17 +17,17 @@ window.onload = function() {
 
     new Vue({
         el: 'header',
-        render: h => h(Header)
+        render: h => h(Header),
     });
 
     new Vue({
         el: '#message-box',
-        render: h => h(MessageBox)
+        render: h => h(MessageBox),
     });
 
     new Vue({
         el: '#transmissions-table',
-        render: h => h(TransmissionsTable)
+        render: h => h(TransmissionsTable),
     });
 
 };
