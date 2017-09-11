@@ -63,14 +63,13 @@
 
                             :id="t.id"
                             :alerts="t.hl7_alerts"
+                            :archived="t.archived"
                             :dob="t.patient.dob"
                             :manufacturer="t.patient.power_source.manufacturer"
                             :model="t.patient.power_source.model_id"
                             :name="t.patient.name"
                             :sessionDate="t.session_date"
                             :sessionType="t.session_type"
-
-                            @txArchived="remove"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
@@ -80,54 +79,35 @@
 </template>
 
 <script>
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import TransmissionRecord from './TransmissionRecord.vue';
 
     export default {
-        data: () => ({
-            dataSource: 'New Transmissions',
-            searchQuery: '',
-            transmissions: [],
-            cachedTransmissions: [],
-        }),
         components: {
             transmissionRecord: TransmissionRecord
         },
         mounted() {
-            this.$bus.$on('search', searchQuery => {
-                if (!this.searchQuery) {
-                    this.cachedTransmissions = this.transmissions;
-                }
-
-                this.searchQuery = searchQuery;
-                this.dataSource = `Search results for "${this.searchQuery}"`;
-
-                this.$http.get('/api/v1/reports/transmissions/search/', {
-                    params: {
-                        query: this.searchQuery,
-                    },
-                }).then(res => {
-                    this.transmissions = res.body;
-                });
-            });
             this.refresh();
         },
+        computed: {
+            dataSource() {
+                return this.searchQuery ?
+                    `Search results for "${this.searchQuery}"` :
+                    'New Transmissions';
+            },
+            ...mapState([
+                'searchQuery',
+                'transmissions',
+            ]),
+        },
         methods: {
-            clearSearch() {
-                this.$bus.$emit('clearSearch');
-                this.dataSource = 'New Transmissions';
-                this.searchQuery = '';
-                this.transmissions = this.cachedTransmissions;
-            },
-            refresh() {
-                this.$http.get('/api/v1/reports/transmissions/').then(res => {
-                    this.transmissions = res.body;
-                });
-            },
-            remove(id) {
-                const byId = tx => tx.id != id;
-                this.transmissions = this.transmissions.filter(byId);
-                this.cachedTransmissions = this.cachedTransmissions.filter(byId);
-            },
+            ...mapActions([
+                'refresh',
+            ]),
+            ...mapMutations([
+                'clearSearch',
+                'remove',
+            ]),
         },
     };
 </script>

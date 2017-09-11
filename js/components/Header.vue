@@ -16,7 +16,6 @@
                         class="search__field"
                         placeholder="Search by patient name, serial number, model number or product family…"
                         v-model="searchQuery"
-                        @keyup="handleKeyUp"
                     />
 
                     <button class="search__btn" @click="search">
@@ -43,31 +42,27 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     import HeaderAvatar from './HeaderAvatar.vue';
 
     export default {
         components: {
             headerAvatar: HeaderAvatar
         },
-        data: () => ({
-            searchQuery: '',
-        }),
-        mounted() {
-            this.$bus.$on('clearSearch', () => {
-                this.searchQuery = '';
-            });
+        computed: {
+            searchQuery: {
+                get() {
+                    return this.$store.state.searchQuery;
+                },
+                set(searchQuery) {
+                    this.search(searchQuery);
+                },
+            },
         },
         methods: {
-            handleKeyUp(e) {
-                if (e.keyCode == 13) {
-                    this.search();
-                }
-            },
-            search() {
-                if (this.searchQuery) {
-                    this.$bus.$emit('search', this.searchQuery);
-                }
-            },
+            ...mapActions([
+                'search',
+            ]),
         },
     };
 </script>
