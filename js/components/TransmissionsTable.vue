@@ -86,9 +86,6 @@
         components: {
             transmissionRecord: TransmissionRecord
         },
-        mounted() {
-            this.refresh();
-        },
         computed: {
             dataSource() {
                 return this.searchQuery ?
@@ -108,6 +105,9 @@
                 'clearSearch',
                 'remove',
             ]),
+        },
+        mounted() {
+            this.refresh();
         },
     };
 </script>

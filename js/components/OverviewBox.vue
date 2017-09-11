@@ -106,6 +106,7 @@
 
 <script>
     import { mapActions, mapState } from 'vuex';
+    import { alertsInfo } from './alerts';
 
     export default {
         mounted() {
@@ -116,8 +117,13 @@
                 return this.$store.state.cachedTransmissions.length;
             },
             urgentTransmissionsCount() {
-                const byRedAlerts = tx => tx.hl7_alerts.length > 0;
-                return this.$store.state.cachedTransmissions.filter(byRedAlerts).length;
+                const redAlertCodes =
+                    alertsInfo.filter(alert => alert.colour == 'red').map(alert => alert.code);
+
+                return this.$store.state.cachedTransmissions
+                    .map(tx => tx.hl7_alerts)
+                    .filter(alerts => alerts.find(alert => redAlertCodes.indexOf(alert) != -1))
+                    .length;
             },
             ...mapState([
                 'lastLogin',

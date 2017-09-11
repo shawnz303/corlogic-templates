@@ -70,6 +70,8 @@
 </template>
 
 <script>
+    import { alertsInfo } from './alerts';
+
     export default {
         props: [
             'id',
@@ -87,17 +89,7 @@
         }),
         methods: {
             alertColor(alert) {
-                return {
-                    'ERI': 'red',
-                    'VT': 'red',
-                    'ATP': 'red',
-                    'VF': 'red',
-                    'Impedance variance (IV)': 'red',
-                    'HV Circuit damage': 'red',
-                    'Backup Mode': 'red',
-                    'PMT': 'yellow',
-                    'ATAF': 'yellow',
-                }[alert];
+                return alertsInfo.find(elem => elem.code === alert).colour;
             },
             archive() {
                 this.archiving = true;
