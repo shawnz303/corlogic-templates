@@ -548,8 +548,8 @@ var modules = {
             return gulp.src(jsSrcFiles)
                 .pipe(browserify({
                     transform: [
-                        [{presets: ['es2015']}, 'babelify'],
-                        [{_flags: {debug: true}}, 'vueify']
+                        'babelify',
+                        [{_flags: {}}, 'vueify']
                     ]
                 }))
                 .pipe(gulp.dest(config.paths.build.js))
