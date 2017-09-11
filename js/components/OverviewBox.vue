@@ -92,7 +92,7 @@
 
                         <div class="service__inner">
                             <div class="service__head">
-                                <h1>{{ this.lastLogin | moment("from", true) }}</h1>
+                                <h1>{{ lastLogin | moment("from", true) }}</h1>
 
                                 <h6>SINCE LAST LOGIN</h6>
                             </div><!-- /.service__head -->
