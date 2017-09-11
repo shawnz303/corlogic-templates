@@ -92,7 +92,7 @@
 
                         <div class="service__inner">
                             <div class="service__head">
-                                <h1>{{ timeSinceLastLogin }}</h1>
+                                <h1>{{ this.lastLogin | moment("from", true) }}</h1>
 
                                 <h6>SINCE LAST LOGIN</h6>
                             </div><!-- /.service__head -->
@@ -106,7 +106,6 @@
 
 <script>
     import { mapActions, mapState } from 'vuex';
-    import moment from 'moment';
 
     export default {
         mounted() {
@@ -119,10 +118,6 @@
             urgentTransmissionsCount() {
                 const byRedAlerts = tx => tx.hl7_alerts.length > 0;
                 return this.$store.state.cachedTransmissions.filter(byRedAlerts).length;
-            },
-            timeSinceLastLogin() {
-                const diff = moment().diff(this.lastLogin);
-                return moment.duration(diff).humanize();
             },
             ...mapState([
                 'lastLogin',
