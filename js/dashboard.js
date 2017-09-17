@@ -13,7 +13,6 @@ Vue.http.headers.common['X-CSRFToken'] = Vue.cookie.get('csrftoken');
 
 var Header = require('./components/Header.vue');
 var OverviewBox = require('./components/OverviewBox.vue');
-var MessageBox = require('./components/MessageBox.vue');
 var TransmissionsTable = require('./components/TransmissionsTable.vue');
 
 
@@ -39,7 +38,9 @@ window.onload = () => {
             },
             remove(state, id) {
                 const byId = tx => tx.id != id;
-                state.transmissions = state.transmissions.filter(byId);
+                if (!state.searchQuery) {
+                    state.transmissions = state.transmissions.filter(byId);
+                }
                 state.cachedTransmissions = state.cachedTransmissions.filter(byId);
             },
             updateTransmissions(state, transmissions) {
@@ -97,12 +98,6 @@ window.onload = () => {
     new Vue({
         el :'#overview-box',
         render: h => h(OverviewBox),
-        store,
-    });
-
-    new Vue({
-        el: '#message-box',
-        render: h => h(MessageBox),
         store,
     });
 

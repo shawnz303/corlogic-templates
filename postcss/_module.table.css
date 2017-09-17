@@ -6,8 +6,8 @@
 .table-items { display: flex; }
 .table-item { position: relative; min-width: 88px; text-align: left; color: #7f8fa4; padding: 0 30px 0; }
 .table-item--lg { width: 24%; }
-.table-item--md { width: 12%; }
-.table-item--sm { width: 20%; }
+.table-item--md { width: 20%; }
+.table-item--sm { width: 12%; }
 .table-item--center { text-align: center; display: flex; justify-content: space-between; align-items: center; }
 
 .table .table__head .table-item h5 { font-weight: 600; color: #7f8fa4; display: inline; }

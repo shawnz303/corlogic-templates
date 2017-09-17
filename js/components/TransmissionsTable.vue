@@ -21,19 +21,19 @@
                                 <h5>Transmission Type</h5>
                             </div><!-- /.table-item table-item-/-lg -->
 
-                            <div class="table-item table-item--md">
+                            <div class="table-item table-item--lg">
                                 <h5>Date of Birth</h5>
-                            </div><!-- /.table-item table-item-/-md -->
+                            </div><!-- /.table-item table-item-/-lg -->
 
-                            <div class="table-item table-item--md">
+                            <div class="table-item table-item--lg">
                                 <h5>Device</h5>
-                            </div><!-- /.table-item table-item-/-md -->
+                            </div><!-- /.table-item table-item-/-lg -->
 
-                            <div class="table-item table-item--md">
-                                <h5>Created</h5>
-                            </div><!-- /.table-item table-item-/-md -->
+                            <div class="table-item table-item--lg">
+                                <h5>Date of Service</h5>
+                            </div><!-- /.table-item table-item-/-lg -->
 
-                            <div class="table-item table-item--md">
+                            <div class="table-item table-item--lg">
                                 <a href="#">
 
                                     <h5>Alerts</h5>
@@ -45,10 +45,14 @@
                                     </i>
                                 </a>
 
-                            </div><!-- /.table-item table-item-/-md -->
+                            </div><!-- /.table-item table-item-/-lg -->
+
+                            <div class="table-item table-item--lg">
+                                <h5>Vendor</h5>
+                            </div><!-- /.table-item table-item-/-lg -->
 
                             <div class="table-item table-item--md">
-                                <h5>Vendor</h5>
+
                             </div><!-- /.table-item table-item-/-md -->
 
                             <div class="table-item table-item--sm">
