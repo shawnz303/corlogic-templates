@@ -15,3 +15,33 @@
 \* ------------------------------------------------------------ */
 
 .tile--empty { max-width: 440px; width: 440px; min-width: 440px; }
+
+/* ------------------------------------------------------------ *\
+	Tile Full Width
+\* ------------------------------------------------------------ */
+
+.tile--full-width { max-width: 100%; min-width: 100%; }
+
+/* ------------------------------------------------------------ *\
+	Tile List
+\* ------------------------------------------------------------ */
+
+.tile--list { margin-top: 0; min-width: 100%; width: 100%; }
+.tile--list .tile__head { margin-bottom: 15px; }
+.tile--list .tile__head h4 { font-size: 16px; }
+.tile--list + .tile--list { margin-top: 16px; }
+
+/* ------------------------------------------------------------ *\
+	Tile Grey
+\* ------------------------------------------------------------ */
+
+.tile-grey { background: #dfe2e5; border-radius: 4px; margin-bottom: 13px; }
+.tile-grey .tile__inner { padding: 15px 30px 7px; }
+
+.tile-grey .tile__head { margin-left: -11px; }
+.tile-grey .tile__head h4 { font-weight: 400; margin-bottom: 0; line-height: 1.22; }
+
+.tile-grey .tile__head span { font-size: 12px; color: #7f8fa4; }
+.tile-grey .tile__head a { text-align: right; float: right; }
+
+

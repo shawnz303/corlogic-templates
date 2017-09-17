@@ -12,3 +12,15 @@
 
 .service .service__head h1 { font-weight: 400; color: #354052; font-family: $font-family-sourceSansPro; margin-bottom: 0px; }
 .service .service__head h6 { font-family: $font-family-sourceSansPro; font-weight: 600; color: #7f8fa4; }
+
+/* ------------------------------------------------------------ *\
+	Setvice List
+\* ------------------------------------------------------------ */
+
+.service--list .service__inner { padding-left: 0; }
+.service--list + .service--list { margin-left: 59px; }
+
+@media ( max-width: 1566px ) {
+
+	.service--list .service__head--width h1 { display:inline-block; white-space: nowrap; overflow:hidden !important; text-overflow: ellipsis; width: 300px; }
+}

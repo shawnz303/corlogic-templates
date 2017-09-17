@@ -2,4 +2,10 @@
 	Widget
 \* ------------------------------------------------------------ */
 
-.widgets { list-style: none outside none; }
+.widget-search { padding: 18px 30px 54px; }
+.widget-search .widget__head { color: #7f8fa4; font-weight: 600; margin-bottom: 4px; }
+.widget-search .widget__content { position: relative; }
+
+
+.widget-search--grey { background: #fafbfc; border-top: 1px solid #e6eaee; border-bottom: 1px solid #e6eaee; }
+.widget-search:last-child { border-bottom: 1px solid #e6eaee; }

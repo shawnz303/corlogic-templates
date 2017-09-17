@@ -3,3 +3,13 @@
 \* ------------------------------------------------------------ */
 
 .main { display: flex; }
+
+.main .main__aside { background: #fff; max-width: 25%; border-left: 1px solid #dfe2e5; margin-left: auto; }
+.main .main__head { padding: 25px 30px 2px; }
+.main .main__head h3 { font-weight: 400; }
+
+/* ------------------------------------------------------------ *\
+	Main Detail
+\* ------------------------------------------------------------ */
+
+.main--detail .main__aside { width: 25%; background: transparent; border: none; margin-top: 32px; }

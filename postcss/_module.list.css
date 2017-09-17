@@ -3,3 +3,11 @@
 \* ------------------------------------------------------------ */
 
 [class^="list-"] { list-style: none outside none; }
+
+/* List Leads */
+
+.list-leads li { display: flex; justify-content: space-between; }
+
+/* List Checks */
+
+.list-checks { max-width: 150px; }

@@ -6,17 +6,34 @@ Vue.use(require('vue-event-bus'));
 Vue.use(require('vue-moment'));
 Vue.use(require('vue-resource'));
 
+var VueRouter = require('vue-router');
+Vue.use(VueRouter);
+
 var Vuex = require('vuex');
 Vue.use(Vuex);
 
 Vue.http.headers.common['X-CSRFToken'] = Vue.cookie.get('csrftoken');
 
+var Content = require('./components/Content.vue');
 var Header = require('./components/Header.vue');
-var OverviewBox = require('./components/OverviewBox.vue');
-var TransmissionsTable = require('./components/TransmissionsTable.vue');
+var PatientDetail = require('./components/PatientDetail.vue');
+var PatientList = require('./components/PatientList.vue');
+var Transmissions = require('./components/Transmissions.vue');
 
 
 window.onload = () => {
+
+    const routes = [
+        { path: '/patient-detail', component: PatientDetail },
+        { path: '/patient-list', component: PatientList },
+        { path: '/', component: Transmissions },
+    ];
+    const router = new VueRouter({
+        routes,
+        scrollBehavior(to, from, savedPosition) {
+            return savedPosition ? savedPosition : { x: 0, y: 0 };
+        },
+    });
 
     const store = new Vuex.Store({
         state: {
@@ -96,14 +113,9 @@ window.onload = () => {
     });
 
     new Vue({
-        el :'#overview-box',
-        render: h => h(OverviewBox),
-        store,
-    });
-
-    new Vue({
-        el: '#transmissions-table',
-        render: h => h(TransmissionsTable),
+        el: '#content',
+        render: h => h(Content),
+        router,
         store,
     });
 

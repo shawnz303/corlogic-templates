@@ -9,3 +9,14 @@
 .box .box__image p { font-size: 16px; }
 .box .box__head { position: relative; margin-bottom: 14px; }
 .box .box__head i { position: absolute; top: -22px; left: 30px; }
+
+/* ------------------------------------------------------------ *\
+	Box Notes
+\* ------------------------------------------------------------ */
+
+.box--notes { background: #fff; border-radius: 4px; }
+.box--notes .box__body ul + ul { margin-left: 40px; }
+.box--notes .box__inner { padding: 9px 13px; }
+.box--notes .box__head { margin-bottom: 2px; }
+.box--notes + .box--notes { margin-top: 13px; }
+

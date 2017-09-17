@@ -6,3 +6,28 @@
 .search .search__field { border: none; color: #354052; font-weight: 600; max-width: 460px; width: 460px; }
 .search .search__field::-webkit-input-placeholder { opacity: .5; }
 .search .search__btn { border: none; background: #fff; }
+
+/* ------------------------------------------------------------ *\
+	Search Name
+\* ------------------------------------------------------------ */
+
+.search--name { width: 340px; max-width: 340px; }
+.search--name .search__inner { position: relative; }
+.search--name .search__btn { margin-right: 11px; }
+.search--name .search__field { width: 340px; max-width: 340px; }
+
+@media ( max-width: 1530px ) {
+
+	.search--name { width: 265px; max-width: 265px; }
+}
+
+/* ------------------------------------------------------------ *\
+	Search Box
+\* ------------------------------------------------------------ */
+
+.search-box { margin-bottom: 8px; }
+.search-box .search__inner { display: flex; max-width: 83px; }
+.search-box .search__field { max-width: 68px; border: none; background: #fff; border-radius: 0; padding-right: 4px; }
+.search-box .search__btn { border: none; background: #fff; }
+
+
