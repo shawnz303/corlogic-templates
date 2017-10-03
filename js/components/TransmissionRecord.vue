@@ -1,6 +1,12 @@
 <template>
     <div class="table__group">
         <div class="table-items">
+            <div class="table-item table-item--sm table-item--fluid">
+                <h5>
+                    <a :href="reportDoc" target="_blank">Report</a>
+                </h5>
+            </div><!-- /.table-item table-item-/-sm table-item-/-fluid -->
+
             <div class="table-item table-item--lg table-item--fluid">
                 <h5>
                     <router-link to="/patient-detail">
@@ -10,11 +16,14 @@
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
             <div class="table-item table-item--lg table-item--fluid">
-                <h5>{{ sessionType }}</h5>
+                <p>{{ dob | moment('MM/DD/YYYY') }}</p>
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
             <div class="table-item table-item--lg table-item--fluid">
-                <p>{{ dob | moment('MM/DD/YYYY') }}</p>
+                <ul>
+                    <li>{{ sessionType }}</li>
+                    <li>{{ sessionTrigger }}</li>
+                </ul>
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
             <div class="table-item table-item--lg table-item--fluid">
@@ -80,7 +89,9 @@
             'manufacturer',
             'model',
             'name',
+            'reportDoc',
             'sessionDate',
+            'sessionTrigger',
             'sessionType',
         ],
         data: () => ({

@@ -3,7 +3,6 @@
         <div class="profile">
             <div class="profile__head">
                 <h4>{{ dataSource }}</h4>
-                <div class="btn" @click="refresh">Refresh</div>
                 <div class="btn" @click="clearSearch" v-if="searchQuery">
                     Clear Search
                 </div>
@@ -13,16 +12,19 @@
                 <div class="table">
                     <div class="table__head">
                         <div class="table-items">
+                            <div class="table-item table-item--sm">
+                            </div><!-- /.table-item table-item-/-sm -->
+
                             <div class="table-item table-item--lg">
                                 <h5>Name of Patient</h5>
                             </div><!-- /.table-item table-item-/-lg -->
 
                             <div class="table-item table-item--lg">
-                                <h5>Transmission Type</h5>
+                                <h5>Date of Birth</h5>
                             </div><!-- /.table-item table-item-/-lg -->
 
                             <div class="table-item table-item--lg">
-                                <h5>Date of Birth</h5>
+                                <h5>Session Info</h5>
                             </div><!-- /.table-item table-item-/-lg -->
 
                             <div class="table-item table-item--lg">
@@ -72,8 +74,10 @@
                             :manufacturer="t.patient.power_source.manufacturer"
                             :model="t.patient.power_source.model_id"
                             :name="t.patient.name"
+                            :reportDoc="t.report_doc"
                             :sessionDate="t.session_date"
                             :sessionType="t.session_type"
+                            :sessionTrigger="t.session_trigger"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
