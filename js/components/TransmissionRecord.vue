@@ -3,7 +3,9 @@
         <div class="table-items">
             <div class="table-item table-item--sm table-item--fluid">
                 <h5>
-                    <a :href="reportDoc" target="_blank">Report</a>
+                    <a :href="reportDoc" target="_blank">
+                        <img :src="eyeImgSrc" alt="See report">
+                    </a>
                 </h5>
             </div><!-- /.table-item table-item-/-sm table-item-/-fluid -->
 
@@ -21,8 +23,8 @@
 
             <div class="table-item table-item--lg table-item--fluid">
                 <ul>
-                    <li>{{ sessionType }}</li>
-                    <li>{{ sessionTrigger }}</li>
+                    <li v-if="sessionTypeHumanized">{{ sessionTypeHumanized }}</li>
+                    <li v-if="sessionTrigger">{{ sessionTrigger }}</li>
                 </ul>
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
@@ -79,6 +81,7 @@
 
 <script>
     import { alertsInfo } from './alerts';
+    import { sessionTypesInfo } from './sessions.js';
 
     export default {
         props: [
@@ -96,7 +99,13 @@
         ],
         data: () => ({
             archiving: false,
+            eyeImgSrc,
         }),
+        computed: {
+            sessionTypeHumanized() {
+                return sessionTypesInfo[this.sessionType];
+            },
+        },
         methods: {
             alertColor(alert) {
                 return alertsInfo.find(elem => elem.code === alert).colour;
