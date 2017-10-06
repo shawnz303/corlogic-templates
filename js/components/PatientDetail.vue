@@ -20,7 +20,7 @@
                                     <div class="service service--list">
                                         <div class="service__inner">
                                             <div class="service__head service__head--width">
-                                                <h1>MIKE JOHNSON WILLIAM JONES</h1>
+                                                <h1></h1>
 
                                                 <h6>PATIENT NAME</h6>
                                             </div><!-- /.service__head -->
@@ -30,7 +30,7 @@
                                     <div class="service service--list">
                                         <div class="service__inner">
                                             <div class="service__head">
-                                                <h1>SJM</h1>
+                                                <h1></h1>
 
                                                 <h6>VENDOR</h6>
                                             </div><!-- /.service__head -->
@@ -40,7 +40,7 @@
                                     <div class="service service--list">
                                         <div class="service__inner">
                                             <div class="service__head">
-                                                <h1>PM2210</h1>
+                                                <h1></h1>
 
                                                 <h6>DEVICE</h6>
                                             </div><!-- /.service__head -->
@@ -73,53 +73,7 @@
                                 </div><!-- /.table__head -->
 
                                 <div class="table__body">
-                                    <div class="table__group">
-                                        <div class="table-items">
-                                            <div class="table-item table-item--lg">
-                                                <h5>01/14/2017</h5>
-                                            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
-                                            <div class="table-item table-item--lg">
-                                                <p>Remote</p>
-                                            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-
-                                            <div class="table-item table-item--lg">
-                                                <p>5 ATAF </p>
-                                            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-                                        </div><!-- /.table-items -->
-                                    </div><!-- /.table__group -->
-
-                                    <div class="table__group">
-                                        <div class="table-items">
-                                            <div class="table-item table-item--lg">
-                                                <h5>01/14/2017</h5>
-                                            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-                                            <div class="table-item table-item--lg">
-                                                <p>Remote</p>
-                                            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-
-                                            <div class="table-item table-item--lg">
-                                                <p>5 ATAF </p>
-                                            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-                                        </div><!-- /.table-items -->
-                                    </div><!-- /.table__group -->
-
-                                    <div class="table__group">
-                                        <div class="table-items">
-                                            <div class="table-item table-item--lg">
-                                                <h5>01/14/2017</h5>
-                                            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-                                            <div class="table-item table-item--lg">
-                                                <p>Remote</p>
-                                            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-
-                                            <div class="table-item table-item--lg">
-                                                <p>5 ATAF </p>
-                                            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
-                                        </div><!-- /.table-items -->
-                                    </div><!-- /.table__group -->
                                 </div><!-- /.table__body -->
                             </div><!-- /.table -->
                         </div><!-- /.profile__body -->
@@ -133,7 +87,7 @@
                         <div class="tile__head">
                             <h4>Patient Notes</h4>
 
-                            <span>Last note: Tuesday, June 20th 2017</span>
+                            <span>Last note: </span>
 
                             <a href="#">
                                 <i class="ico-export">
@@ -147,7 +101,7 @@
                         <div class="tile__content">
                             <div class="box box--notes">
                                 <div class="box__inner">
-                                    <p>Anti-coagulated; Atrial lead noted on 4/9; Next visit 6/5/17</p>
+                                    <p></p>
                                 </div><!-- /.box__inner -->
                             </div><!-- /.box -->
 
