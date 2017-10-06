@@ -111,7 +111,7 @@
                                         <ul class="list-checks">
                                             <li>
                                                 <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox_terms1" checked/>
+                                                    <input type="checkbox" id="checkbox_terms1"/>
 
                                                     <label for="checkbox_terms1" class="form-label">Anti-coagulated</label>
                                                 </div><!-- /.checkbox -->
@@ -148,7 +148,7 @@
 
                                             <li>
                                                 <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox_terms3" checked />
+                                                    <input type="checkbox" id="checkbox_terms3"/>
 
                                                     <label for="checkbox_terms3" class="form-label">Presence of cardiac pacemaker</label>
                                                 </div><!-- /.checkbox -->
@@ -156,7 +156,7 @@
 
                                             <li>
                                                 <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox_terms4" checked />
+                                                    <input type="checkbox" id="checkbox_terms4"/>
 
                                                     <label for="checkbox_terms4" class="form-label">Palpitations</label>
                                                 </div><!-- /.checkbox -->
@@ -164,7 +164,7 @@
 
                                             <li>
                                                 <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox_terms5" checked />
+                                                    <input type="checkbox" id="checkbox_terms5"/>
 
                                                     <label for="checkbox_terms5" class="form-label">Left posterior Fasicular block</label>
                                                 </div><!-- /.checkbox -->
