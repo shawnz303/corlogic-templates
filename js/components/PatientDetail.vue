@@ -158,7 +158,7 @@
                                                 <div class="checkbox">
                                                     <input type="checkbox" id="checkbox_terms4"/>
 
-                                                    <label for="checkbox_terms4" class="form-label">Palpitations</label>
+                                                    <label for="checkbox_terms4" class="form-label">Presence of defibrillator</label>
                                                 </div><!-- /.checkbox -->
                                             </li>
 
@@ -166,7 +166,7 @@
                                                 <div class="checkbox">
                                                     <input type="checkbox" id="checkbox_terms5"/>
 
-                                                    <label for="checkbox_terms5" class="form-label">Left posterior Fasicular block</label>
+                                                    <label for="checkbox_terms5" class="form-label">Heart Failure</label>
                                                 </div><!-- /.checkbox -->
                                             </li>
                                         </ul><!-- /.list-checks -->
