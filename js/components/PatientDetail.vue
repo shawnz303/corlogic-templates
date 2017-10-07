@@ -11,7 +11,7 @@
                                 <div class="tile__entry">
                                     <h4>Patient Information</h4>
 
-                                    <span>Last Session: Tuesday, June 20th 2017</span>
+                                    <span></span>
                                 </div><!-- /.tile__entry -->
                             </div><!-- /.tile__head -->
 
@@ -189,19 +189,19 @@
                                 <li>
                                     <h5>Lead Name</h5>
 
-                                    <span>XXXXXXX</span>
+                                    <span></span>
                                 </li>
 
                                 <li>
                                     <h5>Serial #</h5>
 
-                                    <span>XXXXXXXXXX</span>
+                                    <span></span>
                                 </li>
 
                                 <li>
                                     <h5>Manufacturer</h5>
 
-                                    <span>XXXXXXX</span>
+                                    <span></span>
                                 </li>
 
                                 <li>
@@ -225,19 +225,19 @@
                                 <li>
                                     <h5>Lead Name</h5>
 
-                                    <span>XXXXXXX</span>
+                                    <span></span>
                                 </li>
 
                                 <li>
                                     <h5>Serial #</h5>
 
-                                    <span>XXXXXXXXXX</span>
+                                    <span></span>
                                 </li>
 
                                 <li>
                                     <h5>Implant Date</h5>
 
-                                    <span>XX/XX/XX</span>
+                                    <span></span>
                                 </li>
                             </ul><!-- /.list-leads -->
                         </div><!-- /.tile__content -->
@@ -255,19 +255,19 @@
                                 <li>
                                     <h5>Lead Name</h5>
 
-                                    <span>XXXXXXX</span>
+                                    <span></span>
                                 </li>
 
                                 <li>
                                     <h5>Serial #</h5>
 
-                                    <span>XXXXXXXXXX</span>
+                                    <span></span>
                                 </li>
 
                                 <li>
                                     <h5>Implant Date</h5>
 
-                                    <span>XX/XX/XX</span>
+                                    <span></span>
                                 </li>
                             </ul><!-- /.list-leads -->
                         </div><!-- /.tile__content -->
