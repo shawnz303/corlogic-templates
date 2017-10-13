@@ -1,7 +1,7 @@
 export const dxCodes = {
     'I44.5': 'Left posterior fasicular block',
     'I49.01': 'Ventricular fibrillation',
-    'I49.02': 'Ventricular flutteri',
+    'I49.02': 'Ventricular flutter',
     'I50.9': 'Heart failure, unspecified',
     'I50.22': 'Chronic systolic (congestive) heart failure',
     'I44.1': 'Atrioventricular block, second degree',
