@@ -8,6 +8,8 @@
 	 		appearance: none;
 }
 
+.btn a { text-decoration: none }
+
 
 /*  Button Block  */
 .btn-block { display: block; padding-left: 0; padding-right: 0; width: 100%; }

@@ -16,6 +16,7 @@ Vue.http.headers.common['X-CSRFToken'] = Vue.cookie.get('csrftoken');
 
 var Content = require('./components/Content.vue');
 var Header = require('./components/Header.vue');
+var BillingPage = require('./components/BillingPage.vue');
 var PatientDetail = require('./components/PatientDetail.vue');
 var PatientList = require('./components/PatientList.vue');
 var Transmissions = require('./components/Transmissions.vue');
@@ -24,6 +25,7 @@ var Transmissions = require('./components/Transmissions.vue');
 window.onload = () => {
 
     const routes = [
+        { path: '/billing-page', component: BillingPage },
         { path: '/patient-detail', component: PatientDetail },
         { path: '/patient-list', component: PatientList },
         { path: '/', component: Transmissions },
@@ -41,6 +43,7 @@ window.onload = () => {
             transmissions: [],
             cachedTransmissions: [],
             searchQuery: '',
+            billings: [],
         },
         mutations: {
             updateLogin(state, lastLogin) {
@@ -63,6 +66,9 @@ window.onload = () => {
             updateTransmissions(state, transmissions) {
                 state.transmissions = transmissions;
             },
+            updateBillings(state, billings) {
+                state.billings = billings;
+            },
             cacheTransmissions(state) {
                 state.cachedTransmissions = state.transmissions;
             },
@@ -75,9 +81,20 @@ window.onload = () => {
                 });
             },
             archive({ commit }, id) {
-                const url = `/api/v1/reports/transmissions/${id}/archive/`;
-                return Vue.http.put(url).then(res => {
+                const url = `/api/v1/reports/transmissions/${id}/`;
+                const body = {archived: true};
+                return Vue.http.patch(url, body).then(res => {
                     commit('remove', id);
+                });
+            },
+            archiveBillings({ dispatch, state }) {
+                const ids = state.billings.map(b => b.pk);
+                Promise.map(ids, id => {
+                    const url = `/api/v1/reports/billings/${id}/`;
+                    const body = {archived: true};
+                    return Vue.http.patch(url, body);
+                }).then(res => {
+                    dispatch('refreshBillings');
                 });
             },
             refresh({ commit }) {
@@ -87,6 +104,16 @@ window.onload = () => {
                     commit('updateTransmissions', res.body);
                     commit('cacheTransmissions');
                 });
+            },
+            refreshBillings({ commit }) {
+                const url = '/api/v1/reports/billings/';
+                return Vue.http.get(url).then(res => {
+                    commit('updateBillings', res.body);
+                });
+            },
+            updateBilling({ commit }, { id, body }) {
+                const url = `/api/v1/reports/billings/${id}/`;
+                return Vue.http.patch(url, body);
             },
             search({ commit }, searchQuery) {
                 if (!searchQuery) {

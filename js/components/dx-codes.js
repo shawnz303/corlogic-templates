@@ -1,0 +1,17 @@
+export const dxCodes = {
+    'I44.5': 'Left posterior fasicular block',
+    'I49.01': 'Ventricular fibrillation',
+    'I49.02': 'Ventricular flutteri',
+    'I50.9': 'Heart failure, unspecified',
+    'I50.22': 'Chronic systolic (congestive) heart failure',
+    'I44.1': 'Atrioventricular block, second degree',
+    'I44.2': 'Atrioventricular block, complete',
+    'I44.39': 'Other atrioventricular block',
+    'I48.91': 'Unspecified atrial fibrillation',
+    'I46.9': 'Cardiac arrest, cause unspecified',
+    'Z95.810': 'Presence of automatic (implantable) cardiac defibrillator',
+    'Z95.0': 'Presence of cardiac pacemaker',
+    'R55': 'Syncope and collapse',
+    'R00.2': 'Palpitations',
+    'R00.1': 'Bradycardia, unspecified',
+};

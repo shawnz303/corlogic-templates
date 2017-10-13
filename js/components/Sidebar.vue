@@ -7,17 +7,22 @@
 
             <div class="sidebar__nav">
                 <ul>
-                    <li class="active">
+                    <li>
                         <router-link to="/">
                             <i class="ico-home"></i>
                             <span>Dashboard</span>
                         </router-link>
                     </li>
-
                     <li>
                         <router-link to="/patient-list">
                             <i class="ico-patients"></i>
                             <span>Patient List</span>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/billing-page">
+                            <i class="ico-billing"></i>
+                            <span>Billing</span>
                         </router-link>
                     </li>
                 </ul>
