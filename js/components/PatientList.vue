@@ -17,7 +17,13 @@
                                         <h5>Name</h5>
                                         <i class="ico-arrow-dropdown table__head--actionable">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
-                                                <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
+                                                <path
+                                                    fill="#354052"
+                                                    fill-rule="evenodd"
+                                                    d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z"
+                                                    opacity=".5"
+                                                    :transform="arrowTransform(sortOrderName)"
+                                                />
                                             </svg>
                                         </i>
                                     </div><!-- /.table-item table-item-/-lg -->
@@ -30,7 +36,13 @@
                                         <h5>Vendor</h5>
                                         <i class="ico-arrow-dropdown table__head--actionable">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
-                                                <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
+                                                <path
+                                                    fill="#354052"
+                                                    fill-rule="evenodd"
+                                                    d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z"
+                                                    opacity=".5"
+                                                    :transform="arrowTransform(sortOrderVendor)"/>
+                                                />
                                             </svg>
                                         </i>
                                     </div><!-- /.table-item table-item-/-md -->
@@ -39,7 +51,13 @@
                                         <h5>Device</h5>
                                         <i class="ico-arrow-dropdown table__head--actionable">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
-                                                <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
+                                                <path
+                                                    fill="#354052"
+                                                    fill-rule="evenodd"
+                                                    d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z"
+                                                    opacity=".5"
+                                                    :transform="arrowTransform(sortOrderDevice)"/>
+                                                />
                                             </svg>
                                         </i>
                                     </div><!-- /.table-item table-item-/-md -->
@@ -189,6 +207,10 @@
                         vendor1 < vendor2 ? -1 : vendor1 == vendor2 ? 0 : 1
                     ) * sortOrder;
                 })(this.sortOrderVendor));
+            },
+            arrowTransform(sortOrder) {
+                const rotation = -sortOrder * 90 + 90;
+                return `rotate(${rotation} 3.5 2)`;
             },
         },
         mounted() {
