@@ -15,14 +15,11 @@
                                 <div class="table-items">
                                     <div class="table-item table-item--lg" @click="sortByName">
                                         <h5>Name</h5>
-
-                                        <a href="#">
-                                            <i class="ico-arrow-dropdown">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
-                                                    <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
-                                                </svg>
-                                            </i>
-                                        </a>
+                                        <i class="ico-arrow-dropdown table__head--actionable">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
+                                                <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
+                                            </svg>
+                                        </i>
                                     </div><!-- /.table-item table-item-/-lg -->
 
                                     <div class="table-item table-item--lg">
@@ -31,18 +28,20 @@
 
                                     <div class="table-item table-item--lg" @click="sortByVendor">
                                         <h5>Vendor</h5>
-
-                                        <a href="#">
-                                            <i class="ico-arrow-dropdown">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
-                                                    <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
-                                                </svg>
-                                            </i>
-                                        </a>
+                                        <i class="ico-arrow-dropdown table__head--actionable">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
+                                                <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
+                                            </svg>
+                                        </i>
                                     </div><!-- /.table-item table-item-/-md -->
 
-                                    <div class="table-item table-item--lg">
+                                    <div class="table-item table-item--lg" @click="sortByDevice">
                                         <h5>Device</h5>
+                                        <i class="ico-arrow-dropdown table__head--actionable">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
+                                                <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
+                                            </svg>
+                                        </i>
                                     </div><!-- /.table-item table-item-/-md -->
                                 </div><!-- /.table-items -->
                             </div><!-- /.table__head -->
@@ -145,6 +144,7 @@
     export default {
         data: () => ({
             sortOrderName: -1,
+            sortOrderDevice: -1,
             sortOrderVendor: -1,
         }),
         components: {
@@ -169,6 +169,16 @@
                         lastName1 < lastName2 ? -1 : lastName1 == lastName2 ? 0 : 1
                     ) * sortOrder;
                 })(this.sortOrderName));
+            },
+            sortByDevice() {
+                this.sortOrderDevice = -this.sortOrderDevice;
+                this.$store.commit('sortPatients', (sortOrder => (a, b) => {
+                    const device1 = a.power_source.model_id;
+                    const device2 = b.power_source.model_id;
+                    return (
+                        device1 < device2 ? -1 : device1 == device2 ? 0 : 1
+                    ) * sortOrder;
+                })(this.sortOrderDevice));
             },
             sortByVendor() {
                 this.sortOrderVendor = -this.sortOrderVendor;

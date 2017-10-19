@@ -29,5 +29,6 @@
 \* ------------------------------------------------------------ */
 
 .table--patients .table__head { padding-bottom: 0; }
+.table--patients .table__head .table__head--actionable { cursor: pointer; cursor: hand; }
 .table--patients .table__head .table-item h5 { display: inline-block; padding-right: 4px; }
 .table--patients .table__head .table-item a { display: inline-block; }
