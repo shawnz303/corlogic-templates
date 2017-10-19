@@ -43,6 +43,7 @@ window.onload = () => {
             transmissions: [],
             cachedTransmissions: [],
             searchQuery: '',
+            patients: [],
             billings: [],
         },
         mutations: {
@@ -65,6 +66,12 @@ window.onload = () => {
             },
             updateTransmissions(state, transmissions) {
                 state.transmissions = transmissions;
+            },
+            updatePatients(state, patients) {
+                state.patients = patients;
+            },
+            sortPatients(state, compareFunction) {
+                state.patients.sort(compareFunction);
             },
             updateBillings(state, billings) {
                 state.billings = billings;
@@ -103,6 +110,12 @@ window.onload = () => {
                 return Vue.http.get(url).then(res => {
                     commit('updateTransmissions', res.body);
                     commit('cacheTransmissions');
+                });
+            },
+            refreshPatients({ commit }) {
+                const url = '/api/v1/medical/patients/';
+                return Vue.http.get(url).then(res => {
+                    commit('updatePatients', res.body);
                 });
             },
             refreshBillings({ commit }) {

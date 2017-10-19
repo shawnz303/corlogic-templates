@@ -13,7 +13,7 @@
                         <div class="table table--patients table--list">
                             <div class="table__head">
                                 <div class="table-items">
-                                    <div class="table-item table-item--lg">
+                                    <div class="table-item table-item--lg" @click="sortByName">
                                         <h5>Name</h5>
 
                                         <a href="#">
@@ -29,7 +29,7 @@
                                         <h5>DOB</h5>
                                     </div><!-- /.table-item table-item-/-md -->
 
-                                    <div class="table-item table-item--lg">
+                                    <div class="table-item table-item--lg" @click="sortByVendor">
                                         <h5>Vendor</h5>
 
                                         <a href="#">
@@ -48,7 +48,14 @@
                             </div><!-- /.table__head -->
 
                             <div class="table__body">
-                                
+                                <patient-record
+                                    v-for="p in patients"
+
+                                    :dob="p.dob"
+                                    :manufacturer="p.power_source.manufacturer"
+                                    :model="p.power_source.model_id"
+                                    :name="p.name"
+                                />
                             </div><!-- /.table__body -->
                         </div><!-- /.table -->
                     </div><!-- /.profile__body -->
@@ -131,11 +138,51 @@
 </template>
 
 <script>
+    import { mapActions, mapState } from 'vuex';
+    import PatientRecord from './PatientRecord.vue';
     import Sidebar from './Sidebar.vue';
 
     export default {
+        data: () => ({
+            sortOrderName: -1,
+            sortOrderVendor: -1,
+        }),
         components: {
+            patientRecord: PatientRecord,
             sidebar: Sidebar,
+        },
+        computed: {
+            ...mapState([
+                'patients',
+            ]),
+        },
+        methods: {
+            ...mapActions([
+                'refreshPatients',
+            ]),
+            sortByName() {
+                this.sortOrderName = -this.sortOrderName;
+                this.$store.commit('sortPatients', (sortOrder => (a, b) => {
+                    const lastName1 = a.name.split(' ').slice(-1)[0].toLowerCase();
+                    const lastName2 = b.name.split(' ').slice(-1)[0].toLowerCase();
+                    return (
+                        lastName1 < lastName2 ? -1 : lastName1 == lastName2 ? 0 : 1
+                    ) * sortOrder;
+                })(this.sortOrderName));
+            },
+            sortByVendor() {
+                this.sortOrderVendor = -this.sortOrderVendor;
+                this.$store.commit('sortPatients', (sortOrder => (a, b) => {
+                    const vendor1 = a.power_source.manufacturer;
+                    const vendor2 = b.power_source.manufacturer;
+                    return (
+                        vendor1 < vendor2 ? -1 : vendor1 == vendor2 ? 0 : 1
+                    ) * sortOrder;
+                })(this.sortOrderVendor));
+            },
+        },
+        mounted() {
+            this.refreshPatients();
         },
     };
 </script>
