@@ -2,7 +2,9 @@
     <div class="table__group">
       <div class="table-items">
           <div class="table-item table-item--lg">
-              <h5>{{ name }}</h5>
+              <router-link to="/patient-detail">
+                  <h5>{{ name }}</h5>
+              </router-link>
           </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
           <div class="table-item table-item--lg">
