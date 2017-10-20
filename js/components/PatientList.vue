@@ -22,7 +22,7 @@
                                                     fill-rule="evenodd"
                                                     d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z"
                                                     opacity=".5"
-                                                    :transform="arrowTransform(sortOrderName)"
+                                                    :transform="arrowTransform(sortOrderName, 7, 4)"
                                                 />
                                             </svg>
                                         </i>
@@ -41,7 +41,7 @@
                                                     fill-rule="evenodd"
                                                     d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z"
                                                     opacity=".5"
-                                                    :transform="arrowTransform(sortOrderVendor)"/>
+                                                    :transform="arrowTransform(sortOrderVendor, 7, 4)"/>
                                                 />
                                             </svg>
                                         </i>
@@ -56,7 +56,7 @@
                                                     fill-rule="evenodd"
                                                     d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z"
                                                     opacity=".5"
-                                                    :transform="arrowTransform(sortOrderDevice)"/>
+                                                    :transform="arrowTransform(sortOrderDevice, 7, 4)"/>
                                                 />
                                             </svg>
                                         </i>
@@ -66,7 +66,7 @@
 
                             <div class="table__body">
                                 <patient-record
-                                    v-for="p in patients"
+                                    v-for="p in filteredPatients"
 
                                     :dob="p.dob"
                                     :manufacturer="p.power_source.manufacturer"
@@ -79,83 +79,11 @@
                 </div><!-- /.profile -->
             </div><!-- /.content__body -->
         </div><!-- /.content -->
-
-        <div class="main__aside">
-            <div class="main__head">
-                <h3>Filter Patients</h3>
-            </div><!-- /.main__head -->
-
-            <div class="main__content">
-                <div class="widgets">
-                    <div class="widget-search">
-                        <div class="widget__head">
-                            <p>Search by name</p>
-                        </div><!-- /.widget__head -->
-
-                        <div class="widget__content">
-                            <div class="search search--name">
-                                <form action="" method="get">
-                                    <div class="search__inner">
-                                        <label for="search-name" class="hidden">Search</label>
-
-                                        <button type="submit" class="search__btn">
-                                            <i class="ico-search-grey"></i>
-                                        </button>
-
-                                        <input type="text" name="search-tags" id="search-names" value="" class="search__field" placeholder="e.g. Mike Jones, Barty Crouch, Marg Simpson"/>
-                                    </div><!-- /.search__inner -->
-                                </form>
-                            </div><!-- /.search -->
-                        </div><!-- /.widget__content -->
-                    </div><!-- /.widget-search -->
-
-                    <div class="widget-search widget-search--grey">
-                        <div class="widget__head">
-                            <p>Filter by Vendor</p>
-                        </div><!-- /.widget__head -->
-
-                        <div class="widget__content">
-                            <div class="search search--name">
-                                <form action="" method="get">
-                                    <div class="search__inner">
-                                        <label for="search-vendor" class="hidden">Search</label>
-
-                                        <button type="submit" class="search__btn">
-                                            <i class="ico-search-grey"></i>
-                                        </button>
-
-                                        <input type="text" name="search-vendor" id="search-vendor" value="BIO, SJM" class="search__field" placeholder="e.g. SJM, BSX, BIO"/>
-                                    </div><!-- /.search__inner -->
-                                </form>
-                            </div><!-- /.search -->
-                        </div><!-- /.widget__content -->
-                    </div><!-- /.widget-search -->
-
-                    <div class="widget-search">
-                        <div class="widget__head">
-                            <p>Filter by Device</p>
-                        </div><!-- /.widget__head -->
-
-                        <div class="widget__content">
-                            <div class="select">
-                                <select name="select-device" id="#select">
-                                    <option value="select1">Select a device</option>
-
-                                    <option value="select2">Select a device</option>
-
-                                    <option value="select3">Select a device</option>
-                                </select>
-                            </div><!-- /.select -->
-                        </div><!-- /.widget__content -->
-                    </div><!-- /.widget-search -->
-                </div><!-- /.widgets -->
-            </div><!-- /.main__content -->
-        </div><!-- /.main__aside -->
     </div><!-- main -->
 </template>
 
 <script>
-    import { mapActions, mapState } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     import PatientRecord from './PatientRecord.vue';
     import Sidebar from './Sidebar.vue';
 
@@ -170,8 +98,8 @@
             sidebar: Sidebar,
         },
         computed: {
-            ...mapState([
-                'patients',
+            ...mapGetters([
+                'filteredPatients',
             ]),
         },
         methods: {
@@ -208,9 +136,11 @@
                     ) * sortOrder;
                 })(this.sortOrderVendor));
             },
-            arrowTransform(sortOrder) {
+            arrowTransform(sortOrder, width, height) {
                 const rotation = -sortOrder * 90 + 90;
-                return `rotate(${rotation} 3.5 2)`;
+                width = width || 0;
+                height = height || 0;
+                return `rotate(${rotation} ${width/2.} ${height/2.})`;
             },
         },
         mounted() {

@@ -46,6 +46,11 @@ window.onload = () => {
             patients: [],
             billings: [],
         },
+        getters: {
+            filteredPatients(state) {
+                return state.patients;
+            },
+        },
         mutations: {
             updateLogin(state, lastLogin) {
                 state.lastLogin = lastLogin;
