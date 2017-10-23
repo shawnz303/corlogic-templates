@@ -26,7 +26,7 @@ window.onload = () => {
 
     const routes = [
         { path: '/billing-page', component: BillingPage },
-        { path: '/patient-detail', component: PatientDetail },
+        { path: '/patient-detail/:id', component: PatientDetail },
         { path: '/patient-list', component: PatientList },
         { path: '/', component: Transmissions },
     ];
@@ -44,6 +44,7 @@ window.onload = () => {
             cachedTransmissions: [],
             searchQuery: '',
             patients: [],
+            patientDetail: {},
             billings: [],
         },
         getters: {
@@ -80,6 +81,9 @@ window.onload = () => {
             },
             updateBillings(state, billings) {
                 state.billings = billings;
+            },
+            updatePatientDetail(state, patientDetail) {
+                state.patientDetail = patientDetail;
             },
             cacheTransmissions(state) {
                 state.cachedTransmissions = state.transmissions;
@@ -132,6 +136,12 @@ window.onload = () => {
             updateBilling({ commit }, { id, body }) {
                 const url = `/api/v1/reports/billings/${id}/`;
                 return Vue.http.patch(url, body);
+            },
+            updatePatientDetail({ commit }, id) {
+                const url = `/api/v1/medical/patients/${id}/`;
+                return Vue.http.get(url).then(res => {
+                    commit('updatePatientDetail', res.body);
+                });
             },
             search({ commit }, searchQuery) {
                 if (!searchQuery) {
