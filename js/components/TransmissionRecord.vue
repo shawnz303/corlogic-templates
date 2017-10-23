@@ -11,7 +11,7 @@
 
             <div class="table-item table-item--lg table-item--fluid">
                 <h5>
-                    <router-link to="/patient-detail">
+                    <router-link :to="patientDetailLink">
                         {{ name }}
                     </router-link>
                 </h5>
@@ -92,6 +92,7 @@
             'manufacturer',
             'model',
             'name',
+            'patientId',
             'reportDoc',
             'sessionDate',
             'sessionTrigger',
@@ -104,6 +105,9 @@
         computed: {
             sessionTypeHumanized() {
                 return sessionTypesInfo[this.sessionType];
+            },
+            patientDetailLink() {
+                return `/patient-detail/${this.patientId}/`;
             },
         },
         methods: {

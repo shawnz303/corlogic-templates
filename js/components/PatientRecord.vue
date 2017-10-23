@@ -2,7 +2,7 @@
     <div class="table__group">
       <div class="table-items">
           <div class="table-item table-item--lg">
-              <router-link to="/patient-detail">
+              <router-link :to="patientDetailLink">
                   <h5>{{ name }}</h5>
               </router-link>
           </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
@@ -25,10 +25,16 @@
 <script>
     export default {
         props: [
+            'id',
             'dob',
             'manufacturer',
             'model',
             'name',
         ],
+        computed: {
+            patientDetailLink() {
+                return `/patient-detail/${this.id}/`;
+            },
+        },
     };
 </script>

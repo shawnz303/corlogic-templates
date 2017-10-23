@@ -74,6 +74,7 @@
                             :manufacturer="t.patient.power_source.manufacturer"
                             :model="t.patient.power_source.model_id"
                             :name="t.patient.name"
+                            :patientId="t.patient.id"
                             :reportDoc="t.report_doc"
                             :sessionDate="t.session_date"
                             :sessionType="t.session_type"

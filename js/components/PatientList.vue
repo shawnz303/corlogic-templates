@@ -68,6 +68,7 @@
                                 <patient-record
                                     v-for="p in filteredPatients"
 
+                                    :id="p.id"
                                     :dob="p.dob"
                                     :manufacturer="p.power_source.manufacturer"
                                     :model="p.power_source.model_id"
