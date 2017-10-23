@@ -10,8 +10,7 @@
                             <div class="tile__head">
                                 <div class="tile__entry">
                                     <h4>Patient Information</h4>
-
-                                    <span></span>
+                                    <span>Last Session: {{ lastSessionDate | moment('LLLL') }}</span>
                                 </div><!-- /.tile__entry -->
                             </div><!-- /.tile__head -->
 
@@ -20,7 +19,7 @@
                                     <div class="service service--list">
                                         <div class="service__inner">
                                             <div class="service__head service__head--width">
-                                                <h1></h1>
+                                                <h1>{{ patientName }}</h1>
 
                                                 <h6>PATIENT NAME</h6>
                                             </div><!-- /.service__head -->
@@ -30,7 +29,7 @@
                                     <div class="service service--list">
                                         <div class="service__inner">
                                             <div class="service__head">
-                                                <h1></h1>
+                                                <h1>{{ vendor }}</h1>
 
                                                 <h6>VENDOR</h6>
                                             </div><!-- /.service__head -->
@@ -40,7 +39,7 @@
                                     <div class="service service--list">
                                         <div class="service__inner">
                                             <div class="service__head">
-                                                <h1></h1>
+                                                <h1>{{ device }}</h1>
 
                                                 <h6>DEVICE</h6>
                                             </div><!-- /.service__head -->
@@ -67,13 +66,29 @@
                                         </div><!-- /.table-item table-item-/-md -->
 
                                         <div class="table-item table-item--lg">
-                                            <h5>Episodes</h5>
+                                            <h5>Session Trigger</h5>
                                         </div><!-- /.table-item table-item-/-md -->
                                     </div><!-- /.table-items -->
                                 </div><!-- /.table__head -->
 
-                                <div class="table__body">
+                                <div class="table__body" v-for="tx in patientDetail.transmissions">
+                                    <div class="table__group">
+                                        <div class="table-items">
+                                            <div class="table-item table-item--lg">
+                                                <a :href="transmissionReportLink(tx.id)">
+                                                    <h5>{{ tx.session_date | moment('MM/DD/YYYY') }}</h5>
+                                                </a>
+                                            </div><!-- /.table-item table-item-/-lg -->
 
+                                            <div class="table-item table-item--lg">
+                                                <p>{{ tx.session_type }}</p>
+                                            </div><!-- /.table-item table-item-/-lg -->
+
+                                            <div class="table-item table-item--lg">
+                                                <p>{{ tx.session_trigger }}</p>
+                                            </div><!-- /.table-item table-item-/-lg -->
+                                        </div>
+                                    </div>
                                 </div><!-- /.table__body -->
                             </div><!-- /.table -->
                         </div><!-- /.profile__body -->
@@ -279,11 +294,52 @@
 </template>
 
 <script>
+    import { mapActions, mapState } from 'vuex';
     import Sidebar from './Sidebar.vue';
 
     export default {
         components: {
             sidebar: Sidebar,
+        },
+        computed: {
+            ...mapState([
+                'patientDetail',
+            ]),
+            lastSessionDate() {
+                return (
+                    this.patientDetail.transmissions &&
+                    this.patientDetail.transmissions.length > 0
+                ) ? this.patientDetail.transmissions[0].session_date : '--';
+            },
+            device() {
+                return (
+                    this.patientDetail.power_source &&
+                    this.patientDetail.power_source.model_id
+                );
+            },
+            patientName() {
+                return (
+                    this.patientDetail.name &&
+                    this.patientDetail.name.trim().toUpperCase()
+                );
+            },
+            vendor() {
+                return (
+                    this.patientDetail.power_source &&
+                    this.patientDetail.power_source.manufacturer
+                );
+            },
+        },
+        methods: {
+            ...mapActions([
+                'updatePatientDetail',
+            ]),
+            transmissionReportLink(txId) {
+                return `/api/v1/reports/transmissions/${txId}/full-report/`;
+            },
+        },
+        created() {
+            this.updatePatientDetail(this.$route.params.id);
         },
     };
 </script>
