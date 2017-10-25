@@ -8,10 +8,45 @@
                     <div class="tile tile--full-width">
                         <div class="tile__inner">
                             <div class="tile__head">
+
                                 <div class="tile__entry">
                                     <h4>Patient Information</h4>
                                     <span>Last Session: {{ lastSessionDate | moment('LLLL') }}</span>
                                 </div><!-- /.tile__entry -->
+
+                                <div class="tile__entry">
+                                    <label for="physician">Physician</label>
+                                    <select id="physician" v-model="physicianSelection">
+                                        <option :selected="!physician" value>
+                                            (None)
+                                        </option>
+                                        <option
+                                            v-for="p of physicians"
+                                            :selected="physician === p.id"
+                                            :value="p.id"
+                                        >
+                                            {{ p.name }}
+                                        </option>
+                                    </select>
+                                </div><!-- /.tile__entry -->
+
+                                <div class="tile__entry">
+                                    <label for="mrn">MRN/Chart #</label>
+                                    <input
+                                        id="mrn"
+                                        ref="mrn"
+                                        maxlength="10"
+                                        size="12"
+                                        type="text"
+                                        v-if="mrnEdit"
+                                        @blur="disableMrnEdit"
+                                        :value="patientDetail.mrn"
+                                    >
+                                    <span v-else @click="enableMrnEdit">
+                                        {{ patientDetail.mrn || "(Not set)"}}
+                                    </span>
+                                </div><!-- /.tile__entry -->
+
                             </div><!-- /.tile__head -->
 
                             <div class="tile__content">
@@ -71,7 +106,7 @@
                                     </div><!-- /.table-items -->
                                 </div><!-- /.table__head -->
 
-                                <div class="table__body" v-for="tx in patientDetail.transmissions">
+                                <div class="table__body" v-for="tx of patientDetail.transmissions">
                                     <div class="table__group">
                                         <div class="table-items">
                                             <div class="table-item table-item--lg">
@@ -81,7 +116,7 @@
                                             </div><!-- /.table-item table-item-/-lg -->
 
                                             <div class="table-item table-item--lg">
-                                                <p>{{ tx.session_type }}</p>
+                                                <p>{{ sessionType(tx.session_type) }}</p>
                                             </div><!-- /.table-item table-item-/-lg -->
 
                                             <div class="table-item table-item--lg">
@@ -102,7 +137,7 @@
                         <div class="tile__head">
                             <h4>Patient Notes</h4>
 
-                            <span>Last note: </span>
+                            <span>Last note:</span>
 
                             <a href="#">
                                 <i class="ico-export">
@@ -116,7 +151,7 @@
                         <div class="tile__content">
                             <div class="box box--notes">
                                 <div class="box__inner">
-                                    <p></p>
+                                    <p>{{ lastNote }}</p>
                                 </div><!-- /.box__inner -->
                             </div><!-- /.box -->
 
@@ -140,55 +175,10 @@
                                                 </div><!-- /.checkbox -->
                                             </li>
                                         </ul><!-- /.list-checks -->
-
-                                        <ul class="list-checks">
-                                            <li>
-                                                <div class="search-box">
-                                                    <form action="" method="get">
-                                                        <div class="search__inner">
-                                                            <label for="q" class="hidden">Search</label>
-
-                                                            <input type="text" name="q" id="q" value="" class="search__field" placeholder="DX Codes"/>
-
-                                                            <button type="submit" class="search__btn">
-                                                                <i class="ico-search">
-                                                                <path fill="#CED0DA" fill-rule="evenodd" d="M9.222 3.033a4.376 4.376 0 1 0-6.19 6.19 4.376 4.376 0 1 0 6.19-6.19m4.552 10.741a.877.877 0 0 1-1.239 0L9.78 11.017c-2.4 1.794-5.804 1.624-7.984-.557a6.126 6.126 0 0 1 0-8.665 6.126 6.126 0 0 1 8.665 0c2.181 2.18 2.351 5.584.557 7.984l2.757 2.757a.876.876 0 0 1 0 1.238"/>
-                                                                    </svg>
-                                                                </i>
-                                                            </button>
-                                                        </div><!-- /.search__inner -->
-                                                    </form>
-                                            </div><!-- /.search -->
-                                            </li>
-
-                                            <li>
-                                                <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox_terms3"/>
-
-                                                    <label for="checkbox_terms3" class="form-label">Presence of cardiac pacemaker</label>
-                                                </div><!-- /.checkbox -->
-                                            </li>
-
-                                            <li>
-                                                <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox_terms4"/>
-
-                                                    <label for="checkbox_terms4" class="form-label">Presence of defibrillator</label>
-                                                </div><!-- /.checkbox -->
-                                            </li>
-
-                                            <li>
-                                                <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox_terms5"/>
-
-                                                    <label for="checkbox_terms5" class="form-label">Heart Failure</label>
-                                                </div><!-- /.checkbox -->
-                                            </li>
-                                        </ul><!-- /.list-checks -->
-                                    </div><!-- /.box__inner -->
-
+                                    </div><!-- /.box__body -->
                                 </div><!-- /.box__inner -->
                             </div><!-- /.box -->
+
                         </div><!-- /.tile__content -->
                     </div><!-- /.tile__inner -->
                 </div><!-- /.tile-grey -->
@@ -295,15 +285,20 @@
 
 <script>
     import { mapActions, mapState } from 'vuex';
+    import { sessionTypesInfo } from './sessions.js';
     import Sidebar from './Sidebar.vue';
 
     export default {
         components: {
             sidebar: Sidebar,
         },
+        data: () => ({
+            mrnEdit: false,
+        }),
         computed: {
             ...mapState([
                 'patientDetail',
+                'physicians',
             ]),
             lastSessionDate() {
                 return (
@@ -317,6 +312,15 @@
                     this.patientDetail.power_source.model_id
                 );
             },
+            lastNote() {
+                return (
+                    this.patientDetail.notes &&
+                    this.patientDetail.notes.length > 0
+                ) ? this.patientDetail.notes.splice(-1)[0] : '';
+            },
+            patientId() {
+                return this.$route.params.id;
+            },
             patientName() {
                 return (
                     this.patientDetail.name &&
@@ -329,17 +333,54 @@
                     this.patientDetail.power_source.manufacturer
                 );
             },
+            physician() {
+                return this.patientDetail.cardiologist;
+            },
+            physicianSelection: {
+                get() {
+                    return this.patientDetail.cardiologist;
+                },
+                set(physician) {
+                    const params = {
+                        id: this.patientID,
+                        body: {cardiologist: physician},
+                    };
+                    this.updatePatientDetail(params);
+                },
+            },
         },
         methods: {
             ...mapActions([
+                'refreshPatientDetail',
+                'refreshPhysicians',
                 'updatePatientDetail',
             ]),
+            disableMrnEdit() {
+                const mrn = this.$refs.mrn.value;
+                if (mrn.match(/^[0-9]*$/)) {
+                    this.mrnEdit = false;
+                    const params = {
+                        id: this.patientId,
+                        body: { mrn },
+                    };
+                    this.updatePatientDetail(params).then(() => {
+                        this.refreshPatientDetail(this.patientId);
+                    });
+                }
+            },
+            enableMrnEdit() {
+                this.mrnEdit = true;
+            },
+            sessionType(sessionCode) {
+                return sessionTypesInfo[sessionCode];
+            },
             transmissionReportLink(txId) {
                 return `/api/v1/reports/transmissions/${txId}/full-report/`;
             },
         },
-        created() {
-            this.updatePatientDetail(this.$route.params.id);
+        mounted() {
+            this.refreshPatientDetail(this.patientId);
+            this.refreshPhysicians();
         },
     };
 </script>

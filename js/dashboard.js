@@ -45,6 +45,7 @@ window.onload = () => {
             searchQuery: '',
             patients: [],
             patientDetail: {},
+            physicians: [],
             billings: [],
         },
         getters: {
@@ -84,6 +85,9 @@ window.onload = () => {
             },
             updatePatientDetail(state, patientDetail) {
                 state.patientDetail = patientDetail;
+            },
+            updatePhysicians(state, physicians) {
+                state.physicians = physicians;
             },
             cacheTransmissions(state) {
                 state.cachedTransmissions = state.transmissions;
@@ -137,10 +141,20 @@ window.onload = () => {
                 const url = `/api/v1/reports/billings/${id}/`;
                 return Vue.http.patch(url, body);
             },
-            updatePatientDetail({ commit }, id) {
+            refreshPatientDetail({ commit }, id) {
                 const url = `/api/v1/medical/patients/${id}/`;
                 return Vue.http.get(url).then(res => {
                     commit('updatePatientDetail', res.body);
+                });
+            },
+            updatePatientDetail({ commit }, { id, body }) {
+                const url = `/api/v1/medical/patients/${id}/`;
+                return Vue.http.patch(url, body);
+            },
+            refreshPhysicians({ commit }) {
+                const url = `/api/v1/medical/professionals/`;
+                return Vue.http.get(url).then(res => {
+                    commit('updatePhysicians', res.body);
                 });
             },
             search({ commit }, searchQuery) {
