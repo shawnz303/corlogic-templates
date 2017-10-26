@@ -137,8 +137,7 @@
                         <div class="tile__head">
                             <h4>Patient Notes</h4>
 
-                            <span>Last note:</span>
-
+                            <span>...</span>
                             <a href="#">
                                 <i class="ico-export">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15">
@@ -149,9 +148,11 @@
                         </div><!-- /.tile__head -->
 
                         <div class="tile__content">
-                            <div class="box box--notes">
+                            <div class="box box--notes" v-for="n of patientDetail.notes">
+                                <i>{{ n.modified | moment('LLLL') }}</i>
+                                <div class="ico-close" @click="archivePatientNote(n.id)"></div>
                                 <div class="box__inner">
-                                    <p>{{ lastNote }}</p>
+                                    {{ n.content }}
                                 </div><!-- /.box__inner -->
                             </div><!-- /.box -->
 
@@ -161,17 +162,30 @@
                                         <ul class="list-checks">
                                             <li>
                                                 <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox_terms1"/>
-
-                                                    <label for="checkbox_terms1" class="form-label">Anti-coagulated</label>
+                                                    <input type="checkbox" id="anti-coagulated"/>
+                                                    <label for="anti-coagulated" class="form-label">
+                                                        Anti-coagulated
+                                                    </label>
                                                 </div><!-- /.checkbox -->
                                             </li>
-
                                             <li>
                                                 <div class="checkbox">
-                                                    <input type="checkbox" id="checkbox_terms2"/>
-
-                                                    <label for="checkbox_terms2" class="form-label">Rate Controlled</label>
+                                                    <input type="checkbox" id="rate-controlled"/>
+                                                    <label for="rate-controlled" class="form-label">
+                                                        Rate Controlled
+                                                    </label>
+                                                </div><!-- /.checkbox -->
+                                            </li>
+                                            <li>
+                                                <div>
+                                                    <label for="has-bled-score" class="form-label">
+                                                        HAS-BLED Score
+                                                    </label>
+                                                    <input
+                                                        type="button"
+                                                        id="has-bled-score"
+                                                        value="Calculate"
+                                                    >
                                                 </div><!-- /.checkbox -->
                                             </li>
                                         </ul><!-- /.list-checks -->
@@ -342,7 +356,7 @@
                 },
                 set(physician) {
                     const params = {
-                        id: this.patientID,
+                        id: this.patientId,
                         body: {cardiologist: physician},
                     };
                     this.updatePatientDetail(params);
@@ -354,14 +368,23 @@
                 'refreshPatientDetail',
                 'refreshPhysicians',
                 'updatePatientDetail',
+                'updatePatientNote',
             ]),
+            archivePatientNote(noteId) {
+                const body = {archived: true};
+                const params = {
+                    id: noteId,
+                    body,
+                };
+                this.updatePatientNote(params);
+            },
             disableMrnEdit() {
-                const mrn = this.$refs.mrn.value;
+                const body = {mrn: this.$refs.mrn.value};
                 if (mrn.match(/^[0-9]*$/)) {
                     this.mrnEdit = false;
                     const params = {
                         id: this.patientId,
-                        body: { mrn },
+                        body,
                     };
                     this.updatePatientDetail(params).then(() => {
                         this.refreshPatientDetail(this.patientId);

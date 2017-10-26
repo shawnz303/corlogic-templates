@@ -19,4 +19,5 @@
 .box--notes .box__inner { padding: 9px 13px; }
 .box--notes .box__head { margin-bottom: 2px; }
 .box--notes + .box--notes { margin-top: 13px; }
+.box--notes .ico-close { background-image: url(../css/images/sprite/ico-close.png); display: block; position: relative; top: -15px; left: 360px; cursor: pointer; cursor: hand; }
 
