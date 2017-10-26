@@ -8,14 +8,14 @@
             <div class="search">
                 <div class="search__inner">
                     <label for="q" class="hidden">Search</label>
-
                     <input
                         type="text"
-                        name="q"
+                        ref="q"
                         id="q"
                         class="search__field"
                         placeholder="Search by patient name, serial number, model number or product family…"
                         v-model="searchQuery"
+                        @keypress.enter="search"
                     />
 
                     <button class="search__btn" @click="search">
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapMutations } from 'vuex';
     import HeaderAvatar from './HeaderAvatar.vue';
 
     export default {
@@ -55,13 +55,16 @@
                     return this.$store.state.searchQuery;
                 },
                 set(searchQuery) {
-                    this.search(searchQuery);
+                    this.updateSearchQuery(searchQuery);
                 },
             },
         },
         methods: {
             ...mapActions([
                 'search',
+            ]),
+            ...mapMutations([
+                'updateSearchQuery',
             ]),
         },
     };

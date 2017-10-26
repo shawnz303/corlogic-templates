@@ -43,6 +43,7 @@ window.onload = () => {
             transmissions: [],
             cachedTransmissions: [],
             searchQuery: '',
+            lastSearchQuery: '',
             patients: [],
             patientDetail: {},
             physicians: [],
@@ -59,10 +60,14 @@ window.onload = () => {
             },
             clearSearch(state) {
                 state.searchQuery = '';
+                state.lastSearchQuery = '';
                 state.transmissions = state.cachedTransmissions;
             },
-            setSearch(state, searchQuery) {
+            updateSearchQuery(state, searchQuery) {
                 state.searchQuery = searchQuery;
+            },
+            updateLastSearchQuery(state) {
+                state.lastSearchQuery = state.searchQuery;
             },
             remove(state, id) {
                 const byId = tx => tx.id != id;
@@ -157,18 +162,15 @@ window.onload = () => {
                     commit('updatePhysicians', res.body);
                 });
             },
-            search({ commit }, searchQuery) {
-                if (!searchQuery) {
-                    commit('clearSearch');
-                } else {
+            search({ state, commit }) {
+                if (state.searchQuery != state.lastSearchQuery) {
                     const url = '/api/v1/reports/transmissions/search/';
+                    const params = {query: state.searchQuery};
                     return Vue.http.get(url, {
-                        params: {
-                            query: searchQuery,
-                        },
+                        params,
                     }).then(res => {
-                        commit('setSearch', searchQuery);
                         commit('updateTransmissions', res.body);
+                        commit('updateLastSearchQuery');
                     });
                 }
             },

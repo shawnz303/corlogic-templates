@@ -3,7 +3,7 @@
         <div class="profile">
             <div class="profile__head">
                 <h4>{{ dataSource }}</h4>
-                <div class="btn" @click="clearSearch" v-if="searchQuery">
+                <div class="btn" @click="clearSearch" v-if="lastSearchQuery">
                     Clear Search
                 </div>
             </div><!-- /.profile__head -->
@@ -97,12 +97,13 @@
         },
         computed: {
             dataSource() {
-                return this.searchQuery ?
-                    `Search results for "${this.searchQuery}"` :
+                return this.lastSearchQuery ?
+                    `Search results for "${this.lastSearchQuery}"` :
                     'New Transmissions';
             },
             ...mapState([
                 'searchQuery',
+                'lastSearchQuery',
                 'transmissions',
             ]),
         },
