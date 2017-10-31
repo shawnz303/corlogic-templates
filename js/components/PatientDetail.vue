@@ -11,7 +11,9 @@
 
                                 <div class="tile__entry">
                                     <h4>Patient Information</h4>
-                                    <span>Last Session: {{ lastSessionDate | moment('LLLL') }}</span>
+                                    <span>
+                                        Last Session: {{ lastSessionDate | moment('LLLL') }}
+                                    </span>
                                 </div><!-- /.tile__entry -->
 
                                 <div class="tile__entry">
@@ -136,14 +138,33 @@
                     <div class="tile__inner">
                         <div class="tile__head">
                             <h4>Patient Notes</h4>
+
+                            <span>{{ lastEditedMsg }}</span>
+                            <a :href="lastTransmissionReportLink">
+                                <i class="ico-export">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15">
+                                        <path fill="#C5D0DE" fill-rule="evenodd" d="M7.241 10.711a1 1 0 0 0 .708.293c.013 0 .023-.007.036-.007L8 11c.337 0 .62-.177.801-.431l2.894-2.882a.997.997 0 0 0 0-1.414 1.004 1.004 0 0 0-1.417 0L9 7.544V1a1 1 0 1 0-2 0v6.62L5.691 6.281a1.003 1.003 0 0 0-1.416 0 .997.997 0 0 0 0 1.414l2.966 3.016zM15 9a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a1 1 0 1 0-2 0v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3a1 1 0 0 0-1-1z"/>
+                                    </svg>
+                                </i>
+                            </a>
                         </div><!-- /.tile__head -->
 
                         <div class="tile__content">
+                            <div class="box box--notes">
+                                <div class="box__inner">
+                                    <textarea id="new-note" rows="4" v-model="newNote"/>
+                                    <div class="btn btn--blue" @click="addNewNote">Add</div>
+                                    <div class="btn" @click="clearNewNote">Clear</div>
+                                </div><!-- /.box__inner -->
+                            </div>
+
                             <div class="box box--notes" v-for="n of patientDetail.notes">
                                 <i>{{ n.modified | moment('LLLL') }}</i>
                                 <div class="ico-close" @click="archivePatientNote(n.id)"></div>
                                 <div class="box__inner">
-                                    {{ n.content }}
+                                    <div class="box__body">
+                                        {{ n.content }}
+                                    </div>
                                 </div><!-- /.box__inner -->
                             </div><!-- /.box -->
 
@@ -153,7 +174,11 @@
                                         <ul class="list-checks">
                                             <li>
                                                 <div class="checkbox">
-                                                    <input type="checkbox" id="anti-coagulated"/>
+                                                    <input
+                                                        type="checkbox"
+                                                        id="anti-coagulated"
+                                                        v-model="antiCoagulated"
+                                                    />
                                                     <label for="anti-coagulated" class="form-label">
                                                         Anti-coagulated
                                                     </label>
@@ -161,7 +186,11 @@
                                             </li>
                                             <li>
                                                 <div class="checkbox">
-                                                    <input type="checkbox" id="rate-controlled"/>
+                                                    <input
+                                                        type="checkbox"
+                                                        id="rate-controlled"
+                                                        v-model="rateControlled"
+                                                    />
                                                     <label for="rate-controlled" class="form-label">
                                                         Rate Controlled
                                                     </label>
@@ -180,6 +209,14 @@
                                                 </div><!-- /.checkbox -->
                                             </li>
                                         </ul><!-- /.list-checks -->
+                                    </div><!-- /.box__body -->
+                                </div><!-- /.box__inner -->
+                            </div><!-- /.box -->
+
+                            <div class="box box--notes">
+                                <div class="box__inner">
+                                    <div class="btn btn--blue" @click="transmissionUpdateCover">
+                                        UPDATE MOST RECENT COVER SHEET
                                     </div><!-- /.box__body -->
                                 </div><!-- /.box__inner -->
                             </div><!-- /.box -->
@@ -289,7 +326,8 @@
 </template>
 
 <script>
-    import { mapActions, mapState } from 'vuex';
+    import moment from 'moment';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import { sessionTypesInfo } from './sessions.js';
     import Sidebar from './Sidebar.vue';
 
@@ -299,17 +337,58 @@
         },
         data: () => ({
             mrnEdit: false,
+            newNote: '',
         }),
         computed: {
             ...mapState([
                 'patientDetail',
                 'physicians',
             ]),
+            antiCoagulated: {
+                get() {
+                    return this.patientDetail.anti_coagulated;
+                },
+                set(antiCoagulated) {
+                    const body = {anti_coagulated: antiCoagulated};
+                    const params = {
+                        id: this.patientId,
+                        body,
+                    };
+                    this.updatePatientDetail(params);
+                },
+            },
+            rateControlled: {
+                get() {
+                    return this.patientDetail.rate_control;
+                },
+                set(rateControlled) {
+                    const body = {rate_control: rateControlled};
+                    const params = {
+                        id: this.patientId,
+                        body,
+                    };
+                    this.updatePatientDetail(params);
+                },
+            },
+            lastEditedMsg() {
+                return (this.lastNote) ?
+                    `Last edited on: ${moment(this.lastNote.modified).format('LLLL')}` :
+                    'No active notes';
+            },
             lastSessionDate() {
+                return (this.lastTransmission) ? this.lastTransmission.session_date : '--';
+
+            },
+            lastTransmission() {
                 return (
                     this.patientDetail.transmissions &&
                     this.patientDetail.transmissions.length > 0
-                ) ? this.patientDetail.transmissions[0].session_date : '--';
+                ) ? this.patientDetail.transmissions[0] : null;
+            },
+            lastTransmissionReportLink() {
+                return (this.lastTransmission) ?
+                    this.transmissionReportLink(this.lastTransmission.id) :
+                    '';
             },
             device() {
                 return (
@@ -321,7 +400,7 @@
                 return (
                     this.patientDetail.notes &&
                     this.patientDetail.notes.length > 0
-                ) ? this.patientDetail.notes.splice(-1)[0] : '';
+                ) ? this.patientDetail.notes[0] : '';
             },
             patientId() {
                 return this.$route.params.id;
@@ -358,28 +437,45 @@
             ...mapActions([
                 'refreshPatientDetail',
                 'refreshPhysicians',
+                'createPatientNote',
                 'updatePatientDetail',
                 'updatePatientNote',
             ]),
+            ...mapMutations([
+                'removeNote',
+            ]),
+            addNewNote() {
+                const body = {
+                    content: this.newNote,
+                    patient: this.patientId,
+                };
+                this.createPatientNote(body).then(() =>{
+                    this.clearNewNote();
+                    this.refreshPatientDetail(this.patientId);
+                });
+            },
+            clearNewNote() {
+                this.newNote = ''
+            },
             archivePatientNote(noteId) {
                 const body = {archived: true};
                 const params = {
                     id: noteId,
                     body,
                 };
-                this.updatePatientNote(params);
+                this.updatePatientNote(params).then(() => {
+                    this.removeNote(noteId);
+                });
             },
             disableMrnEdit() {
                 const body = {mrn: this.$refs.mrn.value};
-                if (mrn.match(/^[0-9]*$/)) {
+                if (body.mrn.match(/^[0-9]*$/)) {
                     this.mrnEdit = false;
                     const params = {
                         id: this.patientId,
                         body,
                     };
-                    this.updatePatientDetail(params).then(() => {
-                        this.refreshPatientDetail(this.patientId);
-                    });
+                    this.updatePatientDetail(params);
                 }
             },
             enableMrnEdit() {
@@ -390,6 +486,11 @@
             },
             transmissionReportLink(txId) {
                 return `/api/v1/reports/transmissions/${txId}/full-report/`;
+            },
+            transmissionUpdateCover() {
+                const url = `/api/v1/reports/transmissions/update-latest-cover/`;
+                const params = {patient_id: this.patientId};
+                this.$http.get(url, {params});
             },
         },
         mounted() {
