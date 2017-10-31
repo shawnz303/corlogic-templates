@@ -30,9 +30,7 @@
                                             {{ p.name }}
                                         </option>
                                     </select>
-                                </div><!-- /.tile__entry -->
 
-                                <div class="tile__entry">
                                     <label for="mrn">MRN/Chart #</label>
                                     <input
                                         id="mrn"
@@ -138,23 +136,19 @@
                     <div class="tile__inner">
                         <div class="tile__head">
                             <h4>Patient Notes</h4>
-
                             <span>{{ lastEditedMsg }}</span>
-                            <a :href="lastTransmissionReportLink">
-                                <i class="ico-export">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15">
-                                        <path fill="#C5D0DE" fill-rule="evenodd" d="M7.241 10.711a1 1 0 0 0 .708.293c.013 0 .023-.007.036-.007L8 11c.337 0 .62-.177.801-.431l2.894-2.882a.997.997 0 0 0 0-1.414 1.004 1.004 0 0 0-1.417 0L9 7.544V1a1 1 0 1 0-2 0v6.62L5.691 6.281a1.003 1.003 0 0 0-1.416 0 .997.997 0 0 0 0 1.414l2.966 3.016zM15 9a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a1 1 0 1 0-2 0v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3a1 1 0 0 0-1-1z"/>
-                                    </svg>
-                                </i>
-                            </a>
                         </div><!-- /.tile__head -->
 
                         <div class="tile__content">
                             <div class="box box--notes">
                                 <div class="box__inner">
                                     <textarea id="new-note" rows="4" v-model="newNote"/>
-                                    <div class="btn btn--blue" @click="addNewNote">Add</div>
-                                    <div class="btn" @click="clearNewNote">Clear</div>
+                                    <div class="btn btn--blue btn--symbol" @click="addNewNote">
+                                        +
+                                    </div>
+                                    <div class="btn" @click="clearNewNote">
+                                        Clear
+                                    </div>
                                 </div><!-- /.box__inner -->
                             </div>
 
@@ -384,11 +378,6 @@
                     this.patientDetail.transmissions &&
                     this.patientDetail.transmissions.length > 0
                 ) ? this.patientDetail.transmissions[0] : null;
-            },
-            lastTransmissionReportLink() {
-                return (this.lastTransmission) ?
-                    this.transmissionReportLink(this.lastTransmission.id) :
-                    '';
             },
             device() {
                 return (
