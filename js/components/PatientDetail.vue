@@ -308,9 +308,13 @@
                 },
             },
             lastEditedMsg() {
-                return (this.lastNote) ?
-                    `Last edited on: ${moment(this.lastNote.modified).format('LLLL')}` :
-                    'No active notes';
+                if (this.lastNote) {
+                    const timestamp = moment(this.lastNote.modified).format('LLLL');
+                    const { first_name: firstName, last_name: lastName } = this.lastNote.modified_by;
+                    return `Last edited by: ${firstName} ${lastName} on ${timestamp}`;
+                } else {
+                    return 'No active notes';
+                }
             },
             lastSessionDate() {
                 return (this.lastTransmission) ? this.lastTransmission.session_date : '--';
