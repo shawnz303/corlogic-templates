@@ -4,7 +4,7 @@
 
             <div class="table-item table-item--lg table-item--fluid">
                 <h5>
-                    <router-link to="/patient-detail">
+                    <router-link :to="patientDetailLink">
                         {{ patientName }}
                     </router-link>
                 </h5>
@@ -75,6 +75,9 @@
                         description: dxCodes[value]
                     })
                 );
+            },
+            patientDetailLink() {
+                return `/patient-detail/${this.patientNumber}/`;
             },
         },
         methods: {

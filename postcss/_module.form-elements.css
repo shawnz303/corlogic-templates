@@ -22,6 +22,6 @@ select::-ms-expand { display: none; }
 .checkbox .form-label:before { content: ''; width: 16px; height: 16px; border: 1px solid #e6e8ed; border-radius: 2px; position: absolute; top: 1px; left: 0; color: #494949; }
 .checkbox input { display: none; }
 
-.checkbox .form-label { color: #4a4a4a; font-weight: 300; font-size: 14px;opacity: 1; padding-left: 20px; }
-
 .checkbox input:checked + label:before { background: #359be0 url(../css/images/sprite/ico-check.png) no-repeat center center; }
+
+.list-checks .form-label { color: #4a4a4a; font-weight: 300; font-size: 14px;opacity: 1; padding-left: 20px; }

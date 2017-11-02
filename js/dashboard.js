@@ -76,6 +76,10 @@ window.onload = () => {
                 }
                 state.cachedTransmissions = state.cachedTransmissions.filter(byId);
             },
+            removeNote(state, id) {
+                const byId = note => note.id != id;
+                state.patientDetail.notes = state.patientDetail.notes.filter(byId);
+            },
             updateTransmissions(state, transmissions) {
                 state.transmissions = transmissions;
             },
@@ -154,6 +158,16 @@ window.onload = () => {
             },
             updatePatientDetail({ commit }, { id, body }) {
                 const url = `/api/v1/medical/patients/${id}/`;
+                return Vue.http.patch(url, body).then(res => {
+                    commit('updatePatientDetail', res.body);
+                });
+            },
+            createPatientNote({ commit }, body) {
+                const url = `/api/v1/medical/patient-notes/`;
+                return Vue.http.post(url, body);
+            },
+            updatePatientNote({ commit }, { id, body }) {
+                const url = `/api/v1/medical/patient-notes/${id}/`;
                 return Vue.http.patch(url, body);
             },
             refreshPhysicians({ commit }) {
