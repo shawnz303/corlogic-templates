@@ -13,9 +13,12 @@
                         <div class="table table--patients table--list">
                             <div class="table__head">
                                 <div class="table-items">
-                                    <div class="table-item table-item--lg" @click="sortByName">
+                                    <div
+                                        class="table-item table-item--lg table__head--actionable"
+                                        @click="sortByName"
+                                    >
                                         <h5>Name</h5>
-                                        <i class="ico-arrow-dropdown table__head--actionable">
+                                        <i class="ico-arrow-dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
                                                 <path
                                                     fill="#354052"
@@ -32,9 +35,12 @@
                                         <h5>DOB</h5>
                                     </div><!-- /.table-item table-item-/-md -->
 
-                                    <div class="table-item table-item--lg" @click="sortByVendor">
+                                    <div
+                                        class="table-item table-item--lg table__head--actionable"
+                                        @click="sortByVendor"
+                                    >
                                         <h5>Vendor</h5>
-                                        <i class="ico-arrow-dropdown table__head--actionable">
+                                        <i class="ico-arrow-dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
                                                 <path
                                                     fill="#354052"
@@ -47,9 +53,12 @@
                                         </i>
                                     </div><!-- /.table-item table-item-/-md -->
 
-                                    <div class="table-item table-item--lg" @click="sortByDevice">
+                                    <div
+                                        class="table-item table-item--lg table__head--actionable"
+                                        @click="sortByDevice"
+                                    >
                                         <h5>Device</h5>
-                                        <i class="ico-arrow-dropdown table__head--actionable">
+                                        <i class="ico-arrow-dropdown">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
                                                 <path
                                                     fill="#354052"
@@ -84,7 +93,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapActions, mapGetters, mapMutations } from 'vuex';
     import PatientRecord from './PatientRecord.vue';
     import Sidebar from './Sidebar.vue';
 
@@ -107,9 +116,18 @@
             ...mapActions([
                 'refreshPatients',
             ]),
+            ...mapMutations([
+                'sortPatients',
+            ]),
+            arrowTransform(sortOrder, width, height) {
+                const rotation = -sortOrder * 90 + 90;
+                width = width || 0;
+                height = height || 0;
+                return `rotate(${rotation} ${width/2.} ${height/2.})`;
+            },
             sortByName() {
                 this.sortOrderName = -this.sortOrderName;
-                this.$store.commit('sortPatients', (sortOrder => (a, b) => {
+                this.sortPatients((sortOrder => (a, b) => {
                     const lastName1 = a.name.split(' ').slice(-1)[0].toLowerCase();
                     const lastName2 = b.name.split(' ').slice(-1)[0].toLowerCase();
                     return (
@@ -119,7 +137,7 @@
             },
             sortByDevice() {
                 this.sortOrderDevice = -this.sortOrderDevice;
-                this.$store.commit('sortPatients', (sortOrder => (a, b) => {
+                this.sortPatients((sortOrder => (a, b) => {
                     const device1 = a.power_source.model_id;
                     const device2 = b.power_source.model_id;
                     return (
@@ -129,19 +147,13 @@
             },
             sortByVendor() {
                 this.sortOrderVendor = -this.sortOrderVendor;
-                this.$store.commit('sortPatients', (sortOrder => (a, b) => {
+                this.sortPatients((sortOrder => (a, b) => {
                     const vendor1 = a.power_source.manufacturer;
                     const vendor2 = b.power_source.manufacturer;
                     return (
                         vendor1 < vendor2 ? -1 : vendor1 == vendor2 ? 0 : 1
                     ) * sortOrder;
                 })(this.sortOrderVendor));
-            },
-            arrowTransform(sortOrder, width, height) {
-                const rotation = -sortOrder * 90 + 90;
-                width = width || 0;
-                height = height || 0;
-                return `rotate(${rotation} ${width/2.} ${height/2.})`;
             },
         },
         mounted() {

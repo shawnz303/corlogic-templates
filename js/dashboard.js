@@ -86,6 +86,9 @@ window.onload = () => {
             updatePatients(state, patients) {
                 state.patients = patients;
             },
+            sortTransmissions(state, compareFunction) {
+                state.transmissions.sort(compareFunction);
+            },
             sortPatients(state, compareFunction) {
                 state.patients.sort(compareFunction);
             },

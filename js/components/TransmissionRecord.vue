@@ -17,32 +17,13 @@
                 </h5>
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
-            <div class="table-item table-item--lg table-item--fluid">
-                <p>{{ dob | moment('MM/DD/YYYY') }}</p>
-            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-            <div class="table-item table-item--lg table-item--fluid">
-                <ul>
-                    <li v-if="sessionTypeHumanized">{{ sessionTypeHumanized }}</li>
-                    <li v-if="sessionTrigger">{{ sessionTrigger }}</li>
-                </ul>
-            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-            <div class="table-item table-item--lg table-item--fluid">
-                <p>{{ model }}</p>
-            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-            <div class="table-item table-item--lg table-item--fluid">
-                <p>{{ sessionDate | moment('MM/DD/YYYY') }}</p>
-            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-            <div class="table-item table-item--lg table-item--fluid">
+            <div class="table-item table-item--lg">
                 <span
                     class="tag"
                     v-for="alert in alerts"
                     :class="{
-                        'tag--red': alertColor(alert) == 'red',
-                        'tag--yellow': alertColor(alert) == 'yellow',
+                        'tag--red': alertColour(alert) == 'red',
+                        'tag--yellow': alertColour(alert) == 'yellow',
                     }"
                 >
                     {{ alert }}
@@ -50,7 +31,23 @@
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
             <div class="table-item table-item--lg table-item--fluid">
+                <p>{{ sessionDate | moment('MM/DD/YYYY') }}</p>
+            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
+
+            <div class="table-item table-item--lg table-item--fluid">
+                <div v-if="sessionTrigger">{{ sessionTrigger }}</div>
+            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
+
+            <div class="table-item table-item--lg table-item--fluid">
+                <div v-if="sessionTypeHumanized">{{ sessionTypeHumanized }}</div>
+            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
+
+            <div class="table-item table-item--lg table-item--fluid">
                 <p>{{ manufacturer }}</p>
+            </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
+
+            <div class="table-item table-item--lg table-item--fluid">
+                <p>{{ model }}</p>
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
             <div class="table-item table-item--md table-item--center">
@@ -89,7 +86,6 @@
             'id',
             'alerts',
             'archived',
-            'dob',
             'manufacturer',
             'model',
             'name',
@@ -112,7 +108,7 @@
             },
         },
         methods: {
-            alertColor(alert) {
+            alertColour(alert) {
                 return alertsInfo.find(elem => elem.code === alert).colour;
             },
             archive() {
