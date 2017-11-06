@@ -23,6 +23,10 @@
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
             <div class="table-item table-item--md table-item--fluid">
+                <p>{{ processedByLabel }}</p>
+            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
+
+            <div class="table-item table-item--md table-item--fluid">
                 <ul><li v-for="c of cptCodes">{{ c }}</li></ul>
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
@@ -44,6 +48,7 @@
 <script>
     import { mapActions } from 'vuex';
     import { dxCodes } from './dx-codes.js';
+    import { processorLabels } from './processor-labels.js';
 
     export default {
         props: [
@@ -54,6 +59,7 @@
             'dos',
             'patientName',
             'patientNumber',
+            'processedBy',
         ],
         computed: {
             dxCodeSelection: {
@@ -78,6 +84,9 @@
             },
             patientDetailLink() {
                 return `/patient-detail/${this.patientNumber}/`;
+            },
+            processedByLabel() {
+                return processorLabels.find(elem => elem.code == this.processedBy).label;
             },
         },
         methods: {

@@ -34,6 +34,10 @@
                             </div><!-- /.table-item table-item-/-md -->
 
                             <div class="table-item table-item--md">
+                                <h5>Processed By</h5>
+                            </div><!-- /.table-item table-item-/-md -->
+
+                            <div class="table-item table-item--md">
                                 <h5>CPT Codes</h5>
                             </div><!-- /.table-item table-item-/-md -->
 
@@ -54,6 +58,7 @@
                             :dos="b.dos"
                             :patientName="b.patient_name"
                             :patientNumber="b.patient_number"
+                            :processedBy="b.processed_by"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
