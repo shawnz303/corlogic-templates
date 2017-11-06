@@ -26,6 +26,10 @@
                             </div><!-- /.table-item table-item-/-md -->
 
                             <div class="table-item table-item--md">
+                                <h5>Pt Date of Birth</h5>
+                            </div><!-- /.table-item table-item-/-md -->
+
+                            <div class="table-item table-item--md">
                                 <h5>Date of Service</h5>
                             </div><!-- /.table-item table-item-/-md -->
 
@@ -56,6 +60,7 @@
                             :doctorName="b.doctor_name"
                             :dxCode="b.dx_code"
                             :dos="b.dos"
+                            :patientDob="b.patient_dob"
                             :patientName="b.patient_name"
                             :patientNumber="b.patient_number"
                             :processedBy="b.processed_by"

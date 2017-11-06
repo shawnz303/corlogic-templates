@@ -15,6 +15,10 @@
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
             <div class="table-item table-item--md table-item--fluid">
+                <p>{{ patientDob | moment('MM/DD/YYYY') }}</p>
+            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
+
+            <div class="table-item table-item--md table-item--fluid">
                 <p>{{ dos | moment('MM/DD/YYYY') }}</p>
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
@@ -57,6 +61,7 @@
             'doctorName',
             'dxCode',
             'dos',
+            'patientDob',
             'patientName',
             'patientNumber',
             'processedBy',
