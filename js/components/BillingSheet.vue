@@ -4,9 +4,7 @@
             <div class="profile__head">
                 <h4>Billing Sheet</h4>
                 <a href="/api/v1/reports/billings/export/">
-                    <div class="btn">
-                            Export to CSV
-                    </div>
+                    <div class="btn">Download</div>
                 </a>
                 <div class="btn" @click="archiveBillings">
                     Clear
