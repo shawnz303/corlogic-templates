@@ -6,6 +6,9 @@ Vue.use(require('vue-event-bus'));
 Vue.use(require('vue-moment'));
 Vue.use(require('vue-resource'));
 
+import VueModal from 'vue-js-modal';
+Vue.use(VueModal);
+
 var VueRouter = require('vue-router');
 Vue.use(VueRouter);
 

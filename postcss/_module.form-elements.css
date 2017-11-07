@@ -3,11 +3,14 @@
 \* ------------------------------------------------------------ */
 
 input::placeholder { color: inherit; opacity: 1; }
-textarea::placeholder { color: inherit; opacity: 1; }
-
 input:-webkit-autofill { -webkit-text-fill-color: inherit; -webkit-box-shadow: 0 0 0 1000px #fff inset; }
 
-.textarea {}
+textarea::placeholder { color: inherit; opacity: 1; }
+textarea.textarea__modal { margin: 1% 5%; height: 55%; width: 90% }
+.btn--group__modal { margin: 0% 0% 0% 67%; }
+.modal--header { padding: 1% 2%; }
+.modal--header ul { margin: 0% 5%; }
+
 .radio {}
 
 .field { border: 1px solid #dfe3e9; padding: 9px 17px 6px; font-size: 14px; line-height: 1.36; font-weight: 600; color: #354052; background: #fff; width: 100%; border-radius: 4px; }

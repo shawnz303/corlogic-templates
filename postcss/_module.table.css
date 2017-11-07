@@ -16,6 +16,7 @@
 .table .table__group { padding-top: 5px; padding-bottom: 7px; border-bottom: 1px solid #dfe2e5; padding-top: 10px; }
 .table .table__group .table-item h5 { font-weight: 600; color: #354052; margin-bottom: 0; line-height: 1; }
 .table .table__group .table-item select { width: 100%; }
+.table .table__group .table-item img { margin: -5px 10px 0px 0px; cursor: pointer; cursor: hand; };
 
 
 

@@ -1,5 +1,30 @@
 <template>
     <div class="content__body">
+        <modal
+            name="txNoteEdit",
+            :clickToClose="false",
+            :resizable="true",
+            :width="'50%'"
+            :height="'50%'"
+            @before-open="txNoteEdit">
+            <div class="modal--header">
+                <h5>Transmission Note</h5>
+                <ul>
+                    <li>Patient: {{ txEdit.patientName }}</li>
+                    <li>Transmission date: {{ txEdit.sessionDate | moment('MM/DD/YYYY') }}</li>
+                </ul>
+            </div>
+            <textarea
+                class="textarea__modal"
+                id="new-note"
+                rows="4"
+            />
+            <div class="btn--group__modal">
+                <div class="btn btn--blue">Save</div>
+                <div class="btn" @click="$modal.hide('txNoteEdit')">Cancel</div>
+            </div>
+        </modal>
+
         <div class="profile">
             <div class="profile__head">
                 <h4>{{ dataSource }}</h4>
@@ -57,11 +82,9 @@
                             </div><!-- /.table-item table-item-/-lg -->
 
                             <div class="table-item table-item--md">
-
                             </div><!-- /.table-item table-item-/-md -->
 
                             <div class="table-item table-item--sm">
-
                             </div><!-- /.table-item table-item-/-sm -->
                         </div><!-- /.table-items -->
                     </div><!-- /.table__head -->
@@ -100,6 +123,10 @@
         },
         data: () => ({
             sortOrderAlert: -1,
+            txEdit: {
+                patientName: '',
+                sessionDate: '',
+            },
         }),
         computed: {
             dataSource() {
@@ -150,6 +177,9 @@
                         1
                     ) * sortOrder;
                 })(this.sortOrderAlert));
+            },
+            txNoteEdit(e) {
+                this.txEdit = e.params.txEdit;
             },
         },
         mounted() {
