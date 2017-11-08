@@ -6,7 +6,8 @@
             :resizable="true",
             :width="'50%'"
             :height="'50%'"
-            @before-open="txNoteEdit">
+            @before-open="txNoteEdit"
+        >
             <div class="modal--header">
                 <h5>Transmission Note</h5>
                 <ul>
@@ -14,14 +15,14 @@
                     <li>Transmission date: {{ txEdit.sessionDate | moment('MM/DD/YYYY') }}</li>
                 </ul>
             </div>
-            <textarea
-                class="textarea__modal"
-                id="new-note"
-                rows="4"
-            />
+            <textarea class="textarea__modal" ref="txNote" rows="4">{{ txEdit.notes }}</textarea>
             <div class="btn--group__modal">
-                <div class="btn btn--blue">Save</div>
-                <div class="btn" @click="$modal.hide('txNoteEdit')">Cancel</div>
+                <div class="btn btn--blue" @click="saveTxNote">
+                    Save
+                </div>
+                <div class="btn" @click="$modal.hide('txNoteEdit')">
+                    Cancel
+                </div>
             </div>
         </modal>
 
@@ -99,6 +100,7 @@
                             :manufacturer="t.patient.power_source.manufacturer"
                             :model="t.patient.power_source.model_id"
                             :name="t.patient.name"
+                            :notes="t.notes"
                             :patientId="t.patient.id"
                             :reportDoc="t.report_doc"
                             :sessionDate="t.session_date"
@@ -124,6 +126,9 @@
         data: () => ({
             sortOrderAlert: -1,
             txEdit: {
+                id: -1,
+                notes: '',
+                patientId: -1,
                 patientName: '',
                 sessionDate: '',
             },
@@ -143,6 +148,7 @@
         methods: {
             ...mapActions([
                 'refresh',
+                'updateTransmission',
             ]),
             ...mapMutations([
                 'clearSearch',
@@ -177,6 +183,21 @@
                         1
                     ) * sortOrder;
                 })(this.sortOrderAlert));
+            },
+            saveTxNote() {
+                const params = {
+                    id: this.txEdit.id,
+                    body: {notes: this.$refs.txNote.value},
+                };
+                this.updateTransmission(params)
+                    .then(() => {
+                        const url = `/api/v1/reports/transmissions/update-latest-cover/`;
+                        const params = {patient_id: this.txEdit.patientId};
+                        this.$http.get(url, {params});
+                    })
+                    .then(
+                        () => this.$modal.hide('txNoteEdit')
+                    );
             },
             txNoteEdit(e) {
                 this.txEdit = e.params.txEdit;

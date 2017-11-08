@@ -90,6 +90,7 @@
             'manufacturer',
             'model',
             'name',
+            'notes',
             'patientId',
             'reportDoc',
             'sessionDate',
@@ -122,6 +123,9 @@
             editTransmission() {
                 this.$modal.show('txNoteEdit', {
                     txEdit: {
+                        id: this.id,
+                        notes: this.notes,
+                        patientId: this.patientId,
                         patientName: this.name,
                         sessionDate: this.sessionDate,
                     }

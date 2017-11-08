@@ -86,6 +86,12 @@ window.onload = () => {
             updateTransmissions(state, transmissions) {
                 state.transmissions = transmissions;
             },
+            updateTransmission(state, transmission) {
+                const byId = tx => tx.id == transmission.id;
+                state.transmissions = state.transmissions.map(
+                    tx => (tx.id == transmission.id) ? transmission : tx
+                );
+            },
             updatePatients(state, patients) {
                 state.patients = patients;
             },
@@ -175,6 +181,12 @@ window.onload = () => {
             updatePatientNote({ commit }, { id, body }) {
                 const url = `/api/v1/medical/patient-notes/${id}/`;
                 return Vue.http.patch(url, body);
+            },
+            updateTransmission({ commit }, { id, body }) {
+                const url = `/api/v1/reports/transmissions/${id}/`;
+                return Vue.http.patch(url, body).then(res => {
+                    commit('updateTransmission', res.body)
+                });
             },
             refreshPhysicians({ commit }) {
                 const url = `/api/v1/medical/professionals/`;
