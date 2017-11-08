@@ -1,9 +1,9 @@
 <template>
     <div class="content__body">
         <modal
-            name="txNoteEdit",
-            :clickToClose="false",
-            :resizable="true",
+            name="txNoteEdit"
+            :clickToClose="false"
+            :resizable="true"
             :width="'50%'"
             :height="'50%'"
             @before-open="txNoteEdit"
