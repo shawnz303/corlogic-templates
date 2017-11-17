@@ -6,7 +6,10 @@
             <div class="content__body">
                 <div class="profile profile--list">
                     <div class="profile__head">
-                        <h4>Patient List</h4>
+                        <h4>{{ this.dataSource }}</h4>
+                        <div class="btn" @click="clearSearch" v-if="lastSearchQuery">
+                            Clear Search
+                        </div>
                     </div><!-- /.profile__head -->
 
                     <div class="profile__body">
@@ -109,14 +112,22 @@
         },
         computed: {
             ...mapState([
+                'searchQuery',
+                'lastSearchQuery',
                 'records',
             ]),
+            dataSource() {
+                return this.lastSearchQuery ?
+                    `Search results for "${this.lastSearchQuery}"` :
+                    'Patient List';
+            },
         },
         methods: {
             ...mapActions([
                 'refresh',
             ]),
             ...mapMutations([
+                'clearSearch',
                 'sortRecords',
                 'updatePageData',
             ]),

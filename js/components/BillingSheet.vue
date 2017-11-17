@@ -2,12 +2,15 @@
     <div class="content__body">
         <div class="profile">
             <div class="profile__head">
-                <h4>Billing Sheet</h4>
+                <h4>{{ this.dataSource }}</h4>
                 <a href="/api/v1/reports/billings/export/">
                     <div class="btn">Download</div>
                 </a>
                 <div class="btn" @click="archiveRecords">
                     Clear
+                </div>
+                <div class="btn" @click="clearSearch" v-if="lastSearchQuery">
+                    Clear Search
                 </div>
             </div><!-- /.profile__head -->
 
@@ -71,7 +74,7 @@
 </template>
 
 <script>
-    import { mapActions, mapState } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import BillingRecord from './BillingRecord.vue';
 
     export default {
@@ -80,12 +83,22 @@
         },
         computed: {
             ...mapState([
+                'searchQuery',
+                'lastSearchQuery',
                 'records',
             ]),
+            dataSource() {
+                return this.lastSearchQuery ?
+                    `Search results for "${this.lastSearchQuery}"` :
+                    'Billing Sheet';
+            },
         },
         methods: {
             ...mapActions([
                 'archiveRecords',
+            ]),
+            ...mapMutations([
+                'clearSearch',
             ]),
         },
     };
