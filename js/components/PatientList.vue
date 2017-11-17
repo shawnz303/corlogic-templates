@@ -75,7 +75,7 @@
 
                             <div class="table__body">
                                 <patient-record
-                                    v-for="p in filteredPatients"
+                                    v-for="p in records"
 
                                     :id="p.id"
                                     :dob="p.dob"
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters, mapMutations } from 'vuex';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import PatientRecord from './PatientRecord.vue';
     import Sidebar from './Sidebar.vue';
 
@@ -108,16 +108,17 @@
             sidebar: Sidebar,
         },
         computed: {
-            ...mapGetters([
-                'filteredPatients',
+            ...mapState([
+                'records',
             ]),
         },
         methods: {
             ...mapActions([
-                'refreshPatients',
+                'refresh',
             ]),
             ...mapMutations([
-                'sortPatients',
+                'sortRecords',
+                'updatePageData',
             ]),
             arrowTransform(sortOrder, width, height) {
                 const rotation = -sortOrder * 90 + 90;
@@ -127,7 +128,7 @@
             },
             sortByName() {
                 this.sortOrderName = -this.sortOrderName;
-                this.sortPatients((sortOrder => (a, b) => {
+                this.sortRecords((sortOrder => (a, b) => {
                     const lastName1 = a.name.split(' ').slice(-1)[0].toLowerCase();
                     const lastName2 = b.name.split(' ').slice(-1)[0].toLowerCase();
                     return (
@@ -137,7 +138,7 @@
             },
             sortByDevice() {
                 this.sortOrderDevice = -this.sortOrderDevice;
-                this.sortPatients((sortOrder => (a, b) => {
+                this.sortRecords((sortOrder => (a, b) => {
                     const device1 = a.power_source.model_id;
                     const device2 = b.power_source.model_id;
                     return (
@@ -147,7 +148,7 @@
             },
             sortByVendor() {
                 this.sortOrderVendor = -this.sortOrderVendor;
-                this.sortPatients((sortOrder => (a, b) => {
+                this.sortRecords((sortOrder => (a, b) => {
                     const vendor1 = a.power_source.manufacturer;
                     const vendor2 = b.power_source.manufacturer;
                     return (
@@ -156,8 +157,13 @@
                 })(this.sortOrderVendor));
             },
         },
-        mounted() {
-            this.refreshPatients();
+        created() {
+            const params = {
+                appName: 'medical',
+                model: 'patients',
+            };
+            this.updatePageData(params);
+            this.refresh();
         },
     };
 </script>

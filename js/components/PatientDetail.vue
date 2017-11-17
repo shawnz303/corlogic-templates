@@ -379,6 +379,7 @@
             ]),
             ...mapMutations([
                 'removeNote',
+                'updatePageData',
             ]),
             addNewNote() {
                 const body = {
@@ -438,7 +439,12 @@
                 this.$http.get(url, {params});
             },
         },
-        mounted() {
+        created() {
+            const params = {
+                appName: 'medical',
+                model: 'patients',
+            };
+            this.updatePageData(params);
             this.refreshPatientDetail(this.patientId);
             this.refreshPhysicians();
         },

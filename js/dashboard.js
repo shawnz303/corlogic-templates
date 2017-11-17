@@ -42,29 +42,31 @@ window.onload = () => {
 
     const store = new Vuex.Store({
         state: {
+            appName: '',
+            model: '',
             lastLogin: new Date(),
-            transmissions: [],
-            cachedTransmissions: [],
+            records: [],
+            cachedRecords: [],
             searchQuery: '',
             lastSearchQuery: '',
-            patients: [],
             patientDetail: {},
             physicians: [],
-            billings: [],
-        },
-        getters: {
-            filteredPatients(state) {
-                return state.patients;
-            },
         },
         mutations: {
+            updatePageData(state, { appName, model }) {
+                state.appName = appName;
+                state.model = model;
+            },
             updateLogin(state, lastLogin) {
                 state.lastLogin = lastLogin;
             },
             clearSearch(state) {
                 state.searchQuery = '';
                 state.lastSearchQuery = '';
-                state.transmissions = state.cachedTransmissions;
+                state.records = state.cachedRecords;
+            },
+            cacheRecords(state) {
+                state.cachedRecords = state.records;
             },
             updateSearchQuery(state, searchQuery) {
                 state.searchQuery = searchQuery;
@@ -73,45 +75,31 @@ window.onload = () => {
                 state.lastSearchQuery = state.searchQuery;
             },
             remove(state, id) {
-                const byId = tx => tx.id != id;
+                const byId = r => r.id != id;
                 if (!state.searchQuery) {
-                    state.transmissions = state.transmissions.filter(byId);
+                    state.records = state.records.filter(byId);
                 }
-                state.cachedTransmissions = state.cachedTransmissions.filter(byId);
+                state.cachedRecords = state.cachedRecords.filter(byId);
             },
             removeNote(state, id) {
                 const byId = note => note.id != id;
                 state.patientDetail.notes = state.patientDetail.notes.filter(byId);
             },
-            updateTransmissions(state, transmissions) {
-                state.transmissions = transmissions;
+            updateRecords(state, records) {
+                state.records = records;
             },
-            updateTransmission(state, transmission) {
-                const byId = tx => tx.id == transmission.id;
-                state.transmissions = state.transmissions.map(
-                    tx => (tx.id == transmission.id) ? transmission : tx
-                );
+            updateSingleRecord(state, record) {
+                const byId = r => r.id == record.id;
+                state.records = state.records.map(r => (r.id == record.id) ? record : r);
             },
-            updatePatients(state, patients) {
-                state.patients = patients;
-            },
-            sortTransmissions(state, compareFunction) {
-                state.transmissions.sort(compareFunction);
-            },
-            sortPatients(state, compareFunction) {
-                state.patients.sort(compareFunction);
-            },
-            updateBillings(state, billings) {
-                state.billings = billings;
+            sortRecords(state, compareFunction) {
+                state.records.sort(compareFunction);
             },
             updatePatientDetail(state, patientDetail) {
                 state.patientDetail = patientDetail;
             },
             updatePhysicians(state, physicians) {
                 state.physicians = physicians;
-            },
-            cacheTransmissions(state) {
-                state.cachedTransmissions = state.transmissions;
             },
         },
         actions: {
@@ -121,46 +109,32 @@ window.onload = () => {
                     commit('updateLogin', res.body.last_login);
                 });
             },
-            archive({ commit }, id) {
-                const url = `/api/v1/reports/transmissions/${id}/`;
+            archive({ commit, state }, id) {
+                const url = `/api/v1/${state.appName}/${state.model}/${id}/`;
                 const body = {archived: true};
                 return Vue.http.patch(url, body).then(res => {
                     commit('remove', id);
                 });
             },
-            archiveBillings({ dispatch, state }) {
-                const ids = state.billings.map(b => b.pk);
+            archiveRecords({ dispatch, state }) {
+                const ids = state.records.map(r => r.id);
                 Promise.map(ids, id => {
-                    const url = `/api/v1/reports/billings/${id}/`;
-                    const body = {archived: true};
-                    return Vue.http.patch(url, body);
-                }).then(res => {
-                    dispatch('refreshBillings');
-                });
+                    return dispatch('archive', id);
+                }).then(res => dispatch('refresh'));
             },
-            refresh({ commit }) {
-                const url = '/api/v1/reports/transmissions/';
+            refresh({ commit, state }) {
+                const url = `/api/v1/${state.appName}/${state.model}/`;
                 commit('clearSearch');
                 return Vue.http.get(url).then(res => {
-                    commit('updateTransmissions', res.body);
-                    commit('cacheTransmissions');
+                    commit('updateRecords', res.body);
+                    commit('cacheRecords');
                 });
             },
-            refreshPatients({ commit }) {
-                const url = '/api/v1/medical/patients/';
-                return Vue.http.get(url).then(res => {
-                    commit('updatePatients', res.body);
+            updateSingleRecord({ commit, state }, { id, body }) {
+                const url = `/api/v1/${state.appName}/${state.model}/${id}/`;
+                return Vue.http.patch(url, body).then(res => {
+                    commit('updateSingleRecord', res.body);
                 });
-            },
-            refreshBillings({ commit }) {
-                const url = '/api/v1/reports/billings/';
-                return Vue.http.get(url).then(res => {
-                    commit('updateBillings', res.body);
-                });
-            },
-            updateBilling({ commit }, { id, body }) {
-                const url = `/api/v1/reports/billings/${id}/`;
-                return Vue.http.patch(url, body);
             },
             refreshPatientDetail({ commit }, id) {
                 const url = `/api/v1/medical/patients/${id}/`;
@@ -182,26 +156,20 @@ window.onload = () => {
                 const url = `/api/v1/medical/patient-notes/${id}/`;
                 return Vue.http.patch(url, body);
             },
-            updateTransmission({ commit }, { id, body }) {
-                const url = `/api/v1/reports/transmissions/${id}/`;
-                return Vue.http.patch(url, body).then(res => {
-                    commit('updateTransmission', res.body)
-                });
-            },
             refreshPhysicians({ commit }) {
                 const url = `/api/v1/medical/professionals/`;
                 return Vue.http.get(url).then(res => {
                     commit('updatePhysicians', res.body);
                 });
             },
-            search({ state, commit }) {
+            search({ commit, state }) {
                 if (state.searchQuery != state.lastSearchQuery) {
-                    const url = '/api/v1/reports/transmissions/search/';
+                    const url = `/api/v1/${state.appName}/${state.model}/search/`;
                     const params = {query: state.searchQuery};
                     return Vue.http.get(url, {
                         params,
                     }).then(res => {
-                        commit('updateTransmissions', res.body);
+                        commit('updateRecords', res.body);
                         commit('updateLastSearchQuery');
                     });
                 }

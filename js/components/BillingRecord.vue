@@ -76,7 +76,7 @@
                         id: this.id,
                         body: {dx_code: dxCode},
                     };
-                    this.updateBilling(params);
+                    this.updateSingleRecord(params);
                 },
             },
             dxCodes() {
@@ -96,7 +96,7 @@
         },
         methods: {
             ...mapActions([
-                'updateBilling',
+                'updateSingleRecord',
             ]),
         },
     };

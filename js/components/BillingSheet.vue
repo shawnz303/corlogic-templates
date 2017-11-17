@@ -6,7 +6,7 @@
                 <a href="/api/v1/reports/billings/export/">
                     <div class="btn">Download</div>
                 </a>
-                <div class="btn" @click="archiveBillings">
+                <div class="btn" @click="archiveRecords">
                     Clear
                 </div>
             </div><!-- /.profile__head -->
@@ -51,9 +51,9 @@
 
                     <div class="table__body">
                         <billing-record
-                            v-for="b in billings"
+                            v-for="b in records"
 
-                            :id="b.pk"
+                            :id="b.id"
                             :cptCodes="b.cpt_codes"
                             :doctorName="b.doctor_name"
                             :dxCode="b.dx_code"
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-    import { mapActions, mapMutations, mapState } from 'vuex';
+    import { mapActions, mapState } from 'vuex';
     import BillingRecord from './BillingRecord.vue';
 
     export default {
@@ -80,17 +80,13 @@
         },
         computed: {
             ...mapState([
-                'billings',
+                'records',
             ]),
         },
         methods: {
             ...mapActions([
-                'archiveBillings',
-                'refreshBillings',
+                'archiveRecords',
             ]),
-        },
-        mounted() {
-            this.refreshBillings();
         },
     };
 </script>

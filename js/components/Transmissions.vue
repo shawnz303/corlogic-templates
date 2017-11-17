@@ -20,6 +20,7 @@
 </template>
 
 <script>
+    import { mapActions, mapMutations } from 'vuex';
     import OverviewBox from './OverviewBox.vue';
     import Sidebar from './Sidebar.vue';
     import TransmissionsTable from './TransmissionsTable.vue';
@@ -29,6 +30,22 @@
             overviewBox: OverviewBox,
             sidebar: Sidebar,
             transmissionsTable: TransmissionsTable,
+        },
+        methods: {
+            ...mapActions([
+                'refresh',
+            ]),
+            ...mapMutations([
+                'updatePageData',
+            ]),
+        },
+        created() {
+            const params = {
+                appName: 'reports',
+                model: 'transmissions',
+            };
+            this.updatePageData(params);
+            this.refresh();
         },
     };
 </script>

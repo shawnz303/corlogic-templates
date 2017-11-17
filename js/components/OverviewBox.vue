@@ -109,18 +109,18 @@
     import { alertsInfo } from './alerts';
 
     export default {
-        mounted() {
+        created() {
             this.updateUserInfo()
         },
         computed: {
             newTransmissionsCount() {
-                return this.$store.state.cachedTransmissions.length;
+                return this.$store.state.cachedRecords.length;
             },
             urgentTransmissionsCount() {
                 const redAlertCodes =
                     alertsInfo.filter(alert => alert.colour == 'red').map(alert => alert.code);
 
-                return this.$store.state.cachedTransmissions
+                return this.$store.state.cachedRecords
                     .map(tx => tx.hl7_alerts)
                     .filter(alerts => alerts.find(alert => redAlertCodes.indexOf(alert) != -1))
                     .length;

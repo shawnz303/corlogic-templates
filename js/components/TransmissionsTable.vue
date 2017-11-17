@@ -92,7 +92,7 @@
 
                     <div class="table__body">
                         <transmission-record
-                            v-for="t in transmissions"
+                            v-for="t in records"
 
                             :id="t.id"
                             :alerts="t.hl7_alerts"
@@ -142,18 +142,18 @@
             ...mapState([
                 'searchQuery',
                 'lastSearchQuery',
-                'transmissions',
+                'records',
             ]),
         },
         methods: {
             ...mapActions([
                 'refresh',
-                'updateTransmission',
+                'updateSingleRecord',
             ]),
             ...mapMutations([
                 'clearSearch',
                 'remove',
-                'sortTransmissions',
+                'sortRecords',
             ]),
             arrowTransform(sortOrder, width, height) {
                 const rotation = -sortOrder * 90 + 90;
@@ -163,7 +163,7 @@
             },
             sortByAlert() {
                 this.sortOrderAlert = -this.sortOrderAlert;
-                this.sortTransmissions((sortOrder => (a, b) => {
+                this.sortRecords((sortOrder => (a, b) => {
                     const colours1 = a.hl7_alerts.map(alert => {
                         return alertsInfo.find(elem => elem.code === alert).colour;
                     });
@@ -189,7 +189,7 @@
                     id: this.txEdit.id,
                     body: {notes: this.$refs.txNote.value},
                 };
-                this.updateTransmission(params)
+                this.updateSingleRecord(params)
                     .then(() => {
                         const url = `/api/v1/reports/transmissions/update-latest-cover/`;
                         const params = {patient_id: this.txEdit.patientId};
@@ -202,9 +202,6 @@
             txNoteEdit(e) {
                 this.txEdit = e.params.txEdit;
             },
-        },
-        mounted() {
-            this.refresh();
         },
     };
 </script>

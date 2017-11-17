@@ -9,6 +9,7 @@
 </template>
 
 <script>
+    import { mapActions, mapMutations } from 'vuex';
     import BillingSheet from './BillingSheet.vue';
     import Sidebar from './Sidebar.vue';
 
@@ -16,6 +17,22 @@
         components: {
             billingSheet: BillingSheet,
             sidebar: Sidebar,
+        },
+        methods: {
+            ...mapActions([
+                'refresh',
+            ]),
+            ...mapMutations([
+                'updatePageData',
+            ]),
+        },
+        created() {
+            const params = {
+                appName: 'reports',
+                model: 'billings',
+            };
+            this.updatePageData(params);
+            this.refresh();
         },
     };
 </script>
