@@ -7,7 +7,7 @@
                 <div class="profile profile--list">
                     <div class="profile__head">
                         <h4>{{ this.dataSource }}</h4>
-                        <div class="btn" @click="clearSearch" v-if="lastSearchQuery">
+                        <div class="btn btn--blue" @click="clearSearch" v-if="lastSearchQuery">
                             Clear Search
                         </div>
                     </div><!-- /.profile__head -->
@@ -138,7 +138,7 @@
                 return `rotate(${rotation} ${width/2.} ${height/2.})`;
             },
             sortByName() {
-                this.sortOrderName = -this.sortOrderName;
+                this.sortOrderName *= -1;
                 this.sortRecords((sortOrder => (a, b) => {
                     const lastName1 = a.name.split(' ').slice(-1)[0].toLowerCase();
                     const lastName2 = b.name.split(' ').slice(-1)[0].toLowerCase();
@@ -148,7 +148,7 @@
                 })(this.sortOrderName));
             },
             sortByDevice() {
-                this.sortOrderDevice = -this.sortOrderDevice;
+                this.sortOrderDevice *= -1;
                 this.sortRecords((sortOrder => (a, b) => {
                     const device1 = a.power_source.model_id;
                     const device2 = b.power_source.model_id;
@@ -158,7 +158,7 @@
                 })(this.sortOrderDevice));
             },
             sortByVendor() {
-                this.sortOrderVendor = -this.sortOrderVendor;
+                this.sortOrderVendor *= -1;
                 this.sortRecords((sortOrder => (a, b) => {
                     const vendor1 = a.power_source.manufacturer;
                     const vendor2 = b.power_source.manufacturer;

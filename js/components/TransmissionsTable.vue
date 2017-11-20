@@ -20,7 +20,7 @@
                 <div class="btn btn--blue" @click="saveTxNote">
                     Save
                 </div>
-                <div class="btn" @click="$modal.hide('txNoteEdit')">
+                <div class="btn btn--blue" @click="$modal.hide('txNoteEdit')">
                     Cancel
                 </div>
             </div>
@@ -29,7 +29,7 @@
         <div class="profile">
             <div class="profile__head">
                 <h4>{{ dataSource }}</h4>
-                <div class="btn" @click="clearSearch" v-if="lastSearchQuery">
+                <div class="btn btn--blue" @click="clearSearch" v-if="lastSearchQuery">
                     Clear Search
                 </div>
             </div><!-- /.profile__head -->
@@ -62,8 +62,21 @@
                                 </i>
                             </div><!-- /.table-item table-item-/-lg -->
 
-                            <div class="table-item table-item--lg">
+                            <div
+                                class="table-item table-item--lg table__head--actionable"
+                                @click="sortByDateOfService"
+                            >
                                 <h5>Date of Service</h5>
+                                <i class="ico-arrow-dropdown">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" viewBox="0 0 7 4">
+                                        <path
+                                            fill="#354052"
+                                            fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z"
+                                            opacity=".5"
+                                            :transform="arrowTransform(sortOrderDateOfService, 7, 4)"/>
+                                        />
+                                    </svg>
+                                </i>
                             </div><!-- /.table-item table-item-/-lg -->
 
                             <div class="table-item table-item--lg">
@@ -125,6 +138,7 @@
         },
         data: () => ({
             sortOrderAlert: -1,
+            sortOrderDateOfService: -1,
             txEdit: {
                 id: -1,
                 notes: '',
@@ -162,7 +176,7 @@
                 return `rotate(${rotation} ${width/2.} ${height/2.})`;
             },
             sortByAlert() {
-                this.sortOrderAlert = -this.sortOrderAlert;
+                this.sortOrderAlert *= -1;
                 this.sortRecords((sortOrder => (a, b) => {
                     const colours1 = a.hl7_alerts.map(alert => {
                         return alertsInfo.find(elem => elem.code === alert).colour;
@@ -183,6 +197,16 @@
                         1
                     ) * sortOrder;
                 })(this.sortOrderAlert));
+            },
+            sortByDateOfService() {
+                this.sortOrderDateOfService *= -1;
+                this.sortRecords((sortOrder => (a, b) => {
+                    return (
+                        a.session_date < b.session_date ? -1 :
+                        a.session_date > b.session_date ? 1 :
+                        0
+                    ) * sortOrder;
+                })(this.sortOrderDateOfService));
             },
             saveTxNote() {
                 const params = {

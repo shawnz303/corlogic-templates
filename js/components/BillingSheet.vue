@@ -3,13 +3,16 @@
         <div class="profile">
             <div class="profile__head">
                 <h4>{{ this.dataSource }}</h4>
-                <a href="/api/v1/reports/billings/export/">
-                    <div class="btn">Download</div>
-                </a>
-                <div class="btn" @click="archiveRecords">
+                <transition-button
+                    :callPromise="download"
+                    :normalText="'Download'"
+                    :transitionText="'Downloading'"
+                >
+                </transition-button>
+                <div class="btn btn--blue" @click="archiveRecords">
                     Clear
                 </div>
-                <div class="btn" @click="clearSearch" v-if="lastSearchQuery">
+                <div class="btn btn--blue" @click="clearSearch" v-if="lastSearchQuery">
                     Clear Search
                 </div>
             </div><!-- /.profile__head -->
@@ -74,12 +77,15 @@
 </template>
 
 <script>
+    import FileSaver from 'file-saver';
     import { mapActions, mapMutations, mapState } from 'vuex';
     import BillingRecord from './BillingRecord.vue';
+    import TransitionButton from './TransitionButton.vue';
 
     export default {
         components: {
-            billingRecord: BillingRecord
+            billingRecord: BillingRecord,
+            transitionButton: TransitionButton,
         },
         computed: {
             ...mapState([
@@ -100,6 +106,13 @@
             ...mapMutations([
                 'clearSearch',
             ]),
+            download() {
+                const url = '/api/v1/reports/billings/export/';
+                return this.$http.get(url).then(res => {
+                    const blob = new Blob([res.body], {type: 'application/csv'});
+                    FileSaver.saveAs(blob, 'BillingsReport.csv')
+                });
+            },
         },
     };
 </script>

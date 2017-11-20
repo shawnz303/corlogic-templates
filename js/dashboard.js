@@ -20,6 +20,7 @@ Vue.http.headers.common['X-CSRFToken'] = Vue.cookie.get('csrftoken');
 var Content = require('./components/Content.vue');
 var Header = require('./components/Header.vue');
 var BillingPage = require('./components/BillingPage.vue');
+var BlankPage = require('./components/BlankPage.vue');
 var PatientDetail = require('./components/PatientDetail.vue');
 var PatientList = require('./components/PatientList.vue');
 var Transmissions = require('./components/Transmissions.vue');
@@ -29,6 +30,7 @@ window.onload = () => {
 
     const routes = [
         { path: '/billing-page', component: BillingPage },
+        { path: '/blank-page', component: BlankPage },
         { path: '/patient-detail/:id', component: PatientDetail },
         { path: '/patient-list', component: PatientList },
         { path: '/', component: Transmissions },

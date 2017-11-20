@@ -244,11 +244,13 @@
                             </div><!-- /.box -->
 
                             <div class="box box--notes">
-                                <div class="box__inner">
-                                    <div class="btn btn--blue" @click="transmissionUpdateCover">
-                                        UPDATE COVERSHEET
-                                    </div><!-- /.box__body -->
-                                </div><!-- /.box__inner -->
+                                <transition-button
+                                    :callPromise="transmissionUpdateCover"
+                                    :isWide="true"
+                                    :normalText="'Update Coversheet'"
+                                    :transitionText="'Updating Coversheet'"
+                                >
+                                </transition-button>
                             </div><!-- /.box -->
 
                         </div><!-- /.tile__content -->
@@ -266,10 +268,12 @@
     import { mapActions, mapMutations, mapState } from 'vuex';
     import { sessionTypesInfo } from './sessions.js';
     import Sidebar from './Sidebar.vue';
+    import TransitionButton from './TransitionButton.vue';
 
     export default {
         components: {
             sidebar: Sidebar,
+            transitionButton: TransitionButton,
         },
         data: () => ({
             addingNewNote: false,
@@ -436,7 +440,7 @@
             transmissionUpdateCover() {
                 const url = `/api/v1/reports/transmissions/update-latest-cover/`;
                 const params = {patient_id: this.patientId};
-                this.$http.get(url, {params});
+                return this.$http.get(url, {params});
             },
         },
         created() {

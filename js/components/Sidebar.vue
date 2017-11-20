@@ -29,7 +29,7 @@
             </div><!-- /.sidebar__nav -->
 
             <div class="sidebar__foot">
-                <a href="#">
+                <router-link to="/blank-page">
                     <h6>NEED HELP?</h6>
 
                     <i class="ico-dropdown">
@@ -37,7 +37,7 @@
                             <path fill="#354052" fill-rule="evenodd" d="M3.536 2.657L1.059.18a.494.494 0 0 0-.705.002.504.504 0 0 0-.002.705L3.184 3.72a.493.493 0 0 0 .703 0L6.72.887c.2-.2.194-.51-.001-.705A.504.504 0 0 0 6.012.18L3.536 2.657z" opacity=".5"/>
                         </svg>
                     </i>
-                </a>
+                </router-link>
             </div><!-- /.sidebar__foot -->
         </div><!-- /.sidebar__inner -->
 

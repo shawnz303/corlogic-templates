@@ -55,13 +55,12 @@
                     <p>Archived</p>
                 </div>
                 <div v-else>
-                    <a
-                        class="btn"
-                        :class="{ 'btn--blue': !archiving, 'btn--gray': archiving }"
-                        @click="archive"
+                    <transition-button
+                        :callPromise="archive"
+                        :normalText="'Archive'"
+                        :transitionText="'Archiving'"
                     >
-                        {{ archiving ? 'Archiving...' : 'Archive' }}
-                    </a>
+                    </transition-button>
                 </div>
             </div>
 
@@ -81,6 +80,7 @@
     import queryString from 'query-string';
     import { alertsInfo } from './alerts';
     import { sessionTypesInfo } from './sessions.js';
+    import TransitionButton from './TransitionButton.vue';
 
     export default {
         props: [
@@ -97,8 +97,10 @@
             'sessionTrigger',
             'sessionType',
         ],
+        components: {
+            transitionButton: TransitionButton
+        },
         data: () => ({
-            archiving: false,
             eyeImgSrc,
             pencilImgSrc,
         }),
@@ -115,10 +117,7 @@
                 return alertsInfo.find(elem => elem.code === alert).colour;
             },
             archive() {
-                this.archiving = true;
-                this.$store.dispatch('archive', this.id).then(() => {
-                    this.archiving = false
-                });
+                return this.$store.dispatch('archive', this.id);
             },
             editTransmission() {
                 this.$modal.show('txNoteEdit', {
