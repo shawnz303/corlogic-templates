@@ -79,7 +79,7 @@
 <script>
     import queryString from 'query-string';
     import { alertsInfo } from './alerts';
-    import { sessionTypesInfo } from './sessions.js';
+    import { sessionTypesInfo } from './sessions';
     import TransitionButton from './TransitionButton.vue';
 
     export default {
