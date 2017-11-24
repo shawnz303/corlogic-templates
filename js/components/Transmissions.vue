@@ -6,6 +6,7 @@
             <div class="content__head">
                 <overview-box></overview-box>
             </div>
+            <transmission-uploader></transmission-uploader>
             <transmissions-table v-if="records.length"></transmissions-table>
             <div class="box" v-else>
                 <spinner class="box__spinner"></spinner>
@@ -20,6 +21,7 @@
     import OverviewBox from './OverviewBox.vue';
     import Sidebar from './Sidebar.vue';
     import TransmissionsTable from './TransmissionsTable.vue';
+    import TransmissionUploader from './TransmissionUploader.vue';
 
     export default {
         components: {
@@ -27,6 +29,7 @@
             overviewBox: OverviewBox,
             sidebar: Sidebar,
             transmissionsTable: TransmissionsTable,
+            transmissionUploader: TransmissionUploader,
         },
         computed: {
             ...mapState([
