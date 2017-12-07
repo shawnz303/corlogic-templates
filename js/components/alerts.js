@@ -21,7 +21,17 @@ export const alertsInfo = [
     },
     {
         code: 'Sh',
-        desc: 'Shocks',
+        desc: 'Shock(s)',
+        colour: 'red',
+    },
+    {
+        code: 'Shock',
+        desc: 'Single Shock',
+        colour: 'red',
+    },
+    {
+        code: 'Shocks',
+        desc: 'Multiple Shocks',
         colour: 'red',
     },
     {
