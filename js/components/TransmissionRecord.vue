@@ -25,6 +25,7 @@
                         'tag--red': alertColour(alert) == 'red',
                         'tag--yellow': alertColour(alert) == 'yellow',
                     }"
+                    :title="alertDescription(alert)"
                 >
                     {{ alert }}
                 </span>
@@ -115,6 +116,9 @@
         methods: {
             alertColour(alert) {
                 return alertsInfo.find(elem => elem.code === alert).colour;
+            },
+            alertDescription(alert) {
+                return alertsInfo.find(elem => elem.code === alert).desc;
             },
             archive() {
                 return this.$store.dispatch('archive', this.id);
