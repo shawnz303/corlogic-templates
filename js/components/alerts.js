@@ -5,6 +5,11 @@ export const alertsInfo = [
         colour: 'red',
     },
     {
+        code: 'EOS',
+        desc: 'End of Service',
+        colour: 'red',
+    },
+    {
         code: 'VT',
         desc: 'Ventricular Tachycardia',
         colour: 'red',
@@ -12,7 +17,7 @@ export const alertsInfo = [
     {
         code: 'ATP',
         desc: 'Anti-tachycardia Pacing',
-        colour: 'red',
+        colour: 'yellow',
     },
     {
         code: 'VF',
@@ -45,7 +50,7 @@ export const alertsInfo = [
         colour: 'red',
     },
     {
-        code: 'BM',
+        code: 'Backup Mode',
         desc: 'Backup Mode',
         colour: 'red',
     },
