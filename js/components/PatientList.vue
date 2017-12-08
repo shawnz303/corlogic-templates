@@ -124,10 +124,10 @@
         },
         methods: {
             ...mapActions([
+                'clearSearch',
                 'refresh',
             ]),
             ...mapMutations([
-                'clearSearch',
                 'sortRecords',
                 'updatePageData',
             ]),

@@ -48,9 +48,11 @@ window.onload = () => {
             model: '',
             lastLogin: new Date(),
             records: [],
+            loadingRecords: false,
             cachedRecords: [],
             searchQuery: '',
             lastSearchQuery: '',
+            recordsFiltered: false,
             patientDetail: {},
             physicians: [],
         },
@@ -65,10 +67,23 @@ window.onload = () => {
             clearSearch(state) {
                 state.searchQuery = '';
                 state.lastSearchQuery = '';
-                state.records = state.cachedRecords;
+            },
+            startRefresh(state) {
+                state.loadingRecords = true;
+            },
+            endRefresh(state) {
+                state.loadingRecords = false;
+            },
+            filterRecords(state, filteredRecords) {
+                state.recordsFiltered = true;
+                state.records = filteredRecords;
             },
             cacheRecords(state) {
                 state.cachedRecords = state.records;
+            },
+            restoreCachedRecords(state) {
+                state.recordsFiltered = false;
+                state.records = state.cachedRecords;
             },
             updateSearchQuery(state, searchQuery) {
                 state.searchQuery = searchQuery;
@@ -126,10 +141,13 @@ window.onload = () => {
             },
             refresh({ commit, state }) {
                 const url = `/api/v1/${state.appName}/${state.model}/`;
+                commit('startRefresh');
                 commit('clearSearch');
+                commit('restoreCachedRecords');
                 return Vue.http.get(url).then(res => {
                     commit('updateRecords', res.body);
                     commit('cacheRecords');
+                    commit('endRefresh');
                 });
             },
             updateSingleRecord({ commit, state }, { id, body }) {
@@ -164,6 +182,10 @@ window.onload = () => {
                     commit('updatePhysicians', res.body);
                 });
             },
+            clearSearch({ commit }) {
+                commit('clearSearch');
+                commit('restoreCachedRecords');
+            },
             search({ commit, state }) {
                 if (state.searchQuery != state.lastSearchQuery) {
                     const url = `/api/v1/${state.appName}/${state.model}/search/`;
@@ -171,9 +193,19 @@ window.onload = () => {
                     return Vue.http.get(url, {
                         params,
                     }).then(res => {
+                        commit('restoreCachedRecords');
                         commit('updateRecords', res.body);
                         commit('updateLastSearchQuery');
                     });
+                }
+            },
+            filterRecords({ commit, state }, filter) {
+                commit('clearSearch');
+                if (state.recordsFiltered) {
+                    commit('restoreCachedRecords');
+                } else {
+                    const filteredRecords = state.cachedRecords.filter(filter);
+                    commit('filterRecords', filteredRecords);
                 }
             },
         },

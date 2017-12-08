@@ -161,11 +161,11 @@
         },
         methods: {
             ...mapActions([
+                'clearSearch',
                 'refresh',
                 'updateSingleRecord',
             ]),
             ...mapMutations([
-                'clearSearch',
                 'remove',
                 'sortRecords',
             ]),

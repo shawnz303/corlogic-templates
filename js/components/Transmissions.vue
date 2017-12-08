@@ -6,7 +6,7 @@
             <div class="content__head">
                 <overview-box></overview-box>
             </div>
-            <transmissions-table v-if="records.length"></transmissions-table>
+            <transmissions-table v-if="!loadingRecords"></transmissions-table>
             <div class="box" v-else>
                 <spinner class="box__spinner"></spinner>
             </div>
@@ -30,7 +30,9 @@
         },
         computed: {
             ...mapState([
+                'loadingRecords',
                 'records',
+                'searchQuery',
             ]),
         },
         methods: {
