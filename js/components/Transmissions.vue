@@ -36,6 +36,11 @@
                 'records',
             ]),
         },
+        computed: {
+            ...mapState([
+                'records',
+            ]),
+        },
         methods: {
             ...mapActions([
                 'refresh',
