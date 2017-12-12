@@ -45,17 +45,48 @@
                                     <span v-else @click="enableMrnEdit">
                                         {{ patientDetail.mrn || "(Not set)"}}
                                     </span>
+
+                                    <label for="dob">Date of Birth</label>
+                                    <input
+                                        id="dob"
+                                        ref="dob"
+                                        maxlength="10"
+                                        size="12"
+                                        type="date"
+                                        v-if="dobEdit"
+                                        @blur="disableDobEdit"
+                                        :value="patientDetail.dob"
+                                    >
+                                    <span v-else @click="enableDobEdit">
+                                        {{ patientDetail.dob || "(Not set)"}}
+                                    </span>
+
+                                    <label for="dob">Phone #</label>
+                                    <input
+                                        id="phone_number"
+                                        ref="phone_number"
+                                        maxlength="10"
+                                        size="12"
+                                        type="tel"
+                                        v-if="phoneEdit"
+                                        @blur="disablePhoneEdit"
+                                        :value="patientDetail.phone_number"
+                                    >
+                                    <span v-else @click="enablePhoneEdit">
+                                        {{ patientDetail.phone_number || "(Not set)"}}
+                                    </span>
+
                                 </div><!-- /.tile__entry -->
 
                             </div><!-- /.tile__head -->
 
                             <div class="tile__content">
                                 <div class="services">
+
                                     <div class="service service--list">
                                         <div class="service__inner">
                                             <div class="service__head service__head--width">
                                                 <h1>{{ patientName }}</h1>
-
                                                 <h6>PATIENT NAME</h6>
                                             </div><!-- /.service__head -->
                                         </div><!-- /.service__inner -->
@@ -65,7 +96,6 @@
                                         <div class="service__inner">
                                             <div class="service__head">
                                                 <h1>{{ vendor }}</h1>
-
                                                 <h6>VENDOR</h6>
                                             </div><!-- /.service__head -->
                                         </div><!-- /.service__inner -->
@@ -75,11 +105,11 @@
                                         <div class="service__inner">
                                             <div class="service__head">
                                                 <h1>{{ device }}</h1>
-
                                                 <h6>DEVICE</h6>
                                             </div><!-- /.service__head -->
                                         </div><!-- /.service__inner -->
                                     </div><!-- /.service -->
+
                                 </div><!-- /.services -->
                             </div><!-- /.tile__content -->
                         </div><!-- /.tile__inner -->
@@ -277,7 +307,9 @@
         },
         data: () => ({
             addingNewNote: false,
+            dobEdit: false,
             mrnEdit: false,
+            phoneEdit: false,
             newNote: '',
         }),
         computed: {
@@ -415,19 +447,43 @@
                     this.removeNote(noteId);
                 });
             },
+            disableDobEdit() {
+                const body = {dob: this.$refs.dob.value};
+                const params = {
+                    id: this.patientId,
+                    body,
+                };
+                this.dobEdit = false;
+                this.updatePatientDetail(params);
+            },
+            enableDobEdit() {
+                this.dobEdit = true;
+            },
             disableMrnEdit() {
                 const body = {mrn: this.$refs.mrn.value};
                 if (body.mrn.match(/^[0-9]*$/)) {
-                    this.mrnEdit = false;
                     const params = {
                         id: this.patientId,
                         body,
                     };
+                    this.mrnEdit = false;
                     this.updatePatientDetail(params);
                 }
             },
             enableMrnEdit() {
                 this.mrnEdit = true;
+            },
+            disablePhoneEdit() {
+                const body = {phone_number: this.$refs.phone_number.value};
+                const params = {
+                    id: this.patientId,
+                    body,
+                };
+                this.phoneEdit = false;
+                this.updatePatientDetail(params);
+            },
+            enablePhoneEdit() {
+                this.phoneEdit = true;
             },
             sessionType(sessionCode) {
                 return sessionTypesInfo[sessionCode];
