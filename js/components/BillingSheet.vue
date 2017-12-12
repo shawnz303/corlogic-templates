@@ -25,8 +25,12 @@
                                 <h5>Name of Patient</h5>
                             </div><!-- /.table-item table-item-/-lg -->
 
-                            <div class="table-item table-item--md">
+                            <div class="table-item table-item--sm">
                                 <h5>Pt #</h5>
+                            </div><!-- /.table-item table-item-/-sm -->
+
+                            <div class="table-item table-item--md">
+                                <h5>Location</h5>
                             </div><!-- /.table-item table-item-/-md -->
 
                             <div class="table-item table-item--md">
@@ -41,9 +45,9 @@
                                 <h5>Doctor</h5>
                             </div><!-- /.table-item table-item-/-md -->
 
-                            <div class="table-item table-item--md">
+                            <div class="table-item table-item--sm">
                                 <h5>Processed By</h5>
-                            </div><!-- /.table-item table-item-/-md -->
+                            </div><!-- /.table-item table-item-/-sm -->
 
                             <div class="table-item table-item--md">
                                 <h5>CPT Codes</h5>
@@ -65,6 +69,8 @@
                             :dxCode="b.dx_code"
                             :dos="b.dos"
                             :patientDob="b.patient_dob"
+                            :patientId="b.patient_id"
+                            :patientLocation="b.patient_location"
                             :patientName="b.patient_name"
                             :patientNumber="b.patient_number"
                             :processedBy="b.processed_by"

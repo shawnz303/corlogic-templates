@@ -10,8 +10,12 @@
                 </h5>
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
-            <div class="table-item table-item--md table-item--fluid">
+            <div class="table-item table-item--sm table-item--fluid">
                 <p>{{ patientNumber }}</p>
+            </div><!-- /.table-item table-item-/-sm table-item-/-fluid -->
+
+            <div class="table-item table-item--md table-item--fluid">
+                <p>{{ patientLocation }}</p>
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
             <div class="table-item table-item--md table-item--fluid">
@@ -26,9 +30,9 @@
                 <p>{{ doctorName }}</p>
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
-            <div class="table-item table-item--md table-item--fluid">
+            <div class="table-item table-item--sm table-item--fluid">
                 <p>{{ processedByLabel }}</p>
-            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
+            </div><!-- /.table-item table-item-/-sm table-item-/-fluid -->
 
             <div class="table-item table-item--md table-item--fluid">
                 <ul><li v-for="c of cptCodes">{{ c }}</li></ul>
@@ -62,6 +66,8 @@
             'dxCode',
             'dos',
             'patientDob',
+            'patientId',
+            'patientLocation',
             'patientName',
             'patientNumber',
             'processedBy',
@@ -88,7 +94,7 @@
                 );
             },
             patientDetailLink() {
-                return `/patient-detail/${this.patientNumber}/`;
+                return `/patient-detail/${this.patientId}/`;
             },
             processedByLabel() {
                 return processorLabels.find(elem => elem.code == this.processedBy).label;
