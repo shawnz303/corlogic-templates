@@ -31,7 +31,7 @@
                                         </option>
                                     </select>
 
-                                    <label for="mrn">MRN/Chart #</label>
+                                    <label for="mrn">Pt #</label>
                                     <input
                                         id="mrn"
                                         ref="mrn"
