@@ -68,11 +68,11 @@
                             :doctorName="b.doctor_name"
                             :dxCode="b.dx_code"
                             :dos="b.dos"
-                            :patientDob="b.patient_dob"
-                            :patientId="b.patient_id"
-                            :patientLocation="b.patient_location"
-                            :patientName="b.patient_name"
-                            :patientNumber="b.patient_number"
+                            :patientDob="b.patient.dob"
+                            :patientId="b.patient.id"
+                            :patientLocation="b.patient.location"
+                            :patientName="b.patient.name"
+                            :patientNumber="b.patient.number"
                             :processedBy="b.processed_by"
                         />
                     </div><!-- /.table__body -->
