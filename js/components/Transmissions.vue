@@ -39,7 +39,7 @@
                 'updatePageData',
             ]),
         },
-        created() {
+        mounted() {
             const params = {
                 appName: 'reports',
                 model: 'transmissions',

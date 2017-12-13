@@ -168,7 +168,7 @@
                 })(this.sortOrderVendor));
             },
         },
-        created() {
+        mounted() {
             const params = {
                 appName: 'medical',
                 model: 'patients',

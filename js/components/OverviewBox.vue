@@ -109,9 +109,6 @@
     import { alertsInfo } from './alerts';
 
     export default {
-        created() {
-            this.updateUserInfo()
-        },
         computed: {
             newTransmissionsCount() {
                 return this.$store.state.cachedRecords.length;
@@ -133,6 +130,9 @@
             ...mapActions([
                 'updateUserInfo',
             ]),
+        },
+        mounted() {
+            this.updateUserInfo()
         },
     };
 </script>

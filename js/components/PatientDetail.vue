@@ -499,7 +499,7 @@
                 return this.$http.get(url, {params});
             },
         },
-        created() {
+        mounted() {
             const params = {
                 appName: 'medical',
                 model: 'patients',
