@@ -9,6 +9,7 @@
 .service + .service:after { content: ''; position: absolute; bottom: -23px; left: 0; width: 1px; height: 127px; background-image: linear-gradient(to bottom, #ffffff, #dfe2e5); }
 
 .service .service__inner { padding-left: 20px; }
+.service__image--actionable { cursor: pointer; }
 
 .service .service__head h1 { font-weight: 400; color: #354052; font-family: $font-family-sourceSansPro; margin-bottom: 0px; }
 .service .service__head h6 { font-family: $font-family-sourceSansPro; font-weight: 600; color: #7f8fa4; }

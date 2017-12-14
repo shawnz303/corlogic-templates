@@ -31,7 +31,10 @@
 
         <div class="header__aside">
             <div class="header__actions">
-                <a href="#" class="btn btn--green">Upload Sessions</a>
+                <label class="btn--select">
+                    <div class="btn btn--green">Upload Sessions</div>
+                    <input type="file" @change="previewUpload"/>
+                </label>
             </div><!-- /.header__actions -->
 
             <div class="header__nav">
@@ -61,6 +64,7 @@
         },
         methods: {
             ...mapActions([
+                'previewUpload',
                 'search',
             ]),
             ...mapMutations([

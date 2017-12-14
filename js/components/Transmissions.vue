@@ -5,31 +5,43 @@
         <div class="content">
             <div class="content__head">
                 <overview-box></overview-box>
-                <div class="tile tile--empty">
-                    <div class="tile__inner">
-                        <div class="tile__head">
-                            <h4>Notes</h4>
-                        </div><!-- /.tile__head -->
-                    </div><!-- /.tile__inner -->
-                </div><!-- /.tile -->
-            </div><!-- /.content__head -->
-
-            <transmissions-table></transmissions-table>
+            </div>
+            <transmission-uploader></transmission-uploader>
+            <transmissions-table v-if="!loadingRecords"></transmissions-table>
+            <div class="box" v-else>
+                <spinner class="box__spinner"></spinner>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import { mapActions, mapMutations } from 'vuex';
+    import { Circle2 } from './vue-loading-spinner';
+    import { mapActions, mapMutations, mapState } from 'vuex';
     import OverviewBox from './OverviewBox.vue';
     import Sidebar from './Sidebar.vue';
     import TransmissionsTable from './TransmissionsTable.vue';
+    import TransmissionUploader from './TransmissionUploader.vue';
 
     export default {
         components: {
+            spinner: Circle2,
             overviewBox: OverviewBox,
             sidebar: Sidebar,
             transmissionsTable: TransmissionsTable,
+            transmissionUploader: TransmissionUploader,
+        },
+        computed: {
+            ...mapState([
+                'records',
+            ]),
+        },
+        computed: {
+            ...mapState([
+                'loadingRecords',
+                'records',
+                'searchQuery',
+            ]),
         },
         methods: {
             ...mapActions([

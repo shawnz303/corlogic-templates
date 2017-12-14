@@ -84,7 +84,7 @@
 
 <script>
     import FileSaver from 'file-saver';
-    import { mapActions, mapMutations, mapState } from 'vuex';
+    import { mapActions, mapState } from 'vuex';
     import BillingRecord from './BillingRecord.vue';
     import TransitionButton from './TransitionButton.vue';
 
@@ -108,8 +108,6 @@
         methods: {
             ...mapActions([
                 'archiveRecords',
-            ]),
-            ...mapMutations([
                 'clearSearch',
             ]),
             download() {
