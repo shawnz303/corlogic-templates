@@ -10,8 +10,6 @@
 
 .btn a { text-decoration: none }
 
-
-.btn--select > .btn { cursor: pointer; padding: 1rem; margin: 1.5rem 0rem; width: 25%; }
 .btn--select > input { display: none; }
 
 
