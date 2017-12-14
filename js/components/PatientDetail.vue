@@ -65,7 +65,7 @@
                                     <input
                                         id="phone_number"
                                         ref="phone_number"
-                                        maxlength="10"
+                                        maxlength="14"
                                         size="12"
                                         type="tel"
                                         v-if="phoneEdit"
