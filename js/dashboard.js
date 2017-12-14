@@ -45,8 +45,9 @@ window.onload = () => {
     const store = new Vuex.Store({
         state: {
             appName: '',
-            model: '',
+            fileUploadPreview: false,
             lastLogin: new Date(),
+            model: '',
             records: [],
             loadingRecords: false,
             cachedRecords: [],
@@ -118,6 +119,9 @@ window.onload = () => {
             updatePhysicians(state, physicians) {
                 state.physicians = physicians;
             },
+            previewUpload(state) {
+                state.fileUploadPreview = true;
+            },
         },
         actions: {
             updateUserInfo({ commit }) {
@@ -175,6 +179,11 @@ window.onload = () => {
             updatePatientNote({ commit }, { id, body }) {
                 const url = `/api/v1/medical/patient-notes/${id}/`;
                 return Vue.http.patch(url, body);
+            },
+            previewUpload({ commit }, e) {
+                commit('previewUpload');
+                console.log(e)
+                router.push('/');
             },
             refreshPhysicians({ commit }) {
                 const url = `/api/v1/medical/professionals/`;
