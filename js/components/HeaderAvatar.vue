@@ -12,13 +12,10 @@
         <nav class="nav" :class="{ active }">
             <ul>
                 <li>
-                    <a href="#">Edit Profile</a>
+                    <a href="#">Settings</a>
                 </li>
                 <li>
-                    <a href="#">View Activity</a>
-                </li>
-                <li>
-                    <a href="#">Manage Roles</a>
+                    <a href="/logout">Logout</a>
                 </li>
             </ul>
         </nav><!-- /.nav -->
@@ -34,7 +31,7 @@
         methods: {
             toggle() {
                 this.active ^= true;
-            }
+            },
         }
     };
 </script>

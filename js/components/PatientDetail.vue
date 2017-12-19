@@ -58,7 +58,7 @@
                                         :value="patientDetail.dob"
                                     >
                                     <span v-else @click="enableDobEdit">
-                                        {{ patientDetail.dob || "(Not set)"}}
+                                        {{ patientDetail.dob | moment('MM/DD/YYYY') || "(Not set)"}}
                                     </span>
 
                                     <label for="dob">Phone #</label>
