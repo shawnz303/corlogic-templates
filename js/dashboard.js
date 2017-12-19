@@ -24,6 +24,7 @@ var BlankPage = require('./components/BlankPage.vue');
 var PatientDetail = require('./components/PatientDetail.vue');
 var PatientList = require('./components/PatientList.vue');
 var Transmissions = require('./components/Transmissions.vue');
+var HfPortal = require('./components/HfPortal.vue');
 
 
 window.onload = () => {
@@ -33,6 +34,7 @@ window.onload = () => {
         { path: '/blank-page', component: BlankPage },
         { path: '/patient-detail/:id', component: PatientDetail },
         { path: '/patient-list', component: PatientList },
+        { path: '/hf', component: HfPortal },
         { path: '/', component: Transmissions },
     ];
     const router = new VueRouter({
@@ -143,12 +145,14 @@ window.onload = () => {
                     return dispatch('archive', id);
                 }).then(res => dispatch('refresh'));
             },
-            refresh({ commit, state }) {
+            refresh({ commit, state }, params) {
                 const url = `/api/v1/${state.appName}/${state.model}/`;
                 commit('startRefresh');
                 commit('clearSearch');
                 commit('restoreCachedRecords');
-                return Vue.http.get(url).then(res => {
+                return Vue.http.get(url, {
+                    params
+                }).then(res => {
                     commit('updateRecords', res.body);
                     commit('cacheRecords');
                     commit('endRefresh');

@@ -14,6 +14,12 @@
                         </router-link>
                     </li>
                     <li>
+                        <router-link to="/hf">
+                            <i class="ico-home"></i>
+                            <span>Heart Failure Portal</span>
+                        </router-link>
+                    </li>
+                    <li>
                         <router-link to="/patient-list">
                             <i class="ico-patients"></i>
                             <span>Patient List</span>
