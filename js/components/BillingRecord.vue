@@ -49,6 +49,20 @@
                 </select>
             </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
 
+            <div class="table-item table-item--md table-item--center">
+                <div v-if="archived">
+                    <p>Archived</p>
+                </div>
+                <div v-else>
+                    <transition-button
+                        :callPromise="archive"
+                        :normalText="'Archive'"
+                        :transitionText="'Archiving'"
+                    >
+                    </transition-button>
+                </div>
+            </div>
+
         </div><!-- /.table-items -->
     </div><!-- /.table__group -->
 </template>
@@ -57,6 +71,7 @@
     import { mapActions } from 'vuex';
     import { dxCodes } from './dx-codes.js';
     import { processorLabels } from './processor-labels.js';
+    import TransitionButton from './TransitionButton.vue';
 
     export default {
         props: [
@@ -72,6 +87,9 @@
             'patientNumber',
             'processedBy',
         ],
+        components: {
+            TransitionButton,
+        },
         computed: {
             dxCodeSelection: {
                 get() {
@@ -104,6 +122,9 @@
             ...mapActions([
                 'updateSingleRecord',
             ]),
+            archive() {
+                return this.$store.dispatch('archive', this.id);
+            },
         },
     };
 </script>

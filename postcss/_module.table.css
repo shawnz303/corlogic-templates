@@ -8,7 +8,7 @@
 .table-item--lg { width: 24%; }
 .table-item--md { width: 20%; }
 .table-item--sm { width: 12%; }
-.table-item--center { text-align: center; display: flex; justify-content: space-between; align-items: center; }
+.table-item--center { align-items: center; display: flex; height: 0%; justify-content: space-between; padding: 0% 5% 0% 0%; }
 
 .table .table__head .table-item h5 { font-weight: 600; color: #7f8fa4; display: inline; }
 .table .table__head .table-item a { text-decoration: none; display: block; }
