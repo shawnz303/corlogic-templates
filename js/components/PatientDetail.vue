@@ -46,21 +46,6 @@
                                         {{ patientDetail.mrn || "(Not set)"}}
                                     </span>
 
-                                    <label for="dob">Date of Birth</label>
-                                    <input
-                                        id="dob"
-                                        ref="dob"
-                                        maxlength="10"
-                                        size="12"
-                                        type="date"
-                                        v-if="dobEdit"
-                                        @blur="disableDobEdit"
-                                        :value="patientDetail.dob"
-                                    >
-                                    <span v-else @click="enableDobEdit">
-                                        {{ patientDetail.dob | moment('MM/DD/YYYY') || "(Not set)"}}
-                                    </span>
-
                                     <label for="dob">Phone #</label>
                                     <input
                                         id="phone_number"
@@ -88,6 +73,27 @@
                                             <div class="service__head service__head--width">
                                                 <h1>{{ patientName }}</h1>
                                                 <h6>PATIENT NAME</h6>
+                                                <h1>
+                                                    <input
+                                                        id="dob"
+                                                        ref="dob"
+                                                        maxlength="10"
+                                                        size="12"
+                                                        type="date"
+                                                        v-if="dobEdit"
+                                                        @blur="disableDobEdit"
+                                                        :value="patientDetail.dob"
+                                                    >
+                                                    <span v-else @click="enableDobEdit">
+                                                        {{
+                                                            patientDetail.dob | moment('MM/DD/YYYY') ||
+                                                            "(Not set)"
+                                                        }}
+                                                    </span>
+                                                </h1>
+                                                <h6>
+                                                    <label for="dob">DATE OF BIRTH</label>
+                                                </h6>
                                             </div><!-- /.service__head -->
                                         </div><!-- /.service__inner -->
                                     </div><!-- /.service -->
