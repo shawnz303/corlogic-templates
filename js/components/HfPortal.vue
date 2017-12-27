@@ -5,7 +5,10 @@
         <div class="content">
             <div class="content__head">
             </div>
-            <transmissions-table v-if="!loadingRecords"></transmissions-table>
+            <transmissions-table
+                header="Heart Failure Transmissions"
+                v-if="!loadingRecords">
+            </transmissions-table>
             <div class="box" v-else>
                 <spinner class="box__spinner"></spinner>
             </div>

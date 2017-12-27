@@ -133,6 +133,11 @@
     import TransmissionRecord from './TransmissionRecord.vue';
 
     export default {
+        props: {
+            header: {
+                default: 'New Transmissions',
+            },
+        },
         components: {
             transmissionRecord: TransmissionRecord
         },
@@ -151,7 +156,7 @@
             dataSource() {
                 return this.lastSearchQuery ?
                     `Search results for "${this.lastSearchQuery}"` :
-                    'New Transmissions';
+                    this.header;
             },
             ...mapState([
                 'searchQuery',
