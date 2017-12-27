@@ -76,6 +76,7 @@
     export default {
         props: [
             'id',
+            'archived',
             'cptCodes',
             'doctorName',
             'dxCode',

@@ -1,5 +1,19 @@
 <template>
     <div class="content__body">
+        <modal name="clearAllConfirm"  height="15%" :clickToClose="false">
+            <div class="modal--header">
+                <h5>Are you sure you want to clear all the billing records?</h5>
+            </div>
+            <div class="btn--group__modal">
+                <div class="btn btn--blue" @click="confirmClearAll">
+                    Confirm
+                </div>
+                <div class="btn btn--blue" @click="$modal.hide('clearAllConfirm')">
+                    Cancel
+                </div>
+            </div>
+        </modal>
+
         <div class="profile">
             <div class="profile__head">
                 <h4>{{ this.dataSource }}</h4>
@@ -7,9 +21,14 @@
                     :callPromise="download"
                     :normalText="'Download'"
                     :transitionText="'Downloading'"
+                    v-if="!lastSearchQuery"
                 >
                 </transition-button>
-                <div class="btn btn--blue" @click="archiveRecords">
+                <div
+                    class="btn btn--blue"
+                    @click="$modal.show('clearAllConfirm')"
+                    v-if="!lastSearchQuery"
+                >
                     Clear All
                 </div>
                 <div class="btn btn--blue" @click="clearSearch" v-if="lastSearchQuery">
@@ -82,6 +101,7 @@
                             v-for="b in records"
 
                             :id="b.id"
+                            :archived="b.archived"
                             :cptCodes="b.cpt_codes"
                             :doctorName="b.doctor_name"
                             :dxCode="b.dx_code"
@@ -139,6 +159,10 @@
                 width = width || 0;
                 height = height || 0;
                 return `rotate(${rotation} ${width/2.} ${height/2.})`;
+            },
+            confirmClearAll() {
+                this.archiveRecords();
+                this.$modal.hide('clearAllConfirm');
             },
             download() {
                 const url = '/api/v1/reports/billings/export/';
