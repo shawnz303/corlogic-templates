@@ -15,8 +15,8 @@
                     </li>
                     <li>
                         <router-link to="/hf">
-                            <i class="ico-home"></i>
-                            <span>Heart Failure Portal</span>
+                            <i class="ico-hf"></i>
+                            <span>Heart Failure</span>
                         </router-link>
                     </li>
                     <li>
