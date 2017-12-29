@@ -31,10 +31,9 @@
 
         <div class="header__aside">
             <div class="header__actions">
-                <label class="btn--select">
-                    <div class="btn btn--green">Upload Sessions</div>
-                    <input type="file" @change="previewUpload"/>
-                </label>
+                <router-link to="/uploads" class="btn btn--green">
+                    Upload Sessions
+                </router-link>
             </div><!-- /.header__actions -->
 
             <div class="header__nav">
@@ -64,7 +63,6 @@
         },
         methods: {
             ...mapActions([
-                'previewUpload',
                 'search',
             ]),
             ...mapMutations([

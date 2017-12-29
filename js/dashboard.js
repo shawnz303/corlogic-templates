@@ -24,6 +24,7 @@ var BlankPage = require('./components/BlankPage.vue');
 var PatientDetail = require('./components/PatientDetail.vue');
 var PatientList = require('./components/PatientList.vue');
 var Transmissions = require('./components/Transmissions.vue');
+var TransmissionUploader = require('./components/TransmissionUploader.vue');
 var HfPortal = require('./components/HfPortal.vue');
 
 
@@ -35,6 +36,7 @@ window.onload = () => {
         { path: '/patient-detail/:id', component: PatientDetail },
         { path: '/patient-list', component: PatientList },
         { path: '/hf', component: HfPortal },
+        { path: '/uploads', component: TransmissionUploader },
         { path: '/', component: Transmissions },
     ];
     const router = new VueRouter({
@@ -46,10 +48,8 @@ window.onload = () => {
 
     const store = new Vuex.Store({
         state: {
-            appName: '',
-            fileUploadPreview: false,
+            apiPath: '',
             lastLogin: new Date(),
-            model: '',
             records: [],
             loadingRecords: false,
             cachedRecords: [],
@@ -60,9 +60,9 @@ window.onload = () => {
             physicians: [],
         },
         mutations: {
-            updatePageData(state, { appName, model }) {
-                state.appName = appName;
-                state.model = model;
+            updatePageData(state, { appName, model, subModel }) {
+                state.apiPath = `${appName}/${model}`;
+                state.apiPath += subModel ? `/${subModel}` : '';
             },
             updateLogin(state, lastLogin) {
                 state.lastLogin = lastLogin;
@@ -121,9 +121,6 @@ window.onload = () => {
             updatePhysicians(state, physicians) {
                 state.physicians = physicians;
             },
-            previewUpload(state) {
-                state.fileUploadPreview = true;
-            },
         },
         actions: {
             updateUserInfo({ commit }) {
@@ -133,7 +130,7 @@ window.onload = () => {
                 });
             },
             archive({ commit, state }, id) {
-                const url = `/api/v1/${state.appName}/${state.model}/${id}/`;
+                const url = `/api/v1/${state.apiPath}/${id}/`;
                 const body = {archived: true};
                 return Vue.http.patch(url, body).then(res => {
                     commit('remove', id);
@@ -146,7 +143,7 @@ window.onload = () => {
                 }).then(res => dispatch('refresh'));
             },
             refresh({ commit, state }, params) {
-                const url = `/api/v1/${state.appName}/${state.model}/`;
+                const url = `/api/v1/${state.apiPath}/`;
                 commit('startRefresh');
                 commit('clearSearch');
                 commit('restoreCachedRecords');
@@ -159,7 +156,7 @@ window.onload = () => {
                 });
             },
             updateSingleRecord({ commit, state }, { id, body }) {
-                const url = `/api/v1/${state.appName}/${state.model}/${id}/`;
+                const url = `/api/v1/${state.apiPath}/${id}/`;
                 return Vue.http.patch(url, body).then(res => {
                     commit('updateSingleRecord', res.body);
                 });
@@ -184,16 +181,15 @@ window.onload = () => {
                 const url = `/api/v1/medical/patient-notes/${id}/`;
                 return Vue.http.patch(url, body);
             },
-            previewUpload({ commit }, e) {
-                commit('previewUpload');
-                console.log(e)
-                router.push('/');
-            },
             refreshPhysicians({ commit }) {
                 const url = `/api/v1/medical/professionals/`;
                 return Vue.http.get(url).then(res => {
                     commit('updatePhysicians', res.body);
                 });
+            },
+            import({ commit }, { id, body }) {
+                const url = `/api/v1/${state.apiPath}/${id}/import/`;
+                return Vue.http.post(url, body);
             },
             clearSearch({ commit }) {
                 commit('clearSearch');
@@ -201,7 +197,7 @@ window.onload = () => {
             },
             search({ commit, state }) {
                 if (state.searchQuery != state.lastSearchQuery) {
-                    const url = `/api/v1/${state.appName}/${state.model}/search/`;
+                    const url = `/api/v1/${state.apiPath}/search/`;
                     const params = {query: state.searchQuery};
                     return Vue.http.get(url, {
                         params,
@@ -227,6 +223,7 @@ window.onload = () => {
     new Vue({
         el: 'header',
         render: h => h(Header),
+        router,
         store,
     });
 

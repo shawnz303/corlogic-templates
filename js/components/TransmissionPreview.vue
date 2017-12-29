@@ -1,113 +1,129 @@
 <template>
-    <div class="content__head">
-        <div class="preview">
-            <div class="profile">
-                <div class="profile__head">
-                    <h4>Preview Transmission</h4>
-                </div>
-                <div class="profile__body">
-                    <div class="table">
-                        <div class="table__head">
-                            <div class="table-items">
-                                <div class="table-item table-item--lg table-item--fluid">
-                                    <h5>Patient Name</h5>
-                                </div>
-                                <div class="table-item table-item--lg table-item--fluid">
-                                    <h5>Alerts</h5>
-                                </div>
-                                <div class="table-item table-item--lg table-item--fluid">
-                                    <h5>Session Date</h5>
-                                </div>
-                                <div class="table-item table-item--lg table-item--fluid">
-                                    <h5>Session Trigger</h5>
-                                </div>
-                                <div class="table-item table-item--lg table-item--fluid">
-                                    <h5>Session Type</h5>
-                                </div>
-                                <div class="table-item table-item--lg table-item--fluid">
-                                    <h5>Manufacturer</h5>
-                                </div>
-                                <div class="table-item table-item--lg table-item--fluid">
-                                    <h5>Model</h5>
-                                </div>
-                            </div>
-                        </div>
+    <div class="table__group">
+        <div class="table-items">
 
-                        <div class="table__body">
-                            <div class="table__group">
-                                <div class="table-items">
-                                    <div class="table-item table-item--lg table-item--fluid">
-                                        <h5>{{ name }}</h5>
-                                    </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
+            <div class="table-item table-item--md table-item--fluid">
+                <p>{{ sessionDate | moment('MM/DD/YYYY') }}</p>
+            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
-                                    <div class="table-item table-item--lg">
-                                        <span
-                                            class="tag"
-                                            v-for="alert in alerts"
-                                            :class="{
-                                                'tag--red': alertColour(alert) == 'red',
-                                                'tag--yellow': alertColour(alert) == 'yellow',
-                                            }"
-                                        >
-                                            {{ alert }}
-                                        </span>
-                                    </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
+            <div class="table-item table-item--md table-item--fluid">
+                <h5>{{ name }}</h5>
+            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
-                                    <div class="table-item table-item--lg table-item--fluid">
-                                        <p>{{ sessionDate | moment('MM/DD/YYYY') }}</p>
-                                    </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-                                    <div class="table-item table-item--lg table-item--fluid">
-                                        <div v-if="sessionTrigger">{{ sessionTrigger }}</div>
-                                    </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-                                    <div class="table-item table-item--lg table-item--fluid">
-                                        <div v-if="sessionTypeHumanized">{{ sessionTypeHumanized }}</div>
-                                    </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-                                    <div class="table-item table-item--lg table-item--fluid">
-                                        <p>{{ manufacturer }}</p>
-                                    </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-
-                                    <div class="table-item table-item--lg table-item--fluid">
-                                        <p>{{ model }}</p>
-                                    </div><!-- /.table-item table-item-/-lg table-item-/-fluid -->
-                                </div><!-- /.table-items -->
-                            </div><!-- /.table__group -->
-                        </div>
+            <div class="table-item table-item--md table-item--fluid">
+                <input
+                    id="mrn"
+                    ref="mrn"
+                    maxlength="10"
+                    size="12"
+                    type="text"
+                    v-if="mrnEdit"
+                    @blur="disableMrnEdit"
+                    :value="ptId"
+                >
+                <span v-else @click="enableMrnEdit">
+                    <div v-if="ptId">{{ ptId }}</div>
+                    <div v-else>
+                        <img :src="pencilImgSrc" alt="Edit patient ID">
                     </div>
+                </span>
+            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
+
+            <div class="table-item table-item--md table-item--fluid">
+                <p>{{ manufacturer }}</p>
+            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
+
+            <div class="table-item table-item--md table-item--fluid">
+                <p>{{ model }}</p>
+            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
+
+            <div class="table-item table-item--md table-item--fluid">
+                <p>{{ serialNumber }}</p>
+            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
+
+            <div class="table-item table-item--sm table-item--fluid">
+                <i class="ico-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+                        <path fill="#CED0DA" fill-rule="evenodd" d="M9.222 3.033a4.376 4.376 0 1 0-6.19 6.19 4.376 4.376 0 1 0 6.19-6.19m4.552 10.741a.877.877 0 0 1-1.239 0L9.78 11.017c-2.4 1.794-5.804 1.624-7.984-.557a6.126 6.126 0 0 1 0-8.665 6.126 6.126 0 0 1 8.665 0c2.181 2.18 2.351 5.584.557 7.984l2.757 2.757a.876.876 0 0 1 0 1.238"/>
+                    </svg>
+                </i>
+            </div><!-- /.table-item table-item-/-sm table-item-/-fluid -->
+
+            <div class="table-item table-item--sm table-item--fluid">
+                <img :src="pencilImgSrc" alt="Edit transmission notes">
+            </div><!-- /.table-item table-item-/-sm table-item-/-fluid -->
+
+            <div class="table-item table-item--md table-item--fluid">
+                <div v-if="sessionTypeHumanized">{{ sessionTypeHumanized }}</div>
+            </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
+
+            <div class="table-item table-item--sm table-item--fluid">
+                <div class="checkbox">
+                    <input type="checkbox" :id="refName" :ref="refName"/>
+                    <label class="form-label" :for="refName"></label>
                 </div>
-            </div>
-        </div>
-    </div>
+            </div><!-- /.table-item table-item-/-sm table-item-/-fluid -->
+
+        </div><!-- /.table-items -->
+    </div><!-- /.table__group -->
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
     import { alertsInfo } from './alerts';
     import { sessionTypesInfo } from './sessions';
 
     export default {
-        props: {
-            alerts: {
-                default: () => ['Sh', 'ATAF', ],
-            },
-            manufacturer: {default: 'XYZ'},
-            model: {default: 'ABC123'},
-            name: {default: 'Winona Ryder'},
-            notes: {default: 'Some notes...'},
-            sessionDate: {default: '01/01/1970'},
-            sessionTrigger: {default: 'Remote'},
-            sessionType: {default: 'type-session-device-check'},
-        },
+        props: [
+            'id',
+            'manufacturer',
+            'model',
+            'name',
+            'serialNumber',
+            'sessionDate',
+            'sessionTrigger',
+            'sessionType',
+        ],
+        data: () => ({
+            mrnEdit: false,
+            ptId: null,
+            pencilImgSrc,
+        }),
         computed: {
+            refName() {
+                return `import-${this.id}`;
+            },
             sessionTypeHumanized() {
                 return sessionTypesInfo[this.sessionType];
             },
         },
         methods: {
+            ...mapActions([
+                'import',
+            ]),
             alertColour(alert) {
                 return alertsInfo.find(elem => elem.code === alert).colour;
             },
+            disableMrnEdit() {
+                this.ptId = this.$refs.mrn.value;
+                this.mrnEdit = false;
+            },
+            enableMrnEdit() {
+                this.mrnEdit = true;
+            },
+            importIfSelected() {
+                if (this.$refs[this.refName].checked) {
+                    const body = {mrn: this.ptId};
+                    const params = {
+                        id: this.id,
+                        body,
+                    };
+                    this.import(params);
+                }
+            },
+        },
+        created() {
+            this.$bus.$on('importSelectedUploads', this.importIfSelected);
         },
     };
 </script>

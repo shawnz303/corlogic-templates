@@ -153,16 +153,16 @@
             },
         }),
         computed: {
-            dataSource() {
-                return this.lastSearchQuery ?
-                    `Search results for "${this.lastSearchQuery}"` :
-                    this.header;
-            },
             ...mapState([
                 'searchQuery',
                 'lastSearchQuery',
                 'records',
             ]),
+            dataSource() {
+                return this.lastSearchQuery ?
+                    `Search results for "${this.lastSearchQuery}"` :
+                    this.header;
+            },
         },
         methods: {
             ...mapActions([
