@@ -12,7 +12,7 @@
         <nav class="nav" :class="{ active }">
             <ul>
                 <li>
-                    <a href="#">Settings</a>
+                    <a href="/admin">Admin</a>
                 </li>
                 <li>
                     <a href="/logout">Logout</a>
