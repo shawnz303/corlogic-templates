@@ -39,6 +39,7 @@ window.onload = () => {
     ];
     const router = new VueRouter({
         routes,
+        linkActiveClass: 'active',
         scrollBehavior(to, from, savedPosition) {
             return savedPosition ? savedPosition : { x: 0, y: 0 };
         },

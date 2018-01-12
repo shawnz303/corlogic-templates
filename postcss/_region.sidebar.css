@@ -10,18 +10,18 @@
 .sidebar .sidebar__entry { padding: 0 30px; margin-bottom: 10px; }
 
 .sidebar .sidebar__nav { margin-bottom: 30px; }
-.sidebar .sidebar__nav a { text-decoration: none; padding: 9px 30px 9px; display: block; }
-.sidebar .sidebar__nav span { font-weight: 600; padding-left: 18px; color: #7f8fa4; }
+.sidebar .sidebar__nav > a { text-decoration: none; padding: 9px 30px 9px; display: block; }
+.sidebar .sidebar__nav > a > span { font-weight: 600; padding-left: 18px; color: #7f8fa4; }
 
-.sidebar .sidebar__nav .active a { border-left: 2px solid #1990ea; }
-.sidebar .sidebar__nav .active span { color: #354052; }
+.sidebar .sidebar__nav > a.active { border-left: 2px solid #1990ea; }
+.sidebar .sidebar__nav > a.active > span { color: #354052; }
 
-.sidebar .sidebar__nav:hover a { border-left: 2px solid #1990ea; }
-.sidebar .sidebar__nav:hover span { color: #354052; }
+.sidebar .sidebar__nav > a:hover { border-left: 2px solid #1990ea; }
+.sidebar .sidebar__nav > a:hover > span { color: #354052; }
 
 .sidebar .sidebar__foot { margin: 0 20px; border-bottom: 1px solid #e6eaee; padding-bottom: 16px; }
 .sidebar .sidebar__foot a { text-decoration: none; width: 100%; position: relative; display: block; }
-.sidebar .sidebar__foot i { position: absolute; top: 0; right: 11px; }
-.sidebar .sidebar__foot h6 { display: inline; vertical-align: middle; }
+.sidebar .sidebar__foot > i { position: absolute; top: 0; right: 11px; }
+.sidebar .sidebar__foot > h6 { display: inline; vertical-align: middle; }
 
 .sidebar .sidebar__actions { position: absolute; bottom: 74px; left: 0; right: 0; width: 46px; margin: auto; }
