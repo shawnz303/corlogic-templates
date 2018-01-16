@@ -6,32 +6,22 @@
             </div><!-- /.sidebar__entry -->
 
             <div class="sidebar__nav">
-                <ul>
-                    <li>
-                        <router-link to="/">
-                            <i class="ico-home"></i>
-                            <span>Dashboard</span>
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/hf">
-                            <i class="ico-hf"></i>
-                            <span>Heart Failure</span>
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/patient-list">
-                            <i class="ico-patients"></i>
-                            <span>Patient List</span>
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/billing-page">
-                            <i class="ico-billing"></i>
-                            <span>Billing</span>
-                        </router-link>
-                    </li>
-                </ul>
+                <router-link to="/" exact>
+                    <i class="ico-home"></i>
+                    <span>Dashboard</span>
+                </router-link>
+                <router-link to="/hf">
+                    <i class="ico-hf"></i>
+                    <span>Heart Failure</span>
+                </router-link>
+                <router-link to="/patient-list">
+                    <i class="ico-patients"></i>
+                    <span>Patient List</span>
+                </router-link>
+                <router-link to="/billing-page">
+                    <i class="ico-billing"></i>
+                    <span>Billing</span>
+                </router-link>
             </div><!-- /.sidebar__nav -->
 
             <div class="sidebar__foot">
