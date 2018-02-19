@@ -148,25 +148,18 @@ window.onload = () => {
             },
             refresh({ commit, state }, params) {
                 const url = `/api/v1/${state.apiPath}/`;
-                commit('resetRecords');
+                
                 commit('startRefresh');
                 commit('clearSearch');
                 commit('restoreCachedRecords');
 
-                function getPage(url, page){
-                    Vue.http.get(url, {
-                        page:page,
-                        limit:100
-                    }).success(function(res){
-                        commit('updateRecords', res.body)
-                        return getPage(url, page+1)
-                    }).error(function(){
-                        // no more records, finish up the refresh
-                        commit('cacheRecords');
-                        commit('endRefresh');
-                    })
-                }
-                return getPage(url, 1);
+                return Vue.http.get(url, {
+                    params
+                }).then(res => {
+                    commit('updateRecords', res.body);
+                    commit('cacheRecords');
+                    commit('endRefresh');
+                });
             },
             updateSingleRecord({ commit, state }, { id, body }) {
                 const url = `/api/v1/${state.apiPath}/${id}/`;
