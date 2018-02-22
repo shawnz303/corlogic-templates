@@ -156,7 +156,7 @@ window.onload = () => {
                 return Vue.http.get(url, {
                     params
                 }).then(res => {
-                    commit('updateRecords', res.body.results);
+                    commit('updateRecords', res.body);
                     commit('cacheRecords');
                     commit('endRefresh');
                 });
