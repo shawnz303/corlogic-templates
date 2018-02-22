@@ -110,7 +110,7 @@ window.onload = () => {
                 state.records = [];
             },
             updateRecords(state, records) {
-                state.records = state.records.concat(records);
+                state.records = records;
             },
             updateSingleRecord(state, record) {
                 const byId = r => r.id == record.id;
@@ -156,7 +156,7 @@ window.onload = () => {
                 return Vue.http.get(url, {
                     params
                 }).then(res => {
-                    commit('updateRecords', res.body);
+                    commit('updateRecords', res.body.results);
                     commit('cacheRecords');
                     commit('endRefresh');
                 });
