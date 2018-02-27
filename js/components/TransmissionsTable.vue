@@ -244,7 +244,7 @@
                     .then(() =>{
                             if (this.txEdit.archived) {
                                 this.$store.dispatch('archive', this.txEdit.id);
-                                this.archive({}, this.txEdit.id);
+                                this.archive(this.txEdit.id);
                             };
                             this.$modal.hide('txNoteEdit');
                             if (withDownload===true){
