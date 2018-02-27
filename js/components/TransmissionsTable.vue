@@ -243,6 +243,9 @@
                     })
                     .then(() =>{
                             this.$modal.hide('txNoteEdit');
+                            if (this.txEdit.archived===true){
+                                this.archive(this.txEdit.id);
+                            }
                             if (withDownload===true){
                                 window.open(this.transmissionReportLink(this.txEdit.id, {full_name: true}), '_blank');
                             }
