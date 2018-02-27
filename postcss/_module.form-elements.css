@@ -7,7 +7,7 @@ input:-webkit-autofill { -webkit-text-fill-color: inherit; -webkit-box-shadow: 0
 
 textarea::placeholder { color: inherit; opacity: 1; }
 textarea.textarea__modal { margin: 1% 5%; height: 55%; width: 90% }
-.btn--group__modal { margin: 0% auto 0% 0%; }
+.btn--group__modal { margin: 0% 0% 0% auto; }
 .modal--header { padding: 1% 2%; }
 .modal--header ul { margin: 0% 5%; }
 
