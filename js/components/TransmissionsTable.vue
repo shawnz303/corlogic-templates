@@ -16,7 +16,18 @@
                 </ul>
             </div>
             <textarea class="textarea__modal" ref="txNote" rows="4">{{ txEdit.notes }}</textarea>
-            <div class="btn--group__modal">
+            <div class="btn--group__modal" v-if="txEdit.withDownload">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" value="" id="archiveCheckbox" v-model="txEdit.archived">Archive
+                </label>
+                <div class="btn btn--blue" @click="saveTxNote">
+                    Save and Close
+                </div>
+                <div class="btn btn--blue" @click="saveTxNote(true)">
+                    Save and Download
+                </div>
+            </div>
+            <div class="btn--group__modal" v-if="!txEdit.withDownload">
                 <div class="btn btn--blue" @click="saveTxNote">
                     Save
                 </div>
@@ -213,7 +224,7 @@
                     ) * sortOrder;
                 })(this.sortOrderDateOfService));
             },
-            saveTxNote() {
+            saveTxNote(withDownload) {
                 const params = {
                     id: this.txEdit.id,
                     body: {notes: this.$refs.txNote.value},
@@ -224,13 +235,26 @@
                         const params = {patient_id: this.txEdit.patientId};
                         this.$http.get(url, {params});
                     })
-                    .then(
-                        () => this.$modal.hide('txNoteEdit')
+                    .then(() =>{
+                            if (this.txEdit.archive) {
+                                this.$store.dispatch('archive', this.txEdit.id);
+                            };
+                            this.$modal.hide('txNoteEdit');
+                            if (withDownload===true){
+                                window.open(transmissionReportLink(id, {full_name: true}), '_blank');
+                            }
+                        }
                     );
             },
             txNoteEdit(e) {
                 this.txEdit = e.params.txEdit;
             },
+            transmissionReportLink(txId, params) {
+                const baseUrl = `/api/v1/reports/transmissions/${txId}/full-report/`;
+                const queryParams = queryString.stringify(params);
+                return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
+            },
+
         },
     };
 </script>
