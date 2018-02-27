@@ -20,11 +20,15 @@
                 <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" value="" id="archiveCheckbox" v-model="txEdit.archived">Archive
                 </label>
+                <p/>
                 <div class="btn btn--blue" @click="saveTxNote">
                     Save and Close
                 </div>
                 <div class="btn btn--blue" @click="saveTxNote(true)">
                     Save and Download
+                </div>
+                <div class="btn btn--blue" @click="$modal.hide('txNoteEdit')">
+                    Cancel
                 </div>
             </div>
             <div class="btn--group__modal" v-if="!txEdit.withDownload">
