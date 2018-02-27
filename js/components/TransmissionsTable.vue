@@ -233,7 +233,7 @@
             saveTxNote(withDownload) {
                 const params = {
                     id: this.txEdit.id,
-                    body: {notes: this.$refs.txNote.value, archived=this.txEdit.archived},
+                    body: {notes: this.$refs.txNote.value, archived:this.txEdit.archived},
                 };
                 this.updateSingleRecord(params)
                     .then(() => {
