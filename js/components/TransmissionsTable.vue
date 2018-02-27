@@ -5,7 +5,7 @@
             :clickToClose="false"
             :resizable="true"
             :width="'50%'"
-            :height="'75%'"
+            :height="'33%'"
             @before-open="txNoteEdit"
         >
             <div class="modal--header">
