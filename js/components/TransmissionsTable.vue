@@ -240,13 +240,13 @@
                         this.$http.get(url, {params});
                     })
                     .then(() =>{
-                            console.log("archive: " + this.txEdit.archive);
-                            if (this.txEdit.archive) {
+                            console.log("archive: " + this.txEdit.archived);
+                            if (this.txEdit.archived) {
                                 this.$store.dispatch('archive', this.txEdit.id);
                             };
                             this.$modal.hide('txNoteEdit');
                             if (withDownload===true){
-                                window.open(this.transmissionReportLink(id, {full_name: true}), '_blank');
+                                window.open(this.transmissionReportLink(this.txEdit.id, {full_name: true}), '_blank');
                             }
                         }
                     );
