@@ -4,8 +4,8 @@
             name="txNoteEdit"
             :clickToClose="false"
             :resizable="true"
-            :width="'65%'"
-            :height="'50%'"
+            :width="'50%'"
+            :height="'75%'"
             @before-open="txNoteEdit"
         >
             <div class="modal--header">
@@ -15,7 +15,7 @@
                     <li>Transmission date: {{ txEdit.sessionDate | moment('MM/DD/YYYY') }}</li>
                 </ul>
             </div>
-            <textarea class="textarea__modal" ref="txNote" rows="3">{{ txEdit.notes }}</textarea>
+            <textarea class="textarea__modal" ref="txNote" rows="4">{{ txEdit.notes }}</textarea>
             <div class="btn--group__modal" v-if="txEdit.withDownload">
                 <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" id="archiveCheckbox" :checked="booleanValue" :value="false" v-model="txEdit.archived">Archive
