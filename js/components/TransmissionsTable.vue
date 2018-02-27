@@ -4,7 +4,7 @@
             name="txNoteEdit"
             :clickToClose="false"
             :resizable="true"
-            :width="'50%'"
+            :width="'65%'"
             :height="'50%'"
             @before-open="txNoteEdit"
         >
@@ -240,12 +240,13 @@
                         this.$http.get(url, {params});
                     })
                     .then(() =>{
+                            console.log("archive: " + this.txEdit.archive);
                             if (this.txEdit.archive) {
                                 this.$store.dispatch('archive', this.txEdit.id);
                             };
                             this.$modal.hide('txNoteEdit');
                             if (withDownload===true){
-                                window.open(transmissionReportLink(id, {full_name: true}), '_blank');
+                                window.open(this.transmissionReportLink(id, {full_name: true}), '_blank');
                             }
                         }
                     );
