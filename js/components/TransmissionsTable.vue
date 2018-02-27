@@ -18,7 +18,7 @@
             <textarea class="textarea__modal" ref="txNote" rows="3">{{ txEdit.notes }}</textarea>
             <div class="btn--group__modal" v-if="txEdit.withDownload">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" value="" id="archiveCheckbox" v-model="txEdit.archived">Archive
+                    <input class="form-check-input" type="checkbox" id="archiveCheckbox" :checked="booleanValue" :value="false" v-model="txEdit.archived">Archive
                 </label>
                 <p/>
                 <div class="btn btn--blue" @click="saveTxNote">
@@ -233,7 +233,7 @@
             saveTxNote(withDownload) {
                 const params = {
                     id: this.txEdit.id,
-                    body: {notes: this.$refs.txNote.value},
+                    body: {notes: this.$refs.txNote.value, archived=this.txEdit.archived},
                 };
                 this.updateSingleRecord(params)
                     .then(() => {
@@ -242,10 +242,6 @@
                         this.$http.get(url, {params});
                     })
                     .then(() =>{
-                            if (this.txEdit.archived) {
-                                this.$store.dispatch('archive', this.txEdit.id);
-                                this.archive(this.txEdit.id);
-                            };
                             this.$modal.hide('txNoteEdit');
                             if (withDownload===true){
                                 window.open(this.transmissionReportLink(this.txEdit.id, {full_name: true}), '_blank');
