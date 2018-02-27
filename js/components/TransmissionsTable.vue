@@ -146,6 +146,7 @@
     import { mapActions, mapMutations, mapState } from 'vuex';
     import { alertsInfo } from './alerts';
     import TransmissionRecord from './TransmissionRecord.vue';
+    import queryString from 'query-string';
 
     export default {
         props: {
@@ -240,9 +241,9 @@
                         this.$http.get(url, {params});
                     })
                     .then(() =>{
-                            console.log("archive: " + this.txEdit.archived);
                             if (this.txEdit.archived) {
                                 this.$store.dispatch('archive', this.txEdit.id);
+                                this.$store.archive({}, this.txEdit.id);
                             };
                             this.$modal.hide('txNoteEdit');
                             if (withDownload===true){
