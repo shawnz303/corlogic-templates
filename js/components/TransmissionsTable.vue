@@ -15,7 +15,7 @@
                     <li>Transmission date: {{ txEdit.sessionDate | moment('MM/DD/YYYY') }}</li>
                 </ul>
             </div>
-            <textarea class="textarea__modal" ref="txNote" rows="4">{{ txEdit.notes }}</textarea>
+            <textarea class="textarea__modal" ref="txNote" rows="3">{{ txEdit.notes }}</textarea>
             <div class="btn--group__modal" v-if="txEdit.withDownload">
                 <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" value="" id="archiveCheckbox" v-model="txEdit.archived">Archive
