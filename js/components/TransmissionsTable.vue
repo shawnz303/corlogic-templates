@@ -2,10 +2,11 @@
     <div class="content__body">
         <modal
             name="txNoteEdit"
-            :clickToClose="false"
+            :clickToClose="true"
             :resizable="true"
             :width="'50%'"
             :height="'33%'"
+            :min-height="'309px'"
             @before-open="txNoteEdit"
         >
             <div class="modal--header">
@@ -18,17 +19,16 @@
             <textarea class="textarea__modal" ref="txNote" rows="4">{{ txEdit.notes }}</textarea>
             <div class="btn--group__modal" v-if="txEdit.withDownload">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" id="archiveCheckbox" :checked="booleanValue" :value="false" v-model="txEdit.archived">Archive
+                    <input style="margin-left:12em;" class="form-check-input" type="checkbox" id="archiveCheckbox" :checked="booleanValue" :value="false" v-model="txEdit.archived">Archive
                 </label>
-                <p/>
-                <div class="btn btn--blue" @click="saveTxNote">
-                    Save and Close
-                </div>
-                <div class="btn btn--blue" @click="saveTxNote(true)">
-                    Save and Download
-                </div>
-                <div class="btn btn--blue" @click="$modal.hide('txNoteEdit')">
-                    Cancel
+                <br/>
+                <div class="row">
+                    <div class="col-md-6 btn btn--blue" @click="saveTxNote">
+                        Save and Close
+                    </div>
+                    <div class="col-md-6 btn btn--blue" @click="saveTxNote(true)">
+                        Save and Download
+                    </div>
                 </div>
             </div>
             <div class="btn--group__modal" v-if="!txEdit.withDownload">
