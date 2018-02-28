@@ -6,7 +6,7 @@
             :resizable="true"
             :width="'50%'"
             :height="'33%'"
-            :min-height="'309px'"
+            :min-height="'350px'"
             @before-open="txNoteEdit"
         >
             <div class="modal--header">

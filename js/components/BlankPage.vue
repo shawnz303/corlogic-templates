@@ -9,7 +9,7 @@
 
     <p>
             If you have Staff priviledges, go to the Admin section as seen below:   
-            <img src='admin-settings section.png' height='300' width='1000'><br>
+            <img src='/static/images/admin-settings-section.png' height='300' width='1000'><br>
 	   <br>
         
         Then click on Users, and use the Green plus sign to add a new user!
@@ -18,12 +18,12 @@
     <h2>How do I filter my dashboard to see Urgent Transmissions only?</h2>
     <p>
 	Click on the Urgent Transmissions Icon on the Dashboard. This filter will show patients with an ERI alert or with shocks.
-            <img src='filter-urgent.png'>
+            <img src='/static/images/filter-urgent.png'>
 	</p>
 	
     <p>
     <h2>How do I search for a particular serial number or patient name?</h2>
-	<img src='search.png'>
+	<img src='/static/images/search.png'>
     </p>
     <h2>How do I stop receiving HF transmissions for a particular patient?</h2>
     
