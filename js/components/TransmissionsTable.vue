@@ -33,7 +33,7 @@
             </div>
             <div class="btn--group__modal" v-if="!txEdit.withDownload">
                 <div class="btn btn--blue" @click="saveTxNote">
-                    Save
+                    Save and Close
                 </div>
                 <div class="btn btn--blue" @click="$modal.hide('txNoteEdit')">
                     Cancel
