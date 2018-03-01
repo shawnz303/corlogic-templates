@@ -5,7 +5,7 @@
             :clickToClose="true"
             :resizable="true"
             :width="'50%'"
-            :height="'50%'"
+            :height="'40%'"
             :min-height="'350px'"
             @before-open="txNoteEdit"
         >
