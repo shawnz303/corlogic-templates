@@ -5,7 +5,7 @@
             :clickToClose="true"
             :resizable="true"
             :width="'50%'"
-            :height="'33%'"
+            :height="'50%'"
             :min-height="'350px'"
             @before-open="txNoteEdit"
         >
@@ -26,7 +26,7 @@
                     <div class="col-md-6 btn btn--blue" @click="saveTxNote">
                         Save and Close
                     </div>
-                    <div class="col-md-6 btn btn--blue" @click="saveTxNote(true)">
+                    <div class="col-md-6 btn btn--green" @click="saveTxNote(true)">
                         Save and Download
                     </div>
                 </div>
