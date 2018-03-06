@@ -57,7 +57,7 @@
                             </div><!-- /.table-item table-item-/-sm -->
 
                             <div class="table-item table-item--lg">
-                                <h5>Name of Patient</h5>
+                                <h5>Name</h5>
                             </div><!-- /.table-item table-item-/-lg -->
 
                             <div

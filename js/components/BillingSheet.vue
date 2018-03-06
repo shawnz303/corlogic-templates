@@ -41,7 +41,7 @@
                     <div class="table__head">
                         <div class="table-items">
                             <div class="table-item table-item--lg">
-                                <h5>Name of Patient</h5>
+                                <h5>Name</h5>
                             </div><!-- /.table-item table-item-/-lg -->
 
                             <div class="table-item table-item--sm">
@@ -53,7 +53,7 @@
                             </div><!-- /.table-item table-item-/-md -->
 
                             <div class="table-item table-item--md">
-                                <h5>Pt Date of Birth</h5>
+                                <h5>Date of Birth</h5>
                             </div><!-- /.table-item table-item-/-md -->
 
                             <div
