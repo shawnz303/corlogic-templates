@@ -119,16 +119,11 @@
                 return alertsInfo.find(elem => elem.code === alert).desc;
             },
             archive() {
+                var billingId = this.id;
                 if (this.billed === false){
                     this.$modal.show('txBillAction', {
                         txEdit: {
-                            id: this.id,
-                            notes: this.notes,
-                            patientId: this.patientId,
-                            patientName: this.name,
-                            sessionDate: this.sessionDate,
-                            withDownload: false,
-                            billed: this.billed,
+                            id: billingId, // tx id is billingId and is all we need to update billing
                         }
                     });
                 }
