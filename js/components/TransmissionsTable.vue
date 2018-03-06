@@ -155,7 +155,7 @@
                             :sessionType="t.session_type"
                             :sessionTrigger="t.session_trigger"
                             :billed="t.billing.billed"
-                            :billId="t.billing.id"
+                            :billingId="t.billing.id"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
@@ -189,7 +189,7 @@
                 patientName: '',
                 sessionDate: '',
                 billed: false,
-                billId: -1,
+                billingId: -1,
             },
         }),
         computed: {
@@ -289,7 +289,7 @@
                 return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
             },
             billTransmsission(e){
-                this.bill(this.txEdit.billId);
+                this.bill(this.txEdit.billingId);
             }
 
         },
