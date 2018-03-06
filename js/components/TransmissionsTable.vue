@@ -253,6 +253,8 @@
                 };
                 if (this.txEdit.billed === false){
                     this.$modal.show('txNoteEdit', {txEdit: this.txEdit})
+                }else{
+                    console.log("billed: " + this.txEdit.billed);
                 }
                 this.updateSingleRecord(params)
                     .then(() => {
