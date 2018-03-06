@@ -11,16 +11,16 @@
                 <br/>
                 <span>Bill this transmission?</span>
             </div>
-            
-            <div class="btn--group__modal">
-                <div class="btn btn--green" @click="billTransmsission">
-                    Yes
-                </div>
-                <div class="btn btn--blue" @click="$modal.hide('txBillAction')">
-                    No
+            <div class="modal--footer"> 
+                <div class="btn--group__modal">
+                    <div class="btn btn--green" @click="billTransmsission">
+                        Yes
+                    </div>
+                    <div class="btn btn--blue" @click="$modal.hide('txBillAction')">
+                        No
+                    </div>
                 </div>
             </div>
-
         </modal>
         <modal
             name="txNoteEdit"
