@@ -1,5 +1,24 @@
 <template>
     <div class="content__body">
+
+        <modal
+            name="txBillAction"
+            :width="'30%'"
+            :height="'30%'"
+        >
+            <div class="modal--header">
+                <h5>Bill this transmission (id={{txEdit.id}})?</h5>
+            </div>
+            <div class="btn--group__modal">
+                <div class="btn btn--green" @click="billTransmsission">
+                    Yes
+                </div>
+                <div class="btn btn--blue" @click="$modal.hide('txBillAction')">
+                    No
+                </div>
+            </div>
+
+        </modal>
         <modal
             name="txNoteEdit"
             :clickToClose="true"
@@ -235,6 +254,9 @@
                     id: this.txEdit.id,
                     body: {notes: this.$refs.txNote.value, archived:this.txEdit.archived},
                 };
+                if (this.tx.billing.billed === false){
+                    this.$modal.show('txNoteEdit', {txEdit: this.txEdit})
+                }
                 this.updateSingleRecord(params)
                     .then(() => {
                         const url = `/api/v1/reports/transmissions/update-latest-cover/`;
@@ -260,6 +282,9 @@
                 const queryParams = queryString.stringify(params);
                 return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
             },
+            billTransmsission(e){
+                console.log("setting billed to True");
+            }
 
         },
     };
