@@ -141,7 +141,7 @@ window.onload = () => {
                 });
             },
             bill({ commit, state }, id){
-                const url = `/api/v1/billings/${id}/`;
+                const url = `/api/v1/reports/bilings/${id}/`;
                 const body = {billed: true};
                 return Vue.http.patch(url, body).then(res => {
                     commit('remove', id);
