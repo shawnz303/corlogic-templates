@@ -4,10 +4,14 @@
         <modal
             name="txBillAction"
             :height="auto"
+            :resizable="true"
         >
             <div class="modal--header">
-                <h5>Bill this transmission (id={{txEdit.id}})?</h5>
+                <h5>Bill Transmission</h5>
+                <br/>
+                <span>Bill this transmission?</span>
             </div>
+            
             <div class="btn--group__modal">
                 <div class="btn btn--green" @click="billTransmsission">
                     Yes
