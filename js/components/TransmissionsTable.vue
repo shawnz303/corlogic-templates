@@ -206,6 +206,7 @@
                 'refresh',
                 'updateSingleRecord',
                 'archive',
+                'bill',
             ]),
             ...mapMutations([
                 'remove',
