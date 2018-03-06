@@ -94,6 +94,7 @@
             'sessionTrigger',
             'sessionType',
             'billed',
+            'billId5,'
         ],
         components: {
             transitionButton: TransitionButton
@@ -131,6 +132,7 @@
                         sessionDate: this.sessionDate,
                         withDownload: withDownload,
                         billed: this.billed,
+                        billId: this.billId,
                     }
                 });
             },

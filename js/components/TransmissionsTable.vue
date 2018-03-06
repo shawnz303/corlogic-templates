@@ -151,6 +151,7 @@
                             :sessionType="t.session_type"
                             :sessionTrigger="t.session_trigger"
                             :billed="t.billing.billed"
+                            :billId="t.billing.id"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
@@ -184,6 +185,7 @@
                 patientName: '',
                 sessionDate: '',
                 billed: false,
+                billId: -1,
             },
         }),
         computed: {
@@ -254,9 +256,7 @@
                     body: {notes: this.$refs.txNote.value, archived:this.txEdit.archived},
                 };
                 if (this.txEdit.billed === false){
-                    this.$modal.show('txNoteEdit', {txEdit: this.txEdit})
-                }else{
-                    console.log(this.txEdit);
+                    this.$modal.show('txBillAction', {txEdit: this.txEdit})
                 }
                 this.updateSingleRecord(params)
                     .then(() => {
@@ -284,7 +284,7 @@
                 return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
             },
             billTransmsission(e){
-                console.log("setting billed to True");
+                this.bill(this.txEdit.billId);
             }
 
         },

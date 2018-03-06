@@ -140,6 +140,13 @@ window.onload = () => {
                     commit('remove', id);
                 });
             },
+            bill({ commit, state }, id){
+                const url = `/api/v1/billings/${id}/`;
+                const body = {billed: true};
+                return Vue.http.patch(url, body).then(res => {
+                    commit('remove', id);
+                });
+            },
             archiveRecords({ dispatch, state }) {
                 const ids = state.records.map(r => r.id);
                 Promise.map(ids, id => {
