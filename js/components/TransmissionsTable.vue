@@ -3,7 +3,7 @@
 
         <modal
             name="txBillAction"
-            :height="'15%'"
+            :height="auto"
         >
             <div class="modal--header">
                 <h5>Bill this transmission (id={{txEdit.id}})?</h5>
@@ -22,9 +22,7 @@
             name="txNoteEdit"
             :clickToClose="true"
             :resizable="true"
-            :width="'50%'"
-            :height="'37%'"
-            :minHeight="350"
+            :height="auto"
             @before-open="txNoteEdit"
         >
             <div class="modal--header">
@@ -253,7 +251,7 @@
                     id: this.txEdit.id,
                     body: {notes: this.$refs.txNote.value, archived:this.txEdit.archived},
                 };
-                if (this.tx.billing.billed === false){
+                if (this.txEdit.billed === false){
                     this.$modal.show('txNoteEdit', {txEdit: this.txEdit})
                 }
                 this.updateSingleRecord(params)
