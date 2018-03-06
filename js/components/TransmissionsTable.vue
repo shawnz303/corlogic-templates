@@ -287,7 +287,9 @@
                 return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
             },
             billTransmsission(e){
+                this.$modal.hide('txBillAction');
                 this.bill(this.txEdit.id); // yes, transmission id is also the billing id
+
             }
 
         },
