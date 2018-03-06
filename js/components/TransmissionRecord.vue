@@ -127,7 +127,7 @@
                             patientId: this.patientId,
                             patientName: this.name,
                             sessionDate: this.sessionDate,
-                            withDownload: withDownload,
+                            withDownload: false,
                             billed: this.billed,
                         }
                     });
