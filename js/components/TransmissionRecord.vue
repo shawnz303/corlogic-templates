@@ -119,6 +119,19 @@
                 return alertsInfo.find(elem => elem.code === alert).desc;
             },
             archive() {
+                if (this.billed === false){
+                    this.$modal.show('txBillAction', {
+                        txEdit: {
+                            id: this.id,
+                            notes: this.notes,
+                            patientId: this.patientId,
+                            patientName: this.name,
+                            sessionDate: this.sessionDate,
+                            withDownload: withDownload,
+                            billed: this.billed,
+                        }
+                    });
+                }
                 return this.$store.dispatch('archive', this.id);
             },
             editTransmission(withDownload) {
