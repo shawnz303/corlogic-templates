@@ -93,7 +93,7 @@
             'sessionDate',
             'sessionTrigger',
             'sessionType',
-            'billing'
+            'billed',
         ],
         components: {
             transitionButton: TransitionButton
@@ -130,7 +130,7 @@
                         patientName: this.name,
                         sessionDate: this.sessionDate,
                         withDownload: withDownload,
-                        billed: this.billing.billed,
+                        billed: this.billed,
                     }
                 });
             },

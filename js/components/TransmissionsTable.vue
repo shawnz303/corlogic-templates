@@ -150,6 +150,7 @@
                             :sessionDate="t.session_date"
                             :sessionType="t.session_type"
                             :sessionTrigger="t.session_trigger"
+                            :billed="t.billing.billed"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
@@ -182,6 +183,7 @@
                 patientId: -1,
                 patientName: '',
                 sessionDate: '',
+                billed: false,
             },
         }),
         computed: {
