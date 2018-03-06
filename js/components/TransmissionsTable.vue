@@ -155,7 +155,6 @@
                             :sessionType="t.session_type"
                             :sessionTrigger="t.session_trigger"
                             :billed="t.billing.billed"
-                            :billingId="t.billing.id"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
@@ -189,7 +188,6 @@
                 patientName: '',
                 sessionDate: '',
                 billed: false,
-                billingId: -1,
             },
         }),
         computed: {
@@ -289,7 +287,7 @@
                 return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
             },
             billTransmsission(e){
-                this.bill(this.txEdit.billingId);
+                this.bill(this.txEdit.id); // yes, transmission id is also the billing id
             }
 
         },
