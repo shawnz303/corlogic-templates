@@ -3,8 +3,7 @@
 
         <modal
             name="txBillAction"
-            :width="'30%'"
-            :height="'30%'"
+            :height="'15%'"
         >
             <div class="modal--header">
                 <h5>Bill this transmission (id={{txEdit.id}})?</h5>
