@@ -11,16 +11,6 @@
                 <br/>
                 <span>Bill this transmission?</span>
             </div>
-<<<<<<< HEAD
-            <div class="modal--footer"> 
-                <div class="btn--group__modal">
-                    <div class="btn btn--green" @click="billTransmsission">
-                        Yes
-                    </div>
-                    <div class="btn btn--blue" @click="$modal.hide('txBillAction')">
-                        No
-                    </div>
-=======
             
             <div class="btn--group__modal">
                 <div class="btn btn--green" @click="billTransmsission( txEdit.id )">
@@ -28,7 +18,6 @@
                 </div>
                 <div class="btn btn--blue" @click="$modal.hide('txBillAction')">
                     No
->>>>>>> 1ffe28625af78ce45a306636dbc8daa26b674447
                 </div>
             </div>
         </modal>
