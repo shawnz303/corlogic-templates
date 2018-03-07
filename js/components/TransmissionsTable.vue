@@ -8,8 +8,6 @@
             :resizable="true"
         >
             <div class="modal--header">
-                <h5>Bill Transmission</h5>
-                <br/>
                 <span>Bill this transmission?</span>
             </div>
             
