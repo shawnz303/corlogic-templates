@@ -13,7 +13,7 @@
             </div>
             
             <div class="btn--group__modal">
-                <div class="btn btn--green" @click="billTransmsission">
+                <div class="btn btn--green" @click="billTransmsission( txEdit.id )">
                     Yes
                 </div>
                 <div class="btn btn--blue" @click="$modal.hide('txBillAction')">
@@ -286,9 +286,9 @@
                 const queryParams = queryString.stringify(params);
                 return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
             },
-            billTransmsission(e){
+            billTransmsission(id){
                 this.$modal.hide('txBillAction');
-                this.bill(this.txEdit.id); // yes, transmission id is also the billing id
+                this.bill(id); // yes, transmission id is also the billing id
 
             }
 
