@@ -94,6 +94,7 @@
             'sessionTrigger',
             'sessionType',
             'billed',
+            "billable",
         ],
         components: {
             transitionButton: TransitionButton
@@ -139,6 +140,7 @@
                         sessionDate: this.sessionDate,
                         withDownload: withDownload,
                         billed: this.billed,
+                        billable: this.billable,
                     }
                 });
             },

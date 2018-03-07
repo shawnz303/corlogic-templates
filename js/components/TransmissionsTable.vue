@@ -151,7 +151,8 @@
                             :sessionDate="t.session_date"
                             :sessionType="t.session_type"
                             :sessionTrigger="t.session_trigger"
-                            :billed="t.billing.billed"
+                            :billable="isBillable(t)"
+                            :billed="isBilled(t)"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
@@ -184,6 +185,7 @@
                 patientId: -1,
                 patientName: '',
                 sessionDate: '',
+                billable: false,
                 billed: false,
             },
         }),
@@ -255,7 +257,7 @@
                     id: this.txEdit.id,
                     body: {notes: this.$refs.txNote.value, archived:this.txEdit.archived},
                 };
-                if (this.txEdit.billed === false){
+                if (this.txEdit.billable && this.txEdit.billed === false){
                     this.$modal.show('txBillAction', {txEdit: this.txEdit})
                 }
                 this.updateSingleRecord(params)
@@ -287,6 +289,12 @@
                 this.$modal.hide('txBillAction');
                 this.bill(id); // yes, transmission id is also the billing id
 
+            },
+            isBillable(t){
+                return t.billing ? true : false;
+            },
+            isBilled(t){
+                return (t.billing && t.billing.billed) ? true : false;
             }
 
         },
