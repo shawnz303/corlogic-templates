@@ -3,7 +3,8 @@
 
         <modal
             name="txBillAction"
-            :height="auto"
+            :height="'130px'"
+            :width="'275px'"
             :resizable="true"
         >
             <div class="modal--header">
