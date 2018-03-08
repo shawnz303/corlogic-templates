@@ -29,7 +29,7 @@
 	
     <p>
     <h2 id='serial'>How do I search for a particular serial number or patient name?</h2>
-	<img src='search.png'>
+	<img src='/static/images/search.png'>
     </p>
     <h2 id='hf'>How do I stop receiving HF transmissions for a particular patient?</h2>
     
