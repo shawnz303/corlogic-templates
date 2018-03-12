@@ -93,6 +93,8 @@
             'sessionDate',
             'sessionTrigger',
             'sessionType',
+            'billed',
+            "billable",
         ],
         components: {
             transitionButton: TransitionButton
@@ -118,6 +120,14 @@
                 return alertsInfo.find(elem => elem.code === alert).desc;
             },
             archive() {
+                var billingId = this.id;
+                if (this.billed === false){
+                    this.$modal.show('txBillAction', {
+                        txEdit: {
+                            id: billingId, // tx id is billingId and is all we need to update billing
+                        }
+                    });
+                }
                 return this.$store.dispatch('archive', this.id);
             },
             editTransmission(withDownload) {
@@ -129,6 +139,8 @@
                         patientName: this.name,
                         sessionDate: this.sessionDate,
                         withDownload: withDownload,
+                        billed: this.billed,
+                        billable: this.billable,
                     }
                 });
             },

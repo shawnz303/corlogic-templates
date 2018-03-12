@@ -1,12 +1,29 @@
 <template>
     <div class="content__body">
+
+        <modal
+            name="txBillAction"
+            :height="'75px'"
+            :width="'250px'"
+            :resizable="true"
+        >
+            <div class="modal--header">
+                <h5>Bill this transmission?</h5>
+            </div>
+            <div class="btn--group__modal">
+                <div class="btn btn--green" @click="billTransmsission( txEdit.id )">
+                    Yes
+                </div>
+                <div class="btn btn--blue" @click="$modal.hide('txBillAction')">
+                    No
+                </div>
+            </div>
+        </modal>
         <modal
             name="txNoteEdit"
             :clickToClose="true"
             :resizable="true"
-            :width="'50%'"
-            :height="'37%'"
-            :min-height="'350px'"
+            :height="auto"
             @before-open="txNoteEdit"
         >
             <div class="modal--header">
@@ -134,6 +151,8 @@
                             :sessionDate="t.session_date"
                             :sessionType="t.session_type"
                             :sessionTrigger="t.session_trigger"
+                            :billable="isBillable(t)"
+                            :billed="isBilled(t)"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
@@ -166,6 +185,8 @@
                 patientId: -1,
                 patientName: '',
                 sessionDate: '',
+                billable: false,
+                billed: false,
             },
         }),
         computed: {
@@ -186,6 +207,7 @@
                 'refresh',
                 'updateSingleRecord',
                 'archive',
+                'bill',
             ]),
             ...mapMutations([
                 'remove',
@@ -235,6 +257,9 @@
                     id: this.txEdit.id,
                     body: {notes: this.$refs.txNote.value, archived:this.txEdit.archived},
                 };
+                if (this.txEdit.billable && this.txEdit.billed === false){
+                    this.$modal.show('txBillAction', {txEdit: this.txEdit})
+                }
                 this.updateSingleRecord(params)
                     .then(() => {
                         const url = `/api/v1/reports/transmissions/update-latest-cover/`;
@@ -260,6 +285,17 @@
                 const queryParams = queryString.stringify(params);
                 return queryParams ? `${baseUrl}?${queryParams}` : baseUrl;
             },
+            billTransmsission(id){
+                this.$modal.hide('txBillAction');
+                this.bill(id); // yes, transmission id is also the billing id
+
+            },
+            isBillable(t){
+                return t.billing ? true : false;
+            },
+            isBilled(t){
+                return (t.billing && t.billing.billed) ? true : false;
+            }
 
         },
     };

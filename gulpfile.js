@@ -836,7 +836,7 @@ var modules = {
                 browserSync.init({
                     proxy : (
                         config.user.path || (
-                            (config.user.hostname || 'localhost') +
+                            (config.user.hostname || 'localhost:8080') +
                             utils.getRelativePath(process.env.INIT_CWD, 'server')
                         )
                     ),
