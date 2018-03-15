@@ -129,6 +129,9 @@
                                 <div class="table__head">
                                     <div class="table-items">
                                         <div class="table-item table-item--lg">
+                                            <h5>BIlled</h5>
+                                        </div><!-- /.table-item table-item-/-lg -->
+                                        <div class="table-item table-item--lg">
                                             <h5>Session Date</h5>
                                         </div><!-- /.table-item table-item-/-lg -->
 
@@ -148,6 +151,11 @@
                                 <div class="table__body" v-for="tx of patientDetail.transmissions">
                                     <div class="table__group">
                                         <div class="table-items">
+                                            <div class="table-item table-item--lg">
+                                                <v-if "tx.billing.billed">
+                                                    <i class="ico-billing"></i>
+                                                </v-if>
+                                            </div>
                                             <div class="table-item table-item--lg">
                                                 <a
                                                     :href="transmissionReportLink(tx.id, {
