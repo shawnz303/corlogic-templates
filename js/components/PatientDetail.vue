@@ -152,9 +152,7 @@
                                     <div class="table__group">
                                         <div class="table-items">
                                             <div class="table-item table-item--lg">
-                                                <v-if "tx.billing.billed">
-                                                    <i class="ico-billing"></i>
-                                                </v-if>
+                                                <i class="ico-billing" v-if="tx.billing && tx.billing.billed"></i>
                                             </div>
                                             <div class="table-item table-item--lg">
                                                 <a
