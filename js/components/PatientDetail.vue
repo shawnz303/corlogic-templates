@@ -129,7 +129,7 @@
                                 <div class="table__head">
                                     <div class="table-items">
                                         <div class="table-item table-item--lg">
-                                            <h5>BIlled</h5>
+                                            <h5>Billed</h5>
                                         </div><!-- /.table-item table-item-/-lg -->
                                         <div class="table-item table-item--lg">
                                             <h5>Session Date</h5>
@@ -152,7 +152,7 @@
                                     <div class="table__group">
                                         <div class="table-items">
                                             <div class="table-item table-item--lg">
-                                                <i class="ico-billing" v-if="tx.billing && tx.billing.billed"></i>
+                                                <i class="ico-billing" v-if="tx.billed"></i>
                                             </div>
                                             <div class="table-item table-item--lg">
                                                 <a
