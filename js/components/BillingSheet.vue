@@ -82,6 +82,10 @@
                                 <h5>Processed By</h5>
                             </div><!-- /.table-item table-item-/-sm -->
 
+                            <div class="table-item table-item--sm">
+                                <h5>Billing Initiated By</h5>
+                            </div><!-- /.table-item table-item-/-sm -->
+
                             <div class="table-item table-item--md">
                                 <h5>CPT Codes</h5>
                             </div><!-- /.table-item table-item-/-md -->
@@ -112,6 +116,7 @@
                             :patientName="b.patient.name"
                             :patientNumber="b.patient.number"
                             :processedBy="b.processed_by"
+                            :processedBy="b.billing_initiated_by"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
