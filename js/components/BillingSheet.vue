@@ -111,7 +111,7 @@
                             :patientLocation="b.patient.location"
                             :patientName="b.patient.name"
                             :patientNumber="b.patient.number"
-                            :billingInitiatedBy="b.billing_initiated_by"
+                            :billingUser="b.billing_user"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->
