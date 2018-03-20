@@ -31,7 +31,7 @@
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
             <div class="table-item table-item--sm table-item--fluid">
-                <p>{{ billingInitiatedBy.full_name }}</p>
+                <p>{{ billingInitiatedBy }}</p>
             </div><!-- /.table-item table-item-/-sm table-item-/-fluid -->
 
             <div class="table-item table-item--md table-item--fluid">
