@@ -79,10 +79,6 @@
                             </div><!-- /.table-item table-item-/-md -->
 
                             <div class="table-item table-item--sm">
-                                <h5>Processed By</h5>
-                            </div><!-- /.table-item table-item-/-sm -->
-
-                            <div class="table-item table-item--sm">
                                 <h5>Billing Initiated By</h5>
                             </div><!-- /.table-item table-item-/-sm -->
 
