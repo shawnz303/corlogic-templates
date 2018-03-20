@@ -115,8 +115,7 @@
                             :patientLocation="b.patient.location"
                             :patientName="b.patient.name"
                             :patientNumber="b.patient.number"
-                            :processedBy="b.processed_by"
-                            :processedBy="b.billing_initiated_by"
+                            :billingInitiatedBy="b.billing_initiated_by"
                         />
                     </div><!-- /.table__body -->
                 </div><!-- /.table -->

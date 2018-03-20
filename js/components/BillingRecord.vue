@@ -31,7 +31,7 @@
             </div><!-- /.table-item table-item-/-md table-item-/-fluid -->
 
             <div class="table-item table-item--sm table-item--fluid">
-                <p>{{ processedByLabel }}</p>
+                <p>{{ billingInitiatedBy }}</p>
             </div><!-- /.table-item table-item-/-sm table-item-/-fluid -->
 
             <div class="table-item table-item--md table-item--fluid">
@@ -86,7 +86,7 @@
             'patientLocation',
             'patientName',
             'patientNumber',
-            'processedBy',
+            'billingInitiatedBy',
         ],
         components: {
             TransitionButton,
@@ -115,8 +115,8 @@
             patientDetailLink() {
                 return `/patient-detail/${this.patientId}/`;
             },
-            processedByLabel() {
-                return processorLabels.find(elem => elem.code == this.processedBy).label;
+            billingInitiatedByLabel() {
+                return processorLabels.find(elem => elem.code == this.billingInitiatedBy).label;
             },
         },
         methods: {
