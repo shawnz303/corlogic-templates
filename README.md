@@ -25,3 +25,6 @@ $ `gulp` (use GitBash on Windows / Terminal on OSX) in the directory of the proj
 ## Build the app
 
 $ `gulp build` (use GitBash on Windows / Terminal on OSX) in the directory of the project
+=======
+# corlogic-templates
+templates for corlogic
